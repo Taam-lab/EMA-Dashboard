@@ -1,0 +1,5 @@
+# Streamlit Community Cloud 가 읽는 파일 — 대시보드 구동에 필요한 것만.
+# (데이터 수집용 pykrx/pyarrow 는 requirements-daily.txt, GitHub Actions 에서만 설치)
+streamlit>=1.30
+pandas>=2.0
+numpy>=1.24

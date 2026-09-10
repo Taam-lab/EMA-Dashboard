@@ -1,0 +1,50 @@
+name: daily-update
+
+# 매일 아침 07:30 KST = 22:30 UTC (전날). 한국 월~금 = UTC 일~목(0-4).
+on:
+  schedule:
+    - cron: "30 22 * * 0-4"
+  workflow_dispatch:        # 수동 실행 버튼
+
+permissions:
+  contents: write           # 결과 JSON을 저장소에 커밋하기 위해
+
+concurrency:                # 중복 실행 시 커밋 충돌 방지
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # pykrx 가격 캐시(data/) 를 실행 간 재사용해 속도 향상.
+      # 키에 날짜를 넣어야 매일 '갱신된' 캐시가 새로 저장됨.
+      # (키가 고정이면 캐시 적중 시 저장을 건너뛰어 첫날 캐시에 영원히 묶임)
+      - name: Cache price data
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: ohlcv-${{ github.run_id }}
+          restore-keys: ohlcv-
+
+      - name: Install deps
+        run: pip install -r requirements-daily.txt
+
+      - name: Run daily update
+        run: python run_daily.py
+
+      - name: Commit results
+        run: |
+          git config user.name  "github-actions"
+          git config user.email "actions@github.com"
+          git add portfolio_state.json snapshot.json
+          git diff --staged --quiet && echo "no changes" && exit 0
+          git commit -m "daily update $(date -u +%Y-%m-%d)"
+          git pull --rebase --autostash
+          git push
