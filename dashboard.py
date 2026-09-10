@@ -89,7 +89,7 @@ with tab1:
             lambda v: "color:#3ddc84" if isinstance(v, (int, float)) and v > 0
             else ("color:#ff6b6b" if isinstance(v, (int, float)) and v < 0 else ""),
             subset=["수익률%"])
-        st.dataframe(sty, use_container_width=True, hide_index=True)
+        st.dataframe(sty, width="stretch", hide_index=True)
         st.caption("🟥 행 = 손절선 3% 이내(위험)  ·  in_universe=False = 시총 200위 밖(보유는 유지, 신규진입만 제한)")
     else:
         st.info("보유 포지션 없음 (전량 현금)")
@@ -108,7 +108,7 @@ with tab1:
                 rows.append({"종목": w["name"], "체결가": w["price"],
                              "상태": f"관심(모멘텀 {w['mom_120d_pct']}%)"})
         if rows:
-            st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
         else:
             st.info("진입 신호 없음" if not snap["overheat"] else "과열 구간 — 신규매수 제한")
 
@@ -126,7 +126,7 @@ with tab1:
                 rows.append({"종목": p["name"], "사유": f"손절선 {p['stop_dist_pct']}% 이내",
                              "수익률%": p["pnl_pct"], "상태": "⚠️ 위험"})
         if rows:
-            st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
         else:
             st.info("청산/위험 종목 없음")
 
@@ -161,4 +161,4 @@ with tab2:
         dfh["구분"] = dfh["구분"].map({"BUY": "🟢 매수", "SELL": "🔴 매도"})
         cols = [c for c in ["날짜", "종목", "구분", "가격", "수량", "사유", "수익률%", "보유일"]
                 if c in dfh.columns]
-        st.dataframe(dfh[cols].iloc[::-1], use_container_width=True, hide_index=True)
+        st.dataframe(dfh[cols].iloc[::-1], width="stretch", hide_index=True)

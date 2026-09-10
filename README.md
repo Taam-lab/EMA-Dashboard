@@ -14,12 +14,17 @@
 | `run_daily.py` | 매일 배치: 데이터 갱신 → 엔진 진행 → snapshot 저장 |
 | `dashboard.py` | Streamlit 2탭 대시보드 |
 | `test_strategy.py` | pytest 회귀 테스트 |
+| `.github/workflows/daily.yml` | 매일 07:30 KST 자동 갱신 (GitHub Actions) |
 
 ## 설치
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-daily.txt
 ```
+
+`requirements.txt` 는 대시보드 구동에만 필요한 것(streamlit·pandas·numpy)이고,
+`requirements-daily.txt` 는 여기에 데이터 수집용 pykrx·pyarrow 를 더한 것입니다.
+Streamlit Cloud 는 `requirements.txt` 만 읽으므로 배포가 가볍고 빠릅니다.
 
 ## 실행
 
@@ -34,7 +39,12 @@ streamlit run dashboard.py
 `run_daily.py` 는 `portfolio_state.json`(누적 상태)과 `snapshot.json`(대시보드용 현황)을 만듭니다.
 대시보드는 이 두 파일만 읽으므로 pykrx 없이도 뜹니다.
 
-## 자동 데일리 업데이트 (크론, 평일 16:00 KST)
+## 자동 데일리 업데이트
+
+기본은 **GitHub Actions** 입니다 (`.github/workflows/daily.yml`, 평일 07:30 KST).
+설정은 [DEPLOY.md](DEPLOY.md) 참고.
+
+내 PC 에서 돌리려면 크론(평일 16:00 KST):
 
 ```cron
 0 16 * * 1-5  cd /path/to/quant_dashboard && /usr/bin/python run_daily.py >> run.log 2>&1
