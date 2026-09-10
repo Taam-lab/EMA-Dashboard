@@ -11,6 +11,8 @@ run_daily.py — 매일 장 마감 후 실행하는 배치
 from __future__ import annotations
 import os
 import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 import config as C
@@ -129,10 +131,32 @@ def _require_krx_credentials():
             .format(", ".join(missing)))
 
 
+def _reject_unfinished_day(asof):
+    """장중에 돌리면 pykrx 가 '현재가'를 종가 컬럼으로 돌려준다.
+
+    그 상태로 진행하면 확정되지 않은 가격으로 신호를 계산하고 체결까지 기록해버려서
+    (실제로 첫 실행이 13:47 에 돌아 6종목이 장중가로 잡혔다) 원장이 오염된다.
+    KRX 정규장 마감은 15:30, 동시호가 반영까지 여유를 둬 15:40 이후만 허용한다.
+    """
+    if os.environ.get("ALLOW_INTRADAY"):        # 테스트용 우회
+        return
+    now = datetime.now(ZoneInfo("Asia/Seoul"))
+    if pd.Timestamp(asof).date() != now.date():
+        return                                   # 과거 거래일 = 이미 확정된 데이터
+    if now.hour * 60 + now.minute < 15 * 60 + 40:
+        raise SystemExit(
+            "[run_daily] {} 는 아직 장중입니다 (현재 {} KST).\n"
+            "  지금 받는 종가는 확정값이 아니라 그 시점 현재가라서, 진행하면\n"
+            "  미확정 가격으로 신호를 계산하고 체결까지 기록하게 됩니다.\n"
+            "  15:40 KST 이후에 다시 실행하세요. (테스트 목적이면 ALLOW_INTRADAY=1)"
+            .format(pd.Timestamp(asof).date(), now.strftime("%H:%M")))
+
+
 def main():
     _require_krx_credentials()
     os.makedirs(C.DATA_DIR, exist_ok=True)
     asof = D.latest_trading_day()
+    _reject_unfinished_day(asof)
     print(f"[run_daily] 최신 거래일: {asof.date()}")
 
     state = E.load_state()
