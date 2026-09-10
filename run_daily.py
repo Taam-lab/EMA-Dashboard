@@ -131,33 +131,66 @@ def _require_krx_credentials():
             .format(", ".join(missing)))
 
 
-def _reject_unfinished_day(asof):
-    """장중에 돌리면 pykrx 가 '현재가'를 종가 컬럼으로 돌려준다.
+REASON_KR = {"entry": "진입", "hard_stop": "-7% 손절", "trailing": "트레일 -10%",
+             "death_cross": "데드크로스", "derisk": "헷지 슬롯축소"}
 
-    그 상태로 진행하면 확정되지 않은 가격으로 신호를 계산하고 체결까지 기록해버려서
-    (실제로 첫 실행이 13:47 에 돌아 6종목이 장중가로 잡혔다) 원장이 오염된다.
-    KRX 정규장 마감은 15:30, 동시호가 반영까지 여유를 둬 15:40 이후만 허용한다.
+
+def _print_orders(snap: dict) -> None:
+    """오늘 마감 동시호가에 낼 주문을 사람이 읽는 형태로 출력."""
+    buys, sells = snap["today_entries"], snap["today_exits"]
+    print(f"\n{'─' * 56}\n오늘 주문 ({snap['asof']} 마감 동시호가)\n{'─' * 56}")
+    if not buys and not sells:
+        print("  주문 없음")
+    for x in sells:
+        print(f"  매도  {x['name']:<16} {x['shares']:>7,}주  @{x['price']:>10,.0f}  "
+              f"{REASON_KR.get(x['reason'], x['reason'])}  ({x['pnl_pct']:+.2f}%)")
+    for x in buys:
+        print(f"  매수  {x['name']:<16} {x['shares']:>7,}주  @{x['price']:>10,.0f}")
+    risky = [p for p in snap["positions"] if p["risk"]]
+    if risky:
+        print("\n  손절선 3% 이내 — 내일 주의:")
+        for p in risky:
+            print(f"    {p['name']:<16} 손절선 {p['stop_price']:>10,.0f}  "
+                  f"({p['stop_dist_pct']:.2f}% 남음)")
+    print(f"{'─' * 56}\n")
+
+
+ORDER_WINDOW_OPEN = 15 * 60 + 0      # 15:00 KST — 이 시각부터 당일 판정을 허용
+MARKET_CLOSE = 15 * 60 + 30          # 15:30 KST — 정규장 마감
+
+
+def _price_basis(asof) -> str:
+    """당일 가격을 무엇으로 보고 있는지 판정하고, 너무 이르면 실행을 막는다.
+
+    이 전략은 '당일 등락률 -5~0%' 를 보므로 신호가 종가에 의존한다. 그런데 종가를
+    안 뒤에는 그 가격에 살 수 없다. 그래서 마감 직전(15:15) 스냅샷을 종가 대용으로
+    쓰고 그 가격에 체결한 것으로 기록한다 — 판정 시점과 주문 시점이 같아 룩어헤드가 없다.
+
+    반환: 'final'(확정 종가) | 'snapshot'(마감 직전 스냅샷)
     """
-    if os.environ.get("ALLOW_INTRADAY"):        # 테스트용 우회
-        return
+    if os.environ.get("ALLOW_INTRADAY"):          # 테스트용 우회
+        return "snapshot"
     now = datetime.now(ZoneInfo("Asia/Seoul"))
     if pd.Timestamp(asof).date() != now.date():
-        return                                   # 과거 거래일 = 이미 확정된 데이터
-    if now.hour * 60 + now.minute < 15 * 60 + 40:
+        return "final"                            # 과거 거래일 = 이미 확정된 데이터
+    mins = now.hour * 60 + now.minute
+    if mins < ORDER_WINDOW_OPEN:
         raise SystemExit(
-            "[run_daily] {} 는 아직 장중입니다 (현재 {} KST).\n"
-            "  지금 받는 종가는 확정값이 아니라 그 시점 현재가라서, 진행하면\n"
-            "  미확정 가격으로 신호를 계산하고 체결까지 기록하게 됩니다.\n"
-            "  15:40 KST 이후에 다시 실행하세요. (테스트 목적이면 ALLOW_INTRADAY=1)"
+            "[run_daily] {} 는 아직 장중이고 주문 구간(15:00~15:30)도 아닙니다 (현재 {} KST).\n"
+            "  지금 가격은 종가 대용으로 쓰기엔 이릅니다 — 마감까지 크게 움직일 수 있습니다.\n"
+            "  15:00 KST 이후에 실행하세요. (테스트 목적이면 ALLOW_INTRADAY=1)"
             .format(pd.Timestamp(asof).date(), now.strftime("%H:%M")))
+    return "final" if mins >= MARKET_CLOSE else "snapshot"
 
 
-def main():
+def main(preview: bool = False):
     _require_krx_credentials()
     os.makedirs(C.DATA_DIR, exist_ok=True)
     asof = D.latest_trading_day()
-    _reject_unfinished_day(asof)
-    print(f"[run_daily] 최신 거래일: {asof.date()}")
+    basis = _price_basis(asof)
+    label = {"final": "확정 종가", "snapshot": "마감 직전 스냅샷(종가 대용)"}[basis]
+    print(f"[run_daily] 최신 거래일: {asof.date()}  ·  가격 기준: {label}"
+          f"{'  ·  PREVIEW (기록하지 않음)' if preview else ''}")
 
     state = E.load_state()
     held = list(state["positions"].keys())
@@ -168,13 +201,26 @@ def main():
 
     E.run_to_latest(state, bundle)
     snap = build_snapshot(state, bundle, asof)
+    snap["price_basis"] = basis
+    snap["generated_at"] = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M KST")
+
+    if preview:
+        # 원장을 건드리지 않고 '오늘 마감에 낼 주문'만 보여준다.
+        _print_orders(snap)
+        print("[run_daily] PREVIEW 모드 — portfolio_state.json / snapshot.json 을 쓰지 않았습니다.")
+        return
 
     E.save_state(state)
     with open(SNAPSHOT_FILE, "w", encoding="utf-8") as f:
         json.dump(snap, f, ensure_ascii=False, indent=2)
+    _print_orders(snap)
     print(f"[run_daily] 완료. 포지션 {snap['n_positions']}/{snap['max_slots']}  "
           f"자산 {snap['equity']:,.0f}  진입후보 {len(snap['watch_entries'])}")
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser(description="데일리 배치 — 데이터 갱신 후 포트폴리오 진행")
+    ap.add_argument("--preview", action="store_true",
+                    help="원장에 기록하지 않고 오늘 낼 주문만 출력")
+    main(preview=ap.parse_args().preview)

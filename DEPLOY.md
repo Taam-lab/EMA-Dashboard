@@ -1,9 +1,9 @@
 # 배포 가이드 — 자동 갱신되는 공개 웹사이트 (전부 무료)
 
-목표: **매일 아침 7:30(KST) 전일 종가로 자동 갱신되는 공개 URL 대시보드**
+목표: **평일 15:05(KST) 마감 직전에 자동 갱신되는 공개 URL 대시보드** — 보고 나서 동시호가에 주문할 수 있도록
 
 구성:
-- **GitHub Actions** — 매일 07:30 KST 자동 실행 → 전일 종가 수집 → 포트폴리오 갱신 → 결과 커밋
+- **GitHub Actions** — 평일 15:05 KST 자동 실행 → 마감 직전 시세 수집 → 포트폴리오 갱신 → 결과 커밋
 - **Streamlit Community Cloud** — 그 저장소를 읽어 공개 URL 웹사이트 제공 (무료, `dashboard.py` 수정 없이 그대로)
 
 > Vercel/Netlify 같은 정적 호스팅에는 Streamlit 을 올릴 수 없습니다. Streamlit 은 파이썬 프로세스가
@@ -56,7 +56,7 @@ gh secret set KRX_PW --repo <본인아이디>/EMA-Dashboard
 
 - 저장소 → **Settings → Actions → General → Workflow permissions** 를 **Read and write** 로 변경. (결과 JSON 커밋에 필요 — 안 하면 push 단계에서 403)
 - 저장소 → **Actions** 탭 → 워크플로우 활성화(처음엔 "I understand..." 버튼).
-- `daily-update` 워크플로우가 매일 07:30 KST 자동 실행됩니다.
+- `daily-update` 워크플로우가 평일 15:05 KST 자동 실행됩니다. (Actions 스케줄은 수십 분 밀릴 수 있어 마감 25분 전으로 잡았습니다.)
 - 지금 바로 한 번 돌리려면: Actions → daily-update → **Run workflow** 클릭.
   (첫 실행은 수백 종목 수집이라 몇 분 걸립니다. 끝나면 `portfolio_state.json` / `snapshot.json`이 커밋됨.)
 
@@ -66,16 +66,16 @@ gh secret set KRX_PW --repo <본인아이디>/EMA-Dashboard
 2. **New app → Deploy a public app from GitHub** → 저장소 `quant-dashboard`, 브랜치 `main`, 파일 `dashboard.py`, Python 3.11 → Deploy.
 3. 잠시 후 `https://<앱이름>.streamlit.app` 공개 URL이 생깁니다. 이게 대시보드 사이트입니다.
 
-이후 매일 아침 Actions가 데이터를 갱신·커밋하면, Streamlit 앱이 자동으로 새 데이터로 리로드됩니다. **접속만 하면 항상 최신입니다.**
+이후 평일 15:05 에 Actions가 데이터를 갱신·커밋하면 Streamlit 앱이 자동 리로드됩니다. 대시보드 상단에 **주문 가능 구간**인지 **이미 마감된 종가**인지가 표시됩니다.
 
 ---
 
 ## 동작 요약
 
 ```
-매일 07:30 KST (GitHub Actions)
+평일 15:05 KST (GitHub Actions) — 마감 25분 전
   └─ python run_daily.py
-       ├─ 전일 종가까지 KRX 데이터 수집 (pykrx, requirements-daily.txt)
+       ├─ 그 시점까지 KRX 데이터 수집 (pykrx, requirements-daily.txt)
        ├─ 시총 상위 200 → 정제 유니버스
        ├─ 오늘 진입/청산 판정, 포지션·손익 갱신
        └─ portfolio_state.json / snapshot.json 커밋

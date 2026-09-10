@@ -41,10 +41,20 @@ if snap is None or state is None:
 
 st.title("📈 20일 신고가 눌림목 전략")
 st.caption(
-    f"기준일 {snap['asof']} (전일 종가)  ·  시작일 {snap.get('inception_date','-')}  ·  "
+    f"기준일 {snap['asof']}  ·  시작일 {snap.get('inception_date','-')}  ·  "
     f"운용자본 {snap['initial_capital']/1e8:.0f}억  ·  코스피 이격도 {snap['disparity']}  ·  "
     f"{'🔴 과열(신규매수 제한)' if snap['overheat'] else '🟢 정상'}  ·  "
     f"헷지 {int(snap['hedge_weight']*100)}%")
+
+# 가격 기준을 숨기지 않는다 — 스냅샷이면 아직 주문할 수 있고, 확정 종가면 이미 늦었다.
+_basis = snap.get("price_basis")
+_gen = snap.get("generated_at", "")
+if _basis == "snapshot":
+    st.success(f"🟢 **주문 가능 구간** — 아래 가격은 마감 직전 스냅샷(종가 대용)입니다. "
+               f"마감 동시호가에 주문하세요.  ·  갱신 {_gen}")
+elif _basis == "final":
+    st.info(f"기준가는 **확정 종가**입니다. 이미 마감된 거래일이라 이 가격에는 주문할 수 없습니다.  "
+            f"·  갱신 {_gen}")
 
 tab1, tab2 = st.tabs(["메인", "매매이력"])
 

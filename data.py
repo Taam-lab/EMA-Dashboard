@@ -20,6 +20,7 @@ OHLCV_DIR = os.path.join(C.DATA_DIR, "ohlcv")
 COLS = {"시가": "open", "고가": "high", "저가": "low",
         "종가": "close", "거래량": "volume", "거래대금": "value"}
 REQUIRED = ["open", "high", "low", "close"]   # 전략·엔진이 실제로 쓰는 컬럼
+REFRESH_OVERLAP_DAYS = 7                      # 캐시가 있어도 최근 N일은 다시 받아 덮어씀
 
 
 def _pykrx():
@@ -66,12 +67,15 @@ def fetch_ohlcv(ticker: str, start, end, adjusted: bool = True) -> pd.DataFrame:
     path = os.path.join(OHLCV_DIR, f"{ticker}.parquet")
     cached = pd.read_parquet(path) if os.path.exists(path) else None
 
+    # 최근 구간은 캐시가 있어도 매번 다시 받는다.
+    # 15:15 실행 시 그날 행은 '현재가'로 저장되는데, 예전처럼 last+1일부터만
+    # 받으면 그 미확정 값이 영구히 종가로 굳어 EMA·신고가·모멘텀을 전부 오염시킨다.
+    # 겹쳐 받아 덮어쓰면 다음 실행에서 자동으로 확정값으로 교정된다.
     need_start = start
     if cached is not None and len(cached):
         last = cached.index.max()
-        if last >= pd.Timestamp(end):
-            return cached.loc[pd.Timestamp(start):pd.Timestamp(end)]
-        need_start = last + timedelta(days=1)
+        need_start = max(pd.Timestamp(start), last - timedelta(days=REFRESH_OVERLAP_DAYS))
+        need_start = min(need_start, pd.Timestamp(end))
 
     stock = _pykrx()
     raw = stock.get_market_ohlcv(_ymd(need_start), _ymd(end), ticker, adjusted=adjusted)
