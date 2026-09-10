@@ -113,7 +113,24 @@ def build_snapshot(state, bundle, asof) -> dict:
     }
 
 
+def _require_krx_credentials():
+    """KRX 가 로그인 필수로 바뀌어 pykrx 조회에 계정이 필요하다.
+
+    없으면 조회가 빈 응답을 돌려주고 한참 뒤 엉뚱한 IndexError 로 죽으므로
+    (실제로 GitHub Actions 첫 실행이 이렇게 실패했다) 여기서 먼저 끊는다.
+    """
+    missing = [k for k in ("KRX_ID", "KRX_PW") if not os.environ.get(k)]
+    if missing:
+        raise SystemExit(
+            "[run_daily] 환경변수 {} 가 없습니다.\n"
+            "  KRX 는 로그인해야 시세를 조회할 수 있습니다.\n"
+            "  로컬(PowerShell):  $env:KRX_ID=\"...\"; $env:KRX_PW=\"...\"\n"
+            "  GitHub Actions:    Settings -> Secrets and variables -> Actions 에 등록"
+            .format(", ".join(missing)))
+
+
 def main():
+    _require_krx_credentials()
     os.makedirs(C.DATA_DIR, exist_ok=True)
     asof = D.latest_trading_day()
     print(f"[run_daily] 최신 거래일: {asof.date()}")

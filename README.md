@@ -28,6 +28,12 @@ Streamlit Cloud 는 `requirements.txt` 만 읽으므로 배포가 가볍고 빠�
 
 ## 실행
 
+KRX 가 로그인 필수라, 먼저 계정을 환경변수로 넣어야 합니다 (PowerShell):
+
+```powershell
+$env:KRX_ID="<KRX 아이디>"; $env:KRX_PW="<KRX 비밀번호>"
+```
+
 ```bash
 # 1) 데이터 수집 + 포트폴리오 갱신 (첫 실행은 수백 종목이라 느립니다)
 python run_daily.py

@@ -27,7 +27,32 @@ git push -u origin main
 > 저장소는 **Public** 으로 만드세요. Streamlit Community Cloud 무료 플랜은 공개 저장소만 배포합니다.
 > (`data/` 캐시와 `files.zip` 은 `.gitignore` 로 빠집니다.)
 
-## 2단계 — 자동 스케줄 켜기 (GitHub Actions)
+## 2단계 — KRX 계정을 시크릿으로 등록 (필수)
+
+KRX 가 로그인 필수로 정책을 바꿔서, pykrx 로 시세를 받으려면 KRX 계정이 있어야 합니다.
+등록하지 않으면 배치가 "환경변수 KRX_ID, KRX_PW 가 없습니다" 로 즉시 중단됩니다.
+
+저장소 → **Settings → Secrets and variables → Actions → New repository secret** 에서 두 개 등록:
+
+| 이름 | 값 |
+|---|---|
+| `KRX_ID` | KRX 로그인 ID |
+| `KRX_PW` | KRX 로그인 비밀번호 |
+
+gh CLI 로 등록해도 됩니다 (값은 프롬프트에 직접 입력):
+
+```bash
+gh secret set KRX_ID --repo <본인아이디>/EMA-Dashboard
+```
+
+```bash
+gh secret set KRX_PW --repo <본인아이디>/EMA-Dashboard
+```
+
+> 시크릿은 저장소가 Public 이어도 외부에 노출되지 않고, 로그에도 마스킹됩니다.
+> 다만 **KRX 세션은 1시간 만료**이고 접속 IP 가 해외(Actions 러너)라는 점은 감안하세요.
+
+## 3단계 — 자동 스케줄 켜기 (GitHub Actions)
 
 - 저장소 → **Settings → Actions → General → Workflow permissions** 를 **Read and write** 로 변경. (결과 JSON 커밋에 필요 — 안 하면 push 단계에서 403)
 - 저장소 → **Actions** 탭 → 워크플로우 활성화(처음엔 "I understand..." 버튼).
@@ -35,7 +60,7 @@ git push -u origin main
 - 지금 바로 한 번 돌리려면: Actions → daily-update → **Run workflow** 클릭.
   (첫 실행은 수백 종목 수집이라 몇 분 걸립니다. 끝나면 `portfolio_state.json` / `snapshot.json`이 커밋됨.)
 
-## 3단계 — 웹사이트 배포 (Streamlit Community Cloud)
+## 4단계 — 웹사이트 배포 (Streamlit Community Cloud)
 
 1. https://share.streamlit.io 접속 → GitHub 계정으로 로그인.
 2. **New app → Deploy a public app from GitHub** → 저장소 `quant-dashboard`, 브랜치 `main`, 파일 `dashboard.py`, Python 3.11 → Deploy.
@@ -60,6 +85,7 @@ git push -u origin main
 ## 자주 막히는 곳
 
 - **첫 실행이 느림**: 정상입니다(200+종목 첫 수집). 이후엔 캐시로 빨라집니다.
+- **`IndexError: list index out of range` / `KRX 로그인 실패`**: KRX_ID/KRX_PW 시크릿 미등록입니다(2단계).
 - **pykrx 컬럼 오류**: pykrx 버전에 따라 컬럼명이 다를 수 있습니다. `data.py`의 `COLS` 매핑만 맞춰주세요.
 - **Actions 커밋 권한 오류(403)**: 저장소 Settings → Actions → General → Workflow permissions → **Read and write** 로 설정.
 - **앱이 잠들어 있음**: 무료 플랜은 일정 기간 미접속 시 슬립합니다. 접속하면 "Yes, get this app back up!" 버튼으로 몇 초 만에 깨어납니다.

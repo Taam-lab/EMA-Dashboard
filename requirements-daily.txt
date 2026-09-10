@@ -1,4 +1,4 @@
 # GitHub Actions 데일리 배치(run_daily.py)용 — 대시보드 의존성 + 데이터 수집
 -r requirements.txt
-pykrx>=1.0.45
+pykrx>=1.2.8   # 1.2.x 부터 KRX 로그인(KRX_ID/KRX_PW) 지원
 pyarrow>=14.0

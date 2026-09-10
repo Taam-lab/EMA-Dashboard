@@ -36,7 +36,12 @@ jobs:
       - name: Install deps
         run: pip install -r requirements-daily.txt
 
+      # KRX 가 로그인 필수로 바뀌어 pykrx 조회에 계정이 필요함.
+      # 저장소 Settings → Secrets and variables → Actions 에 KRX_ID / KRX_PW 등록 필요.
       - name: Run daily update
+        env:
+          KRX_ID: ${{ secrets.KRX_ID }}
+          KRX_PW: ${{ secrets.KRX_PW }}
         run: python run_daily.py
 
       - name: Commit results
