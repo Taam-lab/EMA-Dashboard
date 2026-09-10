@@ -1,0 +1,295 @@
+{
+  "inception_date": "2026-09-10",
+  "last_date": "2026-09-10",
+  "cash": 2033577.4874998033,
+  "positions": {
+    "000660": {
+      "name": "SK하이닉스",
+      "entry_date": "2026-09-10",
+      "entry_price": 1853000.0,
+      "shares": 53,
+      "peak": 1853000.0
+    },
+    "028050": {
+      "name": "삼성E&A",
+      "entry_date": "2026-09-10",
+      "entry_price": 50400.0,
+      "shares": 1983,
+      "peak": 50400.0
+    },
+    "096770": {
+      "name": "SK이노베이션",
+      "entry_date": "2026-09-10",
+      "entry_price": 153100.0,
+      "shares": 653,
+      "peak": 153100.0
+    },
+    "267270": {
+      "name": "HD건설기계",
+      "entry_date": "2026-09-10",
+      "entry_price": 141200.0,
+      "shares": 708,
+      "peak": 141200.0
+    },
+    "229640": {
+      "name": "LS에코에너지",
+      "entry_date": "2026-09-10",
+      "entry_price": 48600.0,
+      "shares": 2057,
+      "peak": 48600.0
+    },
+    "020150": {
+      "name": "롯데에너지머티리얼즈",
+      "entry_date": "2026-09-10",
+      "entry_price": 41200.0,
+      "shares": 2426,
+      "peak": 41200.0
+    },
+    "322000": {
+      "name": "HD현대에너지솔루션",
+      "entry_date": "2026-09-10",
+      "entry_price": 138400.0,
+      "shares": 722,
+      "peak": 138400.0
+    },
+    "082740": {
+      "name": "한화엔진",
+      "entry_date": "2026-09-10",
+      "entry_price": 48350.0,
+      "shares": 2067,
+      "peak": 48350.0
+    },
+    "001440": {
+      "name": "대한전선",
+      "entry_date": "2026-09-10",
+      "entry_price": 29700.0,
+      "shares": 3366,
+      "peak": 29700.0
+    },
+    "001120": {
+      "name": "LX인터내셔널",
+      "entry_date": "2026-09-10",
+      "entry_price": 40050.0,
+      "shares": 2496,
+      "peak": 40050.0
+    }
+  },
+  "hedge": {
+    "active": false,
+    "weight": 0.0,
+    "shares": 0,
+    "entry_price": 0.0
+  },
+  "overheat": false,
+  "history": [
+    {
+      "date": "2026-09-10",
+      "ticker": "000660",
+      "name": "SK하이닉스",
+      "action": "BUY",
+      "price": 1853000.0,
+      "shares": 53,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "028050",
+      "name": "삼성E&A",
+      "action": "BUY",
+      "price": 50400.0,
+      "shares": 1983,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "096770",
+      "name": "SK이노베이션",
+      "action": "BUY",
+      "price": 153100.0,
+      "shares": 653,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "267270",
+      "name": "HD건설기계",
+      "action": "BUY",
+      "price": 141200.0,
+      "shares": 708,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "229640",
+      "name": "LS에코에너지",
+      "action": "BUY",
+      "price": 48600.0,
+      "shares": 2057,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "020150",
+      "name": "롯데에너지머티리얼즈",
+      "action": "BUY",
+      "price": 41200.0,
+      "shares": 2426,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "322000",
+      "name": "HD현대에너지솔루션",
+      "action": "BUY",
+      "price": 138400.0,
+      "shares": 722,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "082740",
+      "name": "한화엔진",
+      "action": "BUY",
+      "price": 48350.0,
+      "shares": 2067,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "001440",
+      "name": "대한전선",
+      "action": "BUY",
+      "price": 29700.0,
+      "shares": 3366,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "001120",
+      "name": "LX인터내셔널",
+      "action": "BUY",
+      "price": 40050.0,
+      "shares": 2496,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "equity_curve": [
+    {
+      "date": "2026-09-10",
+      "equity": 999850327.0
+    }
+  ],
+  "today_entries": [
+    {
+      "date": "2026-09-10",
+      "ticker": "000660",
+      "name": "SK하이닉스",
+      "action": "BUY",
+      "price": 1853000.0,
+      "shares": 53,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "028050",
+      "name": "삼성E&A",
+      "action": "BUY",
+      "price": 50400.0,
+      "shares": 1983,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "096770",
+      "name": "SK이노베이션",
+      "action": "BUY",
+      "price": 153100.0,
+      "shares": 653,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "267270",
+      "name": "HD건설기계",
+      "action": "BUY",
+      "price": 141200.0,
+      "shares": 708,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "229640",
+      "name": "LS에코에너지",
+      "action": "BUY",
+      "price": 48600.0,
+      "shares": 2057,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "020150",
+      "name": "롯데에너지머티리얼즈",
+      "action": "BUY",
+      "price": 41200.0,
+      "shares": 2426,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "322000",
+      "name": "HD현대에너지솔루션",
+      "action": "BUY",
+      "price": 138400.0,
+      "shares": 722,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "082740",
+      "name": "한화엔진",
+      "action": "BUY",
+      "price": 48350.0,
+      "shares": 2067,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "001440",
+      "name": "대한전선",
+      "action": "BUY",
+      "price": 29700.0,
+      "shares": 3366,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-10",
+      "ticker": "001120",
+      "name": "LX인터내셔널",
+      "action": "BUY",
+      "price": 40050.0,
+      "shares": 2496,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": []
+}
