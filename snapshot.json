@@ -1,7 +1,7 @@
 {
   "asof": "2026-09-10",
   "inception_date": "2026-09-10",
-  "disparity": 102.1,
+  "disparity": 101.9,
   "overheat": false,
   "hedge_active": false,
   "hedge_weight": 0.0,
@@ -259,5 +259,5 @@
   "today_exits": [],
   "watch_entries": [],
   "price_basis": "final",
-  "generated_at": "2026-09-10 15:42 KST"
+  "generated_at": "2026-09-10 20:11 KST"
 }
