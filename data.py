@@ -15,8 +15,11 @@ import pandas as pd
 import config as C
 
 OHLCV_DIR = os.path.join(C.DATA_DIR, "ohlcv")
+# pykrx 버전에 따라 돌려주는 컬럼이 다르다. 1.2.x 의 get_market_ohlcv 는
+# 종목 조회 시 거래대금을 주지 않으므로, 있는 것만 취하고 없으면 넘어간다.
 COLS = {"시가": "open", "고가": "high", "저가": "low",
         "종가": "close", "거래량": "volume", "거래대금": "value"}
+REQUIRED = ["open", "high", "low", "close"]   # 전략·엔진이 실제로 쓰는 컬럼
 
 
 def _pykrx():
@@ -73,7 +76,13 @@ def fetch_ohlcv(ticker: str, start, end, adjusted: bool = True) -> pd.DataFrame:
     stock = _pykrx()
     raw = stock.get_market_ohlcv(_ymd(need_start), _ymd(end), ticker, adjusted=adjusted)
     if raw is not None and len(raw):
-        raw = raw.rename(columns=COLS)[list(COLS.values())]
+        raw = raw.rename(columns=COLS)
+        missing = [c for c in REQUIRED if c not in raw.columns]
+        if missing:
+            raise KeyError(
+                f"{ticker}: pykrx 응답에 {missing} 컬럼이 없습니다. "
+                f"받은 컬럼={list(raw.columns)} — data.py 의 COLS 매핑을 확인하세요.")
+        raw = raw[[c for c in COLS.values() if c in raw.columns]]
         raw.index = pd.to_datetime(raw.index)
         cached = raw if cached is None else pd.concat([cached, raw])
         cached = cached[~cached.index.duplicated(keep="last")].sort_index()
