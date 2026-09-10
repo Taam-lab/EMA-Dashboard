@@ -1,5 +1,11 @@
+# 밝은 테마. 어둡게 되돌리려면 base 를 "dark" 로 바꾸고
+# 아래 4개 색상 줄을 지우면 됩니다.
 [theme]
-base = "dark"
+base = "light"
+primaryColor = "#2563eb"              # 강조(위젯·링크)
+backgroundColor = "#ffffff"           # 본문 배경
+secondaryBackgroundColor = "#f4f6f8"  # 표 헤더·사이드바
+textColor = "#1f2933"                 # 본문 글자 (순검정보다 눈이 편함)
 
 [server]
 headless = true

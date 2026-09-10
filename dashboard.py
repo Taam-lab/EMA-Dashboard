@@ -18,6 +18,12 @@ import streamlit as st
 
 st.set_page_config(page_title="20일 신고가 눌림목 대시보드", layout="wide")
 
+# 표 강조색 — 밝은 배경(.streamlit/config.toml) 기준으로 대비를 맞춘 값.
+# 어두운 테마로 되돌린다면 UP="#3ddc84", DOWN="#ff6b6b", RISK_ROW 배경="#4a1113" 로.
+UP = "#14804a"                              # 수익 (흰 배경 대비 4.9:1)
+DOWN = "#c5221f"                            # 손실 (흰 배경 대비 5.9:1)
+RISK_ROW = "background-color:#fdecea"       # 손절 임박 행
+
 
 def load(path, default):
     if os.path.exists(path):
@@ -82,13 +88,17 @@ with tab1:
         def hl(row):
             styles = [""] * len(row)
             if row["risk"]:
-                styles = ["background-color:#4a1113"] * len(row)  # 위험(손절 임박)
+                styles = [RISK_ROW] * len(row)   # 위험(손절 임박)
             return styles
 
         sty = show.style.apply(hl, axis=1).map(
-            lambda v: "color:#3ddc84" if isinstance(v, (int, float)) and v > 0
-            else ("color:#ff6b6b" if isinstance(v, (int, float)) and v < 0 else ""),
-            subset=["수익률%"])
+            lambda v: f"color:{UP}" if isinstance(v, (int, float)) and v > 0
+            else (f"color:{DOWN}" if isinstance(v, (int, float)) and v < 0 else ""),
+            subset=["수익률%"]).format(
+            # Styler 기본값은 소수점 6자리라 원화가 50100.000000 으로 나온다.
+            {"진입가": "{:,.0f}", "현재가": "{:,.0f}", "손절선": "{:,.0f}",
+             "수량": "{:,.0f}", "수익률%": "{:+.2f}", "고점대비%": "{:.2f}",
+             "손절까지%": "{:.2f}"}, na_rep="-")
         st.dataframe(sty, width="stretch", hide_index=True)
         st.caption("🟥 행 = 손절선 3% 이내(위험)  ·  in_universe=False = 시총 200위 밖(보유는 유지, 신규진입만 제한)")
     else:
