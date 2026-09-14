@@ -29,6 +29,11 @@ function Log($msg) {
 $py = "C:\Users\Check\AppData\Local\Programs\Python\Python312\python.exe"
 if (-not (Test-Path $py)) { $py = "python" }
 
+# python 은 UTF-8 로 출력하는데(PYTHONIOENCODING) PowerShell 5.1 은 네이티브 명령
+# 출력을 OEM 코드페이지(한국어 Windows = cp949)로 디코딩한다. 맞춰주지 않으면
+# run.log 의 한글이 전부 깨져서, 정작 실패를 조사할 때 읽을 수가 없다.
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 Log "===== daily.ps1 시작 ====="
 
 # 1) 원격 변경분 먼저 받기 (Actions 백업 실행과 충돌 방지)
