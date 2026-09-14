@@ -155,16 +155,22 @@ def _print_orders(snap: dict) -> None:
     print(f"{'─' * 56}\n")
 
 
+MARKET_OPEN = 9 * 60 + 0             # 09:00 KST — 정규장 개장
 ORDER_WINDOW_OPEN = 15 * 60 + 0      # 15:00 KST — 이 시각부터 당일 판정을 허용
 MARKET_CLOSE = 15 * 60 + 30          # 15:30 KST — 정규장 마감
 
 
 def _price_basis(asof) -> str:
-    """당일 가격을 무엇으로 보고 있는지 판정하고, 너무 이르면 실행을 막는다.
+    """당일 가격을 무엇으로 보고 있는지 판정하고, 애매한 시각이면 실행을 막는다.
 
     이 전략은 '당일 등락률 -5~0%' 를 보므로 신호가 종가에 의존한다. 그런데 종가를
-    안 뒤에는 그 가격에 살 수 없다. 그래서 마감 직전(15:15) 스냅샷을 종가 대용으로
+    안 뒤에는 그 가격에 살 수 없다. 그래서 마감 직전(15:05) 스냅샷을 종가 대용으로
     쓰고 그 가격에 체결한 것으로 기록한다 — 판정 시점과 주문 시점이 같아 룩어헤드가 없다.
+
+    하루 두 번 도는 것을 전제로 한다:
+      08:00  개장 전. 오늘은 아직 데이터가 없으므로 전 거래일 확정 종가로 평가만 갱신.
+             (전 거래일은 이미 처리됐으니 매매는 일어나지 않는다 — run_to_latest 가 건너뜀)
+      15:05  주문 구간. 오늘을 스냅샷 가격으로 판정하고 체결까지 기록.
 
     반환: 'final'(확정 종가) | 'snapshot'(마감 직전 스냅샷)
     """
@@ -174,11 +180,16 @@ def _price_basis(asof) -> str:
     if pd.Timestamp(asof).date() != now.date():
         return "final"                            # 과거 거래일 = 이미 확정된 데이터
     mins = now.hour * 60 + now.minute
+    if mins < MARKET_OPEN:
+        # 개장 전이라 오늘 값이 아직 없다. 가격 패널에도 없을 테니 main() 이
+        # 전 거래일로 되돌린다. 평가 갱신용 실행이므로 통과시킨다.
+        return "final"
     if mins < ORDER_WINDOW_OPEN:
         raise SystemExit(
             "[run_daily] {} 는 아직 장중이고 주문 구간(15:00~15:30)도 아닙니다 (현재 {} KST).\n"
             "  지금 가격은 종가 대용으로 쓰기엔 이릅니다 — 마감까지 크게 움직일 수 있습니다.\n"
-            "  15:00 KST 이후에 실행하세요. (테스트 목적이면 ALLOW_INTRADAY=1)"
+            "  개장 전(~09:00) 평가 갱신이나 15:00 이후 주문 구간에 실행하세요.\n"
+            "  (테스트 목적이면 ALLOW_INTRADAY=1)"
             .format(pd.Timestamp(asof).date(), now.strftime("%H:%M")))
     return "final" if mins >= MARKET_CLOSE else "snapshot"
 
@@ -198,6 +209,13 @@ def main(preview: bool = False):
     print("[run_daily] 데이터 수집 중... (첫 실행은 수백 종목이라 느립니다)")
     bundle = D.build_bundle(asof, extra_tickers=held)
     print(f"[run_daily] 유니버스 {len(bundle['universe'])}종목, 가격패널 {bundle['close'].shape}")
+
+    # 개장 전 실행이면 오늘 행이 아직 없다. 그대로 두면 모든 가격이 NaN 인
+    # 스냅샷이 나오므로(이격도까지 NaN) 실제 데이터가 있는 마지막 날로 되돌린다.
+    idx = bundle["close"].index
+    if len(idx) and pd.Timestamp(asof) not in idx:
+        asof = pd.Timestamp(idx[-1])
+        print(f"[run_daily] 해당 일자 데이터 없음 → 마지막 거래일 {asof.date()} 기준으로 전환")
 
     E.run_to_latest(state, bundle)
     snap = build_snapshot(state, bundle, asof)
