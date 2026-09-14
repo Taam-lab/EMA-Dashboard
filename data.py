@@ -10,9 +10,43 @@ data.py — 거래소(KRX) 데이터 수집 + 로컬 parquet 캐시 (pykrx 기�
 """
 from __future__ import annotations
 import os
+import socket
+import time
 from datetime import datetime, timedelta
 import pandas as pd
 import config as C
+
+# pykrx 는 요청 타임아웃을 걸지 않아, KRX 가 응답하지 않으면 무한정 매달린다.
+# 9/14 15:05 실행이 이 상태로 멈춰 주문 구간을 통째로 놓쳤다.
+#
+# socket.setdefaulttimeout 으로는 못 막는다 — requests 가 timeout=None 을 명시적으로
+# 넘겨서 전역 소켓 기본값을 덮어쓰기 때문이다. 실제로 걸어보고 확인했다.
+# 그래서 requests 레벨에서 기본 타임아웃을 주입한다.
+#
+# '멈춤'을 '실패'로 바꾸는 것이 목적이다. 실패는 재시도로 복구되고 로그에 남지만,
+# 멈춤은 아무 일도 일어나지 않은 채 주문 시각만 지나간다.
+REQUEST_TIMEOUT = (10, 30)          # (연결, 읽기) 초
+
+def _install_request_timeout():
+    try:
+        import requests
+    except ImportError:
+        return
+    if getattr(requests.Session.request, "_timeout_patched", False):
+        return
+    _orig = requests.Session.request
+
+    def _request(self, *args, **kwargs):
+        if kwargs.get("timeout") is None:
+            kwargs["timeout"] = REQUEST_TIMEOUT
+        return _orig(self, *args, **kwargs)
+
+    _request._timeout_patched = True
+    requests.Session.request = _request
+
+
+_install_request_timeout()
+socket.setdefaulttimeout(60)        # 보조 안전망 (requests 이외 경로)
 
 OHLCV_DIR = os.path.join(C.DATA_DIR, "ohlcv")
 # pykrx 버전에 따라 돌려주는 컬럼이 다르다. 1.2.x 의 get_market_ohlcv 는
@@ -52,12 +86,33 @@ def latest_trading_day(ref=None) -> pd.Timestamp:
 # ─── 유니버스 (전일 종가 기준 시총 상위 N) ────────────────
 def fetch_universe(asof: pd.Timestamp, size: int = C.UNIVERSE_SIZE,
                    market: str = C.MARKET) -> pd.DataFrame:
-    """asof 일자의 시가총액 상위 종목. 반환: index=ticker, cols=[name, mktcap]."""
+    """asof 일자의 시가총액 상위 종목. 반환: index=ticker, cols=[name, mktcap].
+
+    종목명은 반드시 대량 조회로 가져온다. get_market_ticker_name 은 1종목당 약 4.7초라
+    200종목이면 16분이 걸려서, 마감 25분 전에 시작하는 배치가 주문 구간 안에 끝나지
+    못한다(실제로 9/14 15:05 실행이 여기서 멈췄다). 같은 정보를 주는
+    get_market_price_change_by_ticker 는 943종목 전체가 0.5초다.
+    """
     stock = _pykrx()
     cap = stock.get_market_cap(_ymd(asof), market=market)
     cap = cap.sort_values("시가총액", ascending=False).head(size)
-    names = {t: stock.get_market_ticker_name(t) for t in cap.index}
-    out = pd.DataFrame({"name": pd.Series(names), "mktcap": cap["시가총액"]})
+
+    ymd = _ymd(asof)
+    names = {}
+    try:
+        bulk = stock.get_market_price_change_by_ticker(ymd, ymd, market=market)
+        names = bulk["종목명"].to_dict()
+    except Exception as e:                      # 대량 조회 실패 시에도 멈추지는 않는다
+        print(f"[data] 종목명 대량 조회 실패({type(e).__name__}) — 개별 조회로 대체합니다")
+
+    missing = [t for t in cap.index if t not in names]
+    if missing:
+        print(f"[data] 종목명 개별 조회 {len(missing)}건 (건당 약 5초)")
+        for t in missing:
+            names[t] = stock.get_market_ticker_name(t)
+
+    out = pd.DataFrame({"name": pd.Series({t: names[t] for t in cap.index}),
+                        "mktcap": cap["시가총액"]})
     return out
 
 
@@ -78,7 +133,21 @@ def fetch_ohlcv(ticker: str, start, end, adjusted: bool = True) -> pd.DataFrame:
         need_start = min(need_start, pd.Timestamp(end))
 
     stock = _pykrx()
-    raw = stock.get_market_ohlcv(_ymd(need_start), _ymd(end), ticker, adjusted=adjusted)
+    # adjusted=True 는 네이버 차트 API 를 탄다(KRX 는 수정주가를 주지 않는다).
+    # 200종목을 연달아 때리면 간헐적으로 막히므로, 한 종목 실패로 배치 전체가
+    # 죽지 않게 짧은 백오프로 재시도한다.
+    raw = None
+    for attempt in range(3):
+        try:
+            raw = stock.get_market_ohlcv(_ymd(need_start), _ymd(end), ticker,
+                                         adjusted=adjusted)
+            break
+        except Exception as e:
+            if attempt == 2:
+                raise
+            wait = 2 * (attempt + 1)
+            print(f"[data] {ticker} 조회 실패({type(e).__name__}) — {wait}초 후 재시도")
+            time.sleep(wait)
     if raw is not None and len(raw):
         raw = raw.rename(columns=COLS)
         missing = [c for c in REQUIRED if c not in raw.columns]
@@ -119,13 +188,29 @@ def build_bundle(asof: pd.Timestamp, extra_tickers: list[str] | None = None,
     uni = fetch_universe(asof)
     tickers = list(dict.fromkeys(list(uni.index) + list(extra_tickers or [])))
 
+    # 보유 종목은 반드시 있어야 한다. 패널에서 빠지면 청산 판정 자체가 돌지 않아
+    # 손절선을 넘겨도 그냥 들고 있게 된다 — 조용히 넘어가면 안 되는 실패다.
+    required = set(extra_tickers or [])
+
     ohlcv = {}
     closes = {}
+    skipped = []
     for t in tickers:
-        df = fetch_ohlcv(t, start, asof)
+        try:
+            df = fetch_ohlcv(t, start, asof)
+        except Exception as e:
+            if t in required:
+                raise RuntimeError(
+                    f"보유 종목 {t} 의 가격을 가져오지 못했습니다({type(e).__name__}). "
+                    "청산 판정이 불가능하므로 중단합니다.") from e
+            skipped.append(t)           # 신규 진입 후보일 뿐이라 빠져도 무방
+            continue
         if len(df):
             ohlcv[t] = df
             closes[f"{t}|{uni.loc[t, 'name'] if t in uni.index else t}"] = df["close"]
+    if skipped:
+        print(f"[data] 조회 실패로 제외된 진입 후보 {len(skipped)}종목: {skipped[:5]}"
+              f"{' ...' if len(skipped) > 5 else ''}")
     close_wide = pd.DataFrame(closes).sort_index()
 
     kospi = fetch_index(C.KOSPI_INDEX, start, asof)
