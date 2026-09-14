@@ -4,3 +4,4 @@ data/
 .DS_Store
 .streamlit/secrets.toml
 files.zip
+run.log
