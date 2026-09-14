@@ -14,7 +14,8 @@
 | `run_daily.py` | 데일리 배치: 데이터 갱신 → 엔진 진행 → snapshot 저장 (`--preview` 로 기록 없이 주문만 확인) |
 | `dashboard.py` | Streamlit 2탭 대시보드 |
 | `test_strategy.py` | pytest 회귀 테스트 |
-| `.github/workflows/daily.yml` | 평일 15:05 KST 자동 갱신 (GitHub Actions) |
+| `daily.ps1` | 작업 스케줄러 러너 — 평일 08:00 · 15:05 KST (주 경로) |
+| `.github/workflows/daily.yml` | 평일 16:30 KST 안전망 — PC 가 꺼졌던 날만 기록을 메움 (GitHub Actions) |
 
 ## 설치
 
