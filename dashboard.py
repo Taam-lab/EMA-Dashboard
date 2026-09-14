@@ -46,15 +46,31 @@ st.caption(
     f"{'🔴 과열(신규매수 제한)' if snap['overheat'] else '🟢 정상'}  ·  "
     f"헷지 {int(snap['hedge_weight']*100)}%")
 
-# 가격 기준을 숨기지 않는다 — 스냅샷이면 아직 주문할 수 있고, 확정 종가면 이미 늦었다.
+# 가격 기준과 신선도를 숨기지 않는다.
+# 주문 직전에 '어제 데이터인 줄 모르고 주문하는 것'이 최악의 실패라서,
+# 주문 구간(15:00~15:40)에 오늘 데이터가 아니면 가장 크게 경고한다.
+_now = pd.Timestamp.now(tz="Asia/Seoul")
 _basis = snap.get("price_basis")
 _gen = snap.get("generated_at", "")
-if _basis == "snapshot":
+_is_today = snap["asof"] == _now.strftime("%Y-%m-%d")
+_in_order_window = _now.weekday() < 5 and (15 * 60) <= (_now.hour * 60 + _now.minute) < (15 * 60 + 40)
+
+if _in_order_window and not _is_today:
+    st.error(
+        f"🚨 **오늘 갱신이 실행되지 않았습니다.** 화면은 {snap['asof']} 기준이고 "
+        f"마지막 갱신은 {_gen} 입니다.  \n"
+        f"**이 신호로 주문하지 마세요.** 배치를 지금 실행하거나(`python run_daily.py`), "
+        f"오늘은 건너뛰세요.")
+elif _basis == "snapshot":
     st.success(f"🟢 **주문 가능 구간** — 아래 가격은 마감 직전 스냅샷(종가 대용)입니다. "
                f"마감 동시호가에 주문하세요.  ·  갱신 {_gen}")
 elif _basis == "final":
     st.info(f"기준가는 **확정 종가**입니다. 이미 마감된 거래일이라 이 가격에는 주문할 수 없습니다.  "
             f"·  갱신 {_gen}")
+
+if not _in_order_window and not _is_today and _now.weekday() < 5 and _now.hour >= 9:
+    st.warning(f"⚠️ 화면이 {snap['asof']} 기준입니다 — 예정된 갱신(08:00 / 15:05)이 "
+               f"실행되지 않았거나 오늘이 휴장일입니다.  ·  마지막 갱신 {_gen}")
 
 tab1, tab2 = st.tabs(["메인", "매매이력"])
 
