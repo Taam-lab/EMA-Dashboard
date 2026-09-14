@@ -72,6 +72,11 @@ if not _in_order_window and not _is_today and _now.weekday() < 5 and _now.hour >
     st.warning(f"⚠️ 화면이 {snap['asof']} 기준입니다 — 예정된 갱신(08:00 / 15:05)이 "
                f"실행되지 않았거나 오늘이 휴장일입니다.  ·  마지막 갱신 {_gen}")
 
+for _c in snap.get("corp_actions", []):
+    st.warning(f"⚠️ **{_c['name']}** — {_c['date']} 권리 변동(분할·증자 등)이 감지됐습니다. "
+               f"엔진은 진입가를 조정하지 않으므로 이 종목의 손익·손절·진입 신호는 틀렸을 수 있습니다. "
+               f"**주문 전에 직접 확인하세요.**")
+
 tab1, tab2 = st.tabs(["메인", "매매이력"])
 
 # ══════════════════════════════ 탭 1 ══════════════════════════════

@@ -11,6 +11,7 @@ run_daily.py — 매일 장 마감 후 실행하는 배치
 from __future__ import annotations
 import os
 import json
+import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import numpy as np
@@ -112,7 +113,26 @@ def build_snapshot(state, bundle, asof) -> dict:
         "today_entries": state["today_entries"],
         "today_exits": state["today_exits"],
         "watch_entries": watch,
+        "corp_actions": _relevant_corp_actions(state, bundle),
     }
+
+
+def _relevant_corp_actions(state, bundle) -> list[dict]:
+    """권리 변동이 감지된 종목 중 오늘 매매·보유와 관련된 것만.
+
+    엔진은 권리 변동 때 진입가를 조정하지 않는다. 5:1 분할이면 가격만 1/5 이 되어
+    가짜 -80% 손절이 나온다. 데이터를 정확히 받아도 생기는 엔진 쪽 한계라, 최소한
+    그런 날의 매매 신호에는 경고를 붙인다.
+    """
+    names = dict(bundle["universe"]["name"])
+    names.update({t: p["name"] for t, p in state["positions"].items()})
+    for x in state["today_entries"] + state["today_exits"]:
+        names.setdefault(x["ticker"], x["name"])
+    relevant = (set(state["positions"])
+                | {x["ticker"] for x in state["today_entries"] + state["today_exits"]})
+    return [{"ticker": t, "name": names.get(t, t),
+             "date": pd.Timestamp(d).strftime("%Y-%m-%d"), "held": t in state["positions"]}
+            for t, d in bundle.get("corp_actions", []) if t in relevant]
 
 
 def _require_krx_credentials():
@@ -152,6 +172,9 @@ def _print_orders(snap: dict) -> None:
         for p in risky:
             print(f"    {p['name']:<16} 손절선 {p['stop_price']:>10,.0f}  "
                   f"({p['stop_dist_pct']:.2f}% 남음)")
+    for c in snap.get("corp_actions", []):
+        print(f"\n  ⚠ {c['name']}: {c['date']} 권리 변동(분할·증자 등) 감지 — 엔진은 진입가를 조정하지"
+              f"\n    않으므로 이 종목의 손익·손절·진입 신호는 틀렸을 수 있습니다. 주문 전 직접 확인하세요.")
     print(f"{'─' * 56}\n")
 
 
@@ -195,6 +218,7 @@ def _price_basis(asof) -> str:
 
 
 def main(preview: bool = False):
+    t0 = time.time()
     _require_krx_credentials()
     os.makedirs(C.DATA_DIR, exist_ok=True)
     asof = D.latest_trading_day()
@@ -206,7 +230,7 @@ def main(preview: bool = False):
     state = E.load_state()
     held = list(state["positions"].keys())
 
-    print("[run_daily] 데이터 수집 중... (첫 실행은 수백 종목이라 느립니다)")
+    print("[run_daily] 데이터 수집 중...")
     bundle = D.build_bundle(asof, extra_tickers=held)
     print(f"[run_daily] 유니버스 {len(bundle['universe'])}종목, 가격패널 {bundle['close'].shape}")
 
@@ -215,6 +239,9 @@ def main(preview: bool = False):
     idx = bundle["close"].index
     if len(idx) and pd.Timestamp(asof) not in idx:
         asof = pd.Timestamp(idx[-1])
+        # 과거 거래일로 되돌렸으면 그건 확정 종가다. 'snapshot' 을 그대로 두면 대시보드가
+        # 어제 데이터를 두고 '주문 가능 구간'이라고 말하게 된다.
+        basis = _price_basis(asof)
         print(f"[run_daily] 해당 일자 데이터 없음 → 마지막 거래일 {asof.date()} 기준으로 전환")
 
     E.run_to_latest(state, bundle)
@@ -225,14 +252,14 @@ def main(preview: bool = False):
     if preview:
         # 원장을 건드리지 않고 '오늘 마감에 낼 주문'만 보여준다.
         _print_orders(snap)
-        print("[run_daily] PREVIEW 모드 — portfolio_state.json / snapshot.json 을 쓰지 않았습니다.")
+        print(f"[run_daily] PREVIEW 모드 ({time.time() - t0:.0f}초) — portfolio_state.json / snapshot.json 을 쓰지 않았습니다.")
         return
 
     E.save_state(state)
     with open(SNAPSHOT_FILE, "w", encoding="utf-8") as f:
         json.dump(snap, f, ensure_ascii=False, indent=2)
     _print_orders(snap)
-    print(f"[run_daily] 완료. 포지션 {snap['n_positions']}/{snap['max_slots']}  "
+    print(f"[run_daily] 완료 {time.time() - t0:.0f}초. 포지션 {snap['n_positions']}/{snap['max_slots']}  "
           f"자산 {snap['equity']:,.0f}  진입후보 {len(snap['watch_entries'])}")
 
 
