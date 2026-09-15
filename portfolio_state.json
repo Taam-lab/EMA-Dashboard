@@ -1,14 +1,14 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-14",
-  "cash": 7546.343699738383,
+  "last_date": "2026-09-15",
+  "cash": 850495.8822997384,
   "positions": {
     "028050": {
       "name": "삼성E&A",
       "entry_date": "2026-09-10",
       "entry_price": 50400.0,
       "shares": 1983,
-      "peak": 51000.0
+      "peak": 51100.0
     },
     "267270": {
       "name": "HD건설기계",
@@ -22,7 +22,7 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "peak": 48650.0
+      "peak": 50300.0
     },
     "082740": {
       "name": "한화엔진",
@@ -57,20 +57,20 @@
       "entry_date": "2026-09-14",
       "entry_price": 85700.0,
       "shares": 1132,
-      "peak": 85700.0
+      "peak": 90300.0
     },
     "006360": {
       "name": "GS건설",
       "entry_date": "2026-09-14",
       "entry_price": 36650.0,
       "shares": 2169,
-      "peak": 36650.0
+      "peak": 38050.0
     }
   },
   "hedge": {
     "active": true,
     "weight": 0.1,
-    "shares": 93479,
+    "shares": 92673,
     "entry_price": 1038.0
   },
   "overheat": false,
@@ -266,88 +266,12 @@
     {
       "date": "2026-09-14",
       "equity": 970409748.0
+    },
+    {
+      "date": "2026-09-15",
+      "equity": 969504954.0
     }
   ],
-  "today_entries": [
-    {
-      "date": "2026-09-14",
-      "ticker": "443060",
-      "name": "HD현대마린솔루션",
-      "action": "BUY",
-      "price": 239000.0,
-      "shares": 405,
-      "reason": "entry",
-      "pnl_pct": null
-    },
-    {
-      "date": "2026-09-14",
-      "ticker": "375500",
-      "name": "DL이앤씨",
-      "action": "BUY",
-      "price": 85700.0,
-      "shares": 1132,
-      "reason": "entry",
-      "pnl_pct": null
-    },
-    {
-      "date": "2026-09-14",
-      "ticker": "006360",
-      "name": "GS건설",
-      "action": "BUY",
-      "price": 36650.0,
-      "shares": 2169,
-      "reason": "entry",
-      "pnl_pct": null
-    }
-  ],
-  "today_exits": [
-    {
-      "date": "2026-09-14",
-      "ticker": "000660",
-      "name": "SK하이닉스",
-      "action": "SELL",
-      "price": 1707000.0,
-      "shares": 53,
-      "reason": "hard_stop",
-      "pnl_pct": -8.07,
-      "pnl_krw": -7929150.0,
-      "hold_days": 4
-    },
-    {
-      "date": "2026-09-14",
-      "ticker": "096770",
-      "name": "SK이노베이션",
-      "action": "SELL",
-      "price": 142000.0,
-      "shares": 653,
-      "reason": "hard_stop",
-      "pnl_pct": -7.44,
-      "pnl_krw": -7444112.0,
-      "hold_days": 4
-    },
-    {
-      "date": "2026-09-14",
-      "ticker": "020150",
-      "name": "롯데에너지머티리얼즈",
-      "action": "SELL",
-      "price": 38316.0,
-      "shares": 2426,
-      "reason": "hard_stop",
-      "pnl_pct": -7.2,
-      "pnl_krw": -7192838.0,
-      "hold_days": 4
-    },
-    {
-      "date": "2026-09-14",
-      "ticker": "322000",
-      "name": "HD현대에너지솔루션",
-      "action": "SELL",
-      "price": 128712.0,
-      "shares": 722,
-      "reason": "hard_stop",
-      "pnl_pct": -7.2,
-      "pnl_krw": -7190938.0,
-      "hold_days": 4
-    }
-  ]
+  "today_entries": [],
+  "today_exits": []
 }
