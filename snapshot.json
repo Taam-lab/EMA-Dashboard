@@ -1,14 +1,14 @@
 {
   "asof": "2026-09-15",
   "inception_date": "2026-09-10",
-  "disparity": 96.5,
+  "disparity": 96.3,
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.1,
   "equity": 969504954.0,
   "cash": 850496.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": -3171010.0,
+  "unrealized_pnl": -7174039.0,
   "realized_pnl": -29757038.0,
   "n_positions": 9,
   "max_slots": 9,
@@ -19,11 +19,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 29700.0,
       "shares": 3366,
-      "current_price": 27950.0,
-      "pnl_pct": -5.89,
-      "peak_dd_pct": -5.89,
+      "current_price": 27900.0,
+      "pnl_pct": -6.06,
+      "peak_dd_pct": -6.06,
       "stop_price": 27621.0,
-      "stop_dist_pct": 1.18,
+      "stop_dist_pct": 1.0,
       "risk": true,
       "in_universe": true
     },
@@ -33,11 +33,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 141200.0,
       "shares": 708,
-      "current_price": 134900.0,
-      "pnl_pct": -4.46,
-      "peak_dd_pct": -5.33,
+      "current_price": 134500.0,
+      "pnl_pct": -4.75,
+      "peak_dd_pct": -5.61,
       "stop_price": 131316.0,
-      "stop_dist_pct": 2.66,
+      "stop_dist_pct": 2.37,
       "risk": true,
       "in_universe": true
     },
@@ -61,11 +61,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 48350.0,
       "shares": 2067,
-      "current_price": 47850.0,
-      "pnl_pct": -1.03,
-      "peak_dd_pct": -5.43,
+      "current_price": 47800.0,
+      "pnl_pct": -1.14,
+      "peak_dd_pct": -5.53,
       "stop_price": 45540.0,
-      "stop_dist_pct": 4.83,
+      "stop_dist_pct": 4.73,
       "risk": false,
       "in_universe": true
     },
@@ -75,11 +75,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 39950.0,
-      "pnl_pct": -0.25,
-      "peak_dd_pct": -2.32,
+      "current_price": 39800.0,
+      "pnl_pct": -0.62,
+      "peak_dd_pct": -2.69,
       "stop_price": 37246.5,
-      "stop_dist_pct": 6.77,
+      "stop_dist_pct": 6.42,
       "risk": false,
       "in_universe": true
     },
@@ -89,11 +89,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 50400.0,
       "shares": 1983,
-      "current_price": 51100.0,
-      "pnl_pct": 1.39,
-      "peak_dd_pct": 0.0,
+      "current_price": 50800.0,
+      "pnl_pct": 0.79,
+      "peak_dd_pct": -0.59,
       "stop_price": 46872.0,
-      "stop_dist_pct": 8.27,
+      "stop_dist_pct": 7.73,
       "risk": false,
       "in_universe": true
     },
@@ -103,11 +103,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "current_price": 50300.0,
-      "pnl_pct": 3.5,
-      "peak_dd_pct": 0.0,
+      "current_price": 49850.0,
+      "pnl_pct": 2.57,
+      "peak_dd_pct": -0.89,
       "stop_price": 45270.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 9.19,
       "risk": false,
       "in_universe": true
     },
@@ -117,11 +117,11 @@
       "entry_date": "2026-09-14",
       "entry_price": 36650.0,
       "shares": 2169,
-      "current_price": 38050.0,
-      "pnl_pct": 3.82,
-      "peak_dd_pct": 0.0,
+      "current_price": 37800.0,
+      "pnl_pct": 3.14,
+      "peak_dd_pct": -0.66,
       "stop_price": 34245.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 9.4,
       "risk": false,
       "in_universe": true
     },
@@ -131,11 +131,11 @@
       "entry_date": "2026-09-14",
       "entry_price": 85700.0,
       "shares": 1132,
-      "current_price": 90300.0,
-      "pnl_pct": 5.37,
-      "peak_dd_pct": 0.0,
+      "current_price": 89400.0,
+      "pnl_pct": 4.32,
+      "peak_dd_pct": -1.0,
       "stop_price": 81270.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 9.09,
       "risk": false,
       "in_universe": true
     }
@@ -146,47 +146,53 @@
     {
       "ticker": "086790",
       "name": "하나금융지주",
-      "price": 138300.0,
-      "mom_120d_pct": 30.5
+      "price": 137600.0,
+      "mom_120d_pct": 29.8
     },
     {
       "ticker": "055550",
       "name": "신한지주",
-      "price": 112700.0,
-      "mom_120d_pct": 25.4
+      "price": 112200.0,
+      "mom_120d_pct": 24.8
     },
     {
       "ticker": "105560",
       "name": "KB금융",
-      "price": 176800.0,
-      "mom_120d_pct": 21.7
+      "price": 175800.0,
+      "mom_120d_pct": 21.0
     },
     {
       "ticker": "316140",
       "name": "우리금융지주",
-      "price": 36500.0,
-      "mom_120d_pct": 15.1
+      "price": 36350.0,
+      "mom_120d_pct": 14.7
     },
     {
       "ticker": "023530",
       "name": "롯데쇼핑",
-      "price": 114900.0,
-      "mom_120d_pct": 14.2
+      "price": 115300.0,
+      "mom_120d_pct": 14.6
+    },
+    {
+      "ticker": "175330",
+      "name": "JB금융지주",
+      "price": 32200.0,
+      "mom_120d_pct": 13.4
     },
     {
       "ticker": "000880",
       "name": "한화",
-      "price": 138200.0,
-      "mom_120d_pct": 6.0
+      "price": 137100.0,
+      "mom_120d_pct": 5.2
     },
     {
       "ticker": "012750",
       "name": "에스원",
-      "price": 84400.0,
-      "mom_120d_pct": 0.1
+      "price": 84200.0,
+      "mom_120d_pct": -0.1
     }
   ],
   "corp_actions": [],
-  "price_basis": "snapshot",
-  "generated_at": "2026-09-15 15:05 KST"
+  "price_basis": "final",
+  "generated_at": "2026-09-15 21:48 KST"
 }
