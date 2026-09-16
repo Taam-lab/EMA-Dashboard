@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-15",
-  "cash": 850495.8822997384,
+  "last_date": "2026-09-16",
+  "cash": 32690.490549713373,
   "positions": {
     "028050": {
       "name": "삼성E&A",
@@ -22,7 +22,7 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "peak": 50300.0
+      "peak": 58200.0
     },
     "082740": {
       "name": "한화엔진",
@@ -31,19 +31,12 @@
       "shares": 2067,
       "peak": 50600.0
     },
-    "001440": {
-      "name": "대한전선",
-      "entry_date": "2026-09-10",
-      "entry_price": 29700.0,
-      "shares": 3366,
-      "peak": 29700.0
-    },
     "001120": {
       "name": "LX인터내셔널",
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "peak": 40900.0
+      "peak": 41350.0
     },
     "443060": {
       "name": "HD현대마린솔루션",
@@ -65,13 +58,20 @@
       "entry_price": 36650.0,
       "shares": 2169,
       "peak": 38050.0
+    },
+    "004020": {
+      "name": "현대제철",
+      "entry_date": "2026-09-16",
+      "entry_price": 34450.0,
+      "shares": 2682,
+      "peak": 34450.0
     }
   },
   "hedge": {
     "active": true,
     "weight": 0.1,
-    "shares": 92673,
-    "entry_price": 1038.0
+    "shares": 94900,
+    "entry_price": 1035.0
   },
   "overheat": false,
   "history": [
@@ -252,6 +252,28 @@
       "shares": 2169,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-09-16",
+      "ticker": "001440",
+      "name": "대한전선",
+      "action": "SELL",
+      "price": 27950.0,
+      "shares": 3366,
+      "reason": "death_cross",
+      "pnl_pct": -6.09,
+      "pnl_krw": -6088951.0,
+      "hold_days": 6
+    },
+    {
+      "date": "2026-09-16",
+      "ticker": "004020",
+      "name": "현대제철",
+      "action": "BUY",
+      "price": 34450.0,
+      "shares": 2682,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -270,8 +292,36 @@
     {
       "date": "2026-09-15",
       "equity": 969504954.0
+    },
+    {
+      "date": "2026-09-16",
+      "equity": 982348190.0
     }
   ],
-  "today_entries": [],
-  "today_exits": []
+  "today_entries": [
+    {
+      "date": "2026-09-16",
+      "ticker": "004020",
+      "name": "현대제철",
+      "action": "BUY",
+      "price": 34450.0,
+      "shares": 2682,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": [
+    {
+      "date": "2026-09-16",
+      "ticker": "001440",
+      "name": "대한전선",
+      "action": "SELL",
+      "price": 27950.0,
+      "shares": 3366,
+      "reason": "death_cross",
+      "pnl_pct": -6.09,
+      "pnl_krw": -6088951.0,
+      "hold_days": 6
+    }
+  ]
 }
