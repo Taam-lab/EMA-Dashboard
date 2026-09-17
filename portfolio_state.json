@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-16",
-  "cash": 32690.490549713373,
+  "last_date": "2026-09-17",
+  "cash": 662.6870997133701,
   "positions": {
     "028050": {
       "name": "삼성E&A",
@@ -15,7 +15,7 @@
       "entry_date": "2026-09-10",
       "entry_price": 141200.0,
       "shares": 708,
-      "peak": 142500.0
+      "peak": 142800.0
     },
     "229640": {
       "name": "LS에코에너지",
@@ -29,21 +29,21 @@
       "entry_date": "2026-09-10",
       "entry_price": 48350.0,
       "shares": 2067,
-      "peak": 50600.0
+      "peak": 52900.0
     },
     "001120": {
       "name": "LX인터내셔널",
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "peak": 41350.0
+      "peak": 41850.0
     },
     "443060": {
       "name": "HD현대마린솔루션",
       "entry_date": "2026-09-14",
       "entry_price": 239000.0,
       "shares": 405,
-      "peak": 239000.0
+      "peak": 241000.0
     },
     "375500": {
       "name": "DL이앤씨",
@@ -70,8 +70,8 @@
   "hedge": {
     "active": true,
     "weight": 0.1,
-    "shares": 94900,
-    "entry_price": 1035.0
+    "shares": 94931,
+    "entry_price": 1033.0
   },
   "overheat": false,
   "history": [
@@ -296,32 +296,12 @@
     {
       "date": "2026-09-16",
       "equity": 982348190.0
+    },
+    {
+      "date": "2026-09-17",
+      "equity": 986200336.0
     }
   ],
-  "today_entries": [
-    {
-      "date": "2026-09-16",
-      "ticker": "004020",
-      "name": "현대제철",
-      "action": "BUY",
-      "price": 34450.0,
-      "shares": 2682,
-      "reason": "entry",
-      "pnl_pct": null
-    }
-  ],
-  "today_exits": [
-    {
-      "date": "2026-09-16",
-      "ticker": "001440",
-      "name": "대한전선",
-      "action": "SELL",
-      "price": 27950.0,
-      "shares": 3366,
-      "reason": "death_cross",
-      "pnl_pct": -6.09,
-      "pnl_krw": -6088951.0,
-      "hold_days": 6
-    }
-  ]
+  "today_entries": [],
+  "today_exits": []
 }
