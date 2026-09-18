@@ -1,14 +1,14 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-17",
-  "cash": 662.6870997133701,
+  "last_date": "2026-09-18",
+  "cash": 72295.87674970925,
   "positions": {
     "028050": {
       "name": "삼성E&A",
       "entry_date": "2026-09-10",
       "entry_price": 50400.0,
       "shares": 1983,
-      "peak": 51100.0
+      "peak": 52300.0
     },
     "267270": {
       "name": "HD건설기계",
@@ -22,7 +22,7 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "peak": 58200.0
+      "peak": 60800.0
     },
     "082740": {
       "name": "한화엔진",
@@ -36,14 +36,14 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "peak": 41850.0
+      "peak": 42200.0
     },
     "443060": {
       "name": "HD현대마린솔루션",
       "entry_date": "2026-09-14",
       "entry_price": 239000.0,
       "shares": 405,
-      "peak": 241000.0
+      "peak": 243000.0
     },
     "375500": {
       "name": "DL이앤씨",
@@ -64,13 +64,20 @@
       "entry_date": "2026-09-16",
       "entry_price": 34450.0,
       "shares": 2682,
-      "peak": 34450.0
+      "peak": 35750.0
+    },
+    "069960": {
+      "name": "현대백화점",
+      "entry_date": "2026-09-18",
+      "entry_price": 99200.0,
+      "shares": 955,
+      "peak": 99200.0
     }
   },
   "hedge": {
     "active": true,
-    "weight": 0.1,
-    "shares": 94931,
+    "weight": 0.0,
+    "shares": 0,
     "entry_price": 1033.0
   },
   "overheat": false,
@@ -274,6 +281,16 @@
       "shares": 2682,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-09-18",
+      "ticker": "069960",
+      "name": "현대백화점",
+      "action": "BUY",
+      "price": 99200.0,
+      "shares": 955,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -300,8 +317,23 @@
     {
       "date": "2026-09-17",
       "equity": 986200336.0
+    },
+    {
+      "date": "2026-09-18",
+      "equity": 1008157746.0
     }
   ],
-  "today_entries": [],
+  "today_entries": [
+    {
+      "date": "2026-09-18",
+      "ticker": "069960",
+      "name": "현대백화점",
+      "action": "BUY",
+      "price": 99200.0,
+      "shares": 955,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
   "today_exits": []
 }
