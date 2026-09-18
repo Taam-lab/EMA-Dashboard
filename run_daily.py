@@ -183,7 +183,7 @@ ORDER_WINDOW_OPEN = 15 * 60 + 0      # 15:00 KST — 이 시각부터 당일 판
 MARKET_CLOSE = 15 * 60 + 30          # 15:30 KST — 정규장 마감
 
 
-def _price_basis(asof) -> str:
+def _price_basis(asof, monitor: bool = False) -> str:
     """당일 가격을 무엇으로 보고 있는지 판정하고, 애매한 시각이면 실행을 막는다.
 
     이 전략은 '당일 등락률 -5~0%' 를 보므로 신호가 종가에 의존한다. 그런데 종가를
@@ -195,7 +195,9 @@ def _price_basis(asof) -> str:
              (전 거래일은 이미 처리됐으니 매매는 일어나지 않는다 — run_to_latest 가 건너뜀)
       15:05  주문 구간. 오늘을 스냅샷 가격으로 판정하고 체결까지 기록.
 
-    반환: 'final'(확정 종가) | 'snapshot'(마감 직전 스냅샷)
+      11:30  장중 모니터링(monitor=True). 평가만 갱신하고 매매는 기록하지 않는다.
+
+    반환: 'final'(확정 종가) | 'snapshot'(마감 직전 스냅샷) | 'intraday'(장중 현재가)
     """
     if os.environ.get("ALLOW_INTRADAY"):          # 테스트용 우회
         return "snapshot"
@@ -203,6 +205,9 @@ def _price_basis(asof) -> str:
     if pd.Timestamp(asof).date() != now.date():
         return "final"                            # 과거 거래일 = 이미 확정된 데이터
     mins = now.hour * 60 + now.minute
+    if monitor:
+        # 장중 모니터링: 지금 값으로 평가만 본다. 매매는 기록하지 않으므로 장중 가격이어도 안전하다.
+        return "intraday" if mins < MARKET_CLOSE else "final"
     if mins < MARKET_OPEN:
         # 개장 전이라 오늘 값이 아직 없다. 가격 패널에도 없을 테니 main() 이
         # 전 거래일로 되돌린다. 평가 갱신용 실행이므로 통과시킨다.
@@ -217,13 +222,49 @@ def _price_basis(asof) -> str:
     return "final" if mins >= MARKET_CLOSE else "snapshot"
 
 
-def main(preview: bool = False):
+def _live_equity(state, snap, bundle, asof) -> float:
+    """장중 평가자산 = 현금 + 보유주식 평가액 + 인버스 평가액.
+
+    평소 스냅샷의 equity 는 원장의 마지막 기록값이라 장중에는 어제 값이다. 포지션 수익률만
+    현재가로 바뀌고 평가자산은 어제 것이면 화면이 앞뒤가 안 맞는다.
+    """
+    eq = float(state["cash"])
+    cur = {p["ticker"]: p["current_price"] for p in snap["positions"]}
+    for tk, pos in state["positions"].items():
+        eq += (cur.get(tk) or pos["entry_price"]) * pos["shares"]
+    h = state["hedge"]
+    if h["shares"]:
+        inv = bundle["inverse"]
+        date = pd.Timestamp(asof)
+        ip = float(inv.at[date, "close"]) if date in inv.index else h["entry_price"]
+        eq += h["shares"] * ip
+    return round(eq, 0)
+
+
+def _print_monitor(snap: dict) -> None:
+    """장중 현황 — 손절선에 가까운 순으로."""
+    print(f"\n{'─' * 56}\n장중 현황 ({snap['generated_at']})\n{'─' * 56}")
+    pos = sorted(snap["positions"], key=lambda p: (p["stop_dist_pct"] is None, p["stop_dist_pct"]))
+    for p in pos:
+        mark = "⚠" if p["risk"] else " "
+        print(f" {mark} {p['name']:<16} {p['pnl_pct']:>+7.2f}%   손절선 {p['stop_price']:>10,.0f} "
+              f"({p['stop_dist_pct']:>5.2f}% 남음)")
+    if snap["watch_entries"]:
+        print(f"\n  지금 기준 진입 후보 {len(snap['watch_entries'])}종목 "
+              f"(마감까지 바뀝니다): {', '.join(w['name'] for w in snap['watch_entries'][:5])}")
+    for c in snap.get("corp_actions", []):
+        print(f"\n  ⚠ {c['name']}: {c['date']} 권리 변동 감지 — 손익·손절 표시가 틀렸을 수 있습니다.")
+    print(f"{'─' * 56}\n")
+
+
+def main(preview: bool = False, monitor: bool = False):
     t0 = time.time()
     _require_krx_credentials()
     os.makedirs(C.DATA_DIR, exist_ok=True)
     asof = D.latest_trading_day()
-    basis = _price_basis(asof)
-    label = {"final": "확정 종가", "snapshot": "마감 직전 스냅샷(종가 대용)"}[basis]
+    basis = _price_basis(asof, monitor=monitor)
+    label = {"final": "확정 종가", "snapshot": "마감 직전 스냅샷(종가 대용)",
+             "intraday": "장중 현재가 (매매 기록 안 함)"}[basis]
     print(f"[run_daily] 최신 거래일: {asof.date()}  ·  가격 기준: {label}"
           f"{'  ·  PREVIEW (기록하지 않음)' if preview else ''}")
 
@@ -241,13 +282,27 @@ def main(preview: bool = False):
         asof = pd.Timestamp(idx[-1])
         # 과거 거래일로 되돌렸으면 그건 확정 종가다. 'snapshot' 을 그대로 두면 대시보드가
         # 어제 데이터를 두고 '주문 가능 구간'이라고 말하게 된다.
-        basis = _price_basis(asof)
+        basis = _price_basis(asof, monitor=monitor)
         print(f"[run_daily] 해당 일자 데이터 없음 → 마지막 거래일 {asof.date()} 기준으로 전환")
 
-    E.run_to_latest(state, bundle)
+    # 장중 모니터링은 엔진을 진행시키지 않는다. 장중 가격으로 체결을 기록하면 원장이 오염되고,
+    # 마감까지 가격이 움직이면 그 기록은 되돌릴 수도 없다(9/10 에 실제로 겪어 리셋했다).
+    if not monitor:
+        E.run_to_latest(state, bundle)
     snap = build_snapshot(state, bundle, asof)
     snap["price_basis"] = basis
     snap["generated_at"] = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M KST")
+
+    if monitor:
+        # today_entries/exits 는 마지막으로 '처리된' 날(보통 어제)의 체결이라 오늘 주문이 아니다.
+        snap["today_entries"], snap["today_exits"] = [], []
+        snap["equity"] = _live_equity(state, snap, bundle, asof)
+        with open(SNAPSHOT_FILE, "w", encoding="utf-8") as f:
+            json.dump(snap, f, ensure_ascii=False, indent=2)
+        _print_monitor(snap)
+        print(f"[run_daily] 장중 모니터링 완료 {time.time() - t0:.0f}초 — snapshot.json 만 갱신"
+              f"(portfolio_state.json 은 건드리지 않음). 평가자산 {snap['equity']:,.0f}")
+        return
 
     if preview:
         # 원장을 건드리지 않고 '오늘 마감에 낼 주문'만 보여준다.
@@ -268,4 +323,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="데일리 배치 — 데이터 갱신 후 포트폴리오 진행")
     ap.add_argument("--preview", action="store_true",
                     help="원장에 기록하지 않고 오늘 낼 주문만 출력")
-    main(preview=ap.parse_args().preview)
+    ap.add_argument("--monitor", action="store_true",
+                    help="장중 모니터링: 평가만 갱신하고 매매는 기록하지 않음 (snapshot.json 만 씀)")
+    a = ap.parse_args()
+    main(preview=a.preview, monitor=a.monitor)

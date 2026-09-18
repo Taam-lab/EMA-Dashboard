@@ -61,6 +61,10 @@ if _in_order_window and not _is_today:
         f"마지막 갱신은 {_gen} 입니다.  \n"
         f"**이 신호로 주문하지 마세요.** 배치를 지금 실행하거나(`python run_daily.py`), "
         f"오늘은 건너뛰세요.")
+elif _basis == "intraday":
+    st.info(f"🕘 **장중 현황** — 아래 가격은 지금 시세이고 **매매는 기록되지 않았습니다**. "
+            f"손익과 손절선까지 거리를 미리 보는 용도입니다. 주문 판정은 15:05 실행이 합니다.  "
+            f"·  갱신 {_gen}")
 elif _basis == "snapshot":
     st.success(f"🟢 **주문 가능 구간** — 아래 가격은 마감 직전 스냅샷(종가 대용)입니다. "
                f"마감 동시호가에 주문하세요.  ·  갱신 {_gen}")
@@ -69,7 +73,7 @@ elif _basis == "final":
             f"·  갱신 {_gen}")
 
 if not _in_order_window and not _is_today and _now.weekday() < 5 and _now.hour >= 9:
-    st.warning(f"⚠️ 화면이 {snap['asof']} 기준입니다 — 예정된 갱신(08:00 / 15:05)이 "
+    st.warning(f"⚠️ 화면이 {snap['asof']} 기준입니다 — 예정된 갱신(08:00 / 11:30 / 15:05)이 "
                f"실행되지 않았거나 오늘이 휴장일입니다.  ·  마지막 갱신 {_gen}")
 
 for _c in snap.get("corp_actions", []):
