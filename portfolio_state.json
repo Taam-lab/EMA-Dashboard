@@ -1,6 +1,6 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-18",
+  "last_date": "2026-09-21",
   "cash": 72295.87674970925,
   "positions": {
     "028050": {
@@ -71,11 +71,11 @@
       "entry_date": "2026-09-18",
       "entry_price": 99200.0,
       "shares": 955,
-      "peak": 99200.0
+      "peak": 99800.0
     }
   },
   "hedge": {
-    "active": true,
+    "active": false,
     "weight": 0.0,
     "shares": 0,
     "entry_price": 1033.0
@@ -321,19 +321,12 @@
     {
       "date": "2026-09-18",
       "equity": 1008157746.0
-    }
-  ],
-  "today_entries": [
+    },
     {
-      "date": "2026-09-18",
-      "ticker": "069960",
-      "name": "현대백화점",
-      "action": "BUY",
-      "price": 99200.0,
-      "shares": 955,
-      "reason": "entry",
-      "pnl_pct": null
+      "date": "2026-09-21",
+      "equity": 986568346.0
     }
   ],
+  "today_entries": [],
   "today_exits": []
 }
