@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-22",
-  "cash": 72295.87674970925,
+  "last_date": "2026-09-23",
+  "cash": 7378.135149627924,
   "positions": {
     "028050": {
       "name": "삼성E&A",
@@ -10,26 +10,12 @@
       "shares": 1983,
       "peak": 52300.0
     },
-    "267270": {
-      "name": "HD건설기계",
-      "entry_date": "2026-09-10",
-      "entry_price": 141200.0,
-      "shares": 708,
-      "peak": 142800.0
-    },
     "229640": {
       "name": "LS에코에너지",
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "peak": 60800.0
-    },
-    "082740": {
-      "name": "한화엔진",
-      "entry_date": "2026-09-10",
-      "entry_price": 48350.0,
-      "shares": 2067,
-      "peak": 52900.0
+      "peak": 64100.0
     },
     "001120": {
       "name": "LX인터내셔널",
@@ -45,13 +31,6 @@
       "shares": 405,
       "peak": 243000.0
     },
-    "375500": {
-      "name": "DL이앤씨",
-      "entry_date": "2026-09-14",
-      "entry_price": 85700.0,
-      "shares": 1132,
-      "peak": 90300.0
-    },
     "006360": {
       "name": "GS건설",
       "entry_date": "2026-09-14",
@@ -59,19 +38,40 @@
       "shares": 2169,
       "peak": 38050.0
     },
-    "004020": {
-      "name": "현대제철",
-      "entry_date": "2026-09-16",
-      "entry_price": 34450.0,
-      "shares": 2682,
-      "peak": 35750.0
-    },
     "069960": {
       "name": "현대백화점",
       "entry_date": "2026-09-18",
       "entry_price": 99200.0,
       "shares": 955,
       "peak": 99800.0
+    },
+    "001820": {
+      "name": "삼화콘덴서",
+      "entry_date": "2026-09-23",
+      "entry_price": 146100.0,
+      "shares": 658,
+      "peak": 146100.0
+    },
+    "066570": {
+      "name": "LG전자",
+      "entry_date": "2026-09-23",
+      "entry_price": 208500.0,
+      "shares": 461,
+      "peak": 208500.0
+    },
+    "007340": {
+      "name": "DN오토모티브",
+      "entry_date": "2026-09-23",
+      "entry_price": 48000.0,
+      "shares": 2003,
+      "peak": 48000.0
+    },
+    "001440": {
+      "name": "대한전선",
+      "entry_date": "2026-09-23",
+      "entry_price": 30750.0,
+      "shares": 2620,
+      "peak": 30750.0
     }
   },
   "hedge": {
@@ -291,6 +291,94 @@
       "shares": 955,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "267270",
+      "name": "HD건설기계",
+      "action": "SELL",
+      "price": 131316.0,
+      "shares": 708,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -7194162.0,
+      "hold_days": 13
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "082740",
+      "name": "한화엔진",
+      "action": "SELL",
+      "price": 47610.0,
+      "shares": 2067,
+      "reason": "trailing",
+      "pnl_pct": -1.74,
+      "pnl_krw": -1736470.0,
+      "hold_days": 13
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "375500",
+      "name": "DL이앤씨",
+      "action": "SELL",
+      "price": 81270.0,
+      "shares": 1132,
+      "reason": "trailing",
+      "pnl_pct": -5.37,
+      "pnl_krw": -5208707.0,
+      "hold_days": 9
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "004020",
+      "name": "현대제철",
+      "action": "SELL",
+      "price": 32175.0,
+      "shares": 2682,
+      "reason": "trailing",
+      "pnl_pct": -6.8,
+      "pnl_krw": -6283681.0,
+      "hold_days": 7
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "001820",
+      "name": "삼화콘덴서",
+      "action": "BUY",
+      "price": 146100.0,
+      "shares": 658,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "066570",
+      "name": "LG전자",
+      "action": "BUY",
+      "price": 208500.0,
+      "shares": 461,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "007340",
+      "name": "DN오토모티브",
+      "action": "BUY",
+      "price": 48000.0,
+      "shares": 2003,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "001440",
+      "name": "대한전선",
+      "action": "BUY",
+      "price": 30750.0,
+      "shares": 2620,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -329,8 +417,102 @@
     {
       "date": "2026-09-22",
       "equity": 991280596.0
+    },
+    {
+      "date": "2026-09-23",
+      "equity": 961605828.0
     }
   ],
-  "today_entries": [],
-  "today_exits": []
+  "today_entries": [
+    {
+      "date": "2026-09-23",
+      "ticker": "001820",
+      "name": "삼화콘덴서",
+      "action": "BUY",
+      "price": 146100.0,
+      "shares": 658,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "066570",
+      "name": "LG전자",
+      "action": "BUY",
+      "price": 208500.0,
+      "shares": 461,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "007340",
+      "name": "DN오토모티브",
+      "action": "BUY",
+      "price": 48000.0,
+      "shares": 2003,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "001440",
+      "name": "대한전선",
+      "action": "BUY",
+      "price": 30750.0,
+      "shares": 2620,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": [
+    {
+      "date": "2026-09-23",
+      "ticker": "267270",
+      "name": "HD건설기계",
+      "action": "SELL",
+      "price": 131316.0,
+      "shares": 708,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -7194162.0,
+      "hold_days": 13
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "082740",
+      "name": "한화엔진",
+      "action": "SELL",
+      "price": 47610.0,
+      "shares": 2067,
+      "reason": "trailing",
+      "pnl_pct": -1.74,
+      "pnl_krw": -1736470.0,
+      "hold_days": 13
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "375500",
+      "name": "DL이앤씨",
+      "action": "SELL",
+      "price": 81270.0,
+      "shares": 1132,
+      "reason": "trailing",
+      "pnl_pct": -5.37,
+      "pnl_krw": -5208707.0,
+      "hold_days": 9
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "004020",
+      "name": "현대제철",
+      "action": "SELL",
+      "price": 32175.0,
+      "shares": 2682,
+      "reason": "trailing",
+      "pnl_pct": -6.8,
+      "pnl_krw": -6283681.0,
+      "hold_days": 7
+    }
+  ]
 }
