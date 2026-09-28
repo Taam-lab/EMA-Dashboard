@@ -1,18 +1,32 @@
 {
   "asof": "2026-09-28",
   "inception_date": "2026-09-10",
-  "disparity": 100.2,
+  "disparity": 100.0,
   "overheat": false,
   "hedge_active": false,
   "hedge_weight": 0.0,
   "equity": 967060348.0,
   "cash": 1217048.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 31981780.0,
+  "unrealized_pnl": 34131430.0,
   "realized_pnl": -63086543.0,
   "n_positions": 10,
   "max_slots": 10,
   "positions": [
+    {
+      "ticker": "006360",
+      "name": "GS건설",
+      "entry_date": "2026-09-14",
+      "entry_price": 36650.0,
+      "shares": 2169,
+      "current_price": 35550.0,
+      "pnl_pct": -3.0,
+      "peak_dd_pct": -6.57,
+      "stop_price": 34245.0,
+      "stop_dist_pct": 3.67,
+      "risk": false,
+      "in_universe": true
+    },
     {
       "ticker": "001440",
       "name": "대한전선",
@@ -28,16 +42,16 @@
       "in_universe": true
     },
     {
-      "ticker": "006360",
-      "name": "GS건설",
-      "entry_date": "2026-09-14",
-      "entry_price": 36650.0,
-      "shares": 2169,
-      "current_price": 35650.0,
-      "pnl_pct": -2.73,
-      "peak_dd_pct": -6.31,
-      "stop_price": 34245.0,
-      "stop_dist_pct": 3.94,
+      "ticker": "028050",
+      "name": "삼성E&A",
+      "entry_date": "2026-09-10",
+      "entry_price": 50400.0,
+      "shares": 1983,
+      "current_price": 50000.0,
+      "pnl_pct": -0.79,
+      "peak_dd_pct": -4.4,
+      "stop_price": 47070.0,
+      "stop_dist_pct": 5.86,
       "risk": false,
       "in_universe": true
     },
@@ -56,30 +70,16 @@
       "in_universe": true
     },
     {
-      "ticker": "028050",
-      "name": "삼성E&A",
-      "entry_date": "2026-09-10",
-      "entry_price": 50400.0,
-      "shares": 1983,
-      "current_price": 50050.0,
-      "pnl_pct": -0.69,
-      "peak_dd_pct": -4.3,
-      "stop_price": 47070.0,
-      "stop_dist_pct": 5.95,
-      "risk": false,
-      "in_universe": true
-    },
-    {
       "ticker": "009150",
       "name": "삼성전기",
       "entry_date": "2026-09-28",
       "entry_price": 1495000.0,
       "shares": 58,
-      "current_price": 1495000.0,
-      "pnl_pct": 0.0,
-      "peak_dd_pct": 0.0,
+      "current_price": 1499000.0,
+      "pnl_pct": 0.27,
+      "peak_dd_pct": 0.27,
       "stop_price": 1390350.0,
-      "stop_dist_pct": 7.0,
+      "stop_dist_pct": 7.25,
       "risk": false,
       "in_universe": true
     },
@@ -103,11 +103,11 @@
       "entry_date": "2026-09-14",
       "entry_price": 239000.0,
       "shares": 405,
-      "current_price": 245000.0,
-      "pnl_pct": 2.51,
-      "peak_dd_pct": 0.0,
+      "current_price": 245500.0,
+      "pnl_pct": 2.72,
+      "peak_dd_pct": 0.2,
       "stop_price": 222270.0,
-      "stop_dist_pct": 9.28,
+      "stop_dist_pct": 9.46,
       "risk": false,
       "in_universe": true
     },
@@ -131,11 +131,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 48000.0,
       "shares": 2003,
-      "current_price": 50300.0,
-      "pnl_pct": 4.79,
-      "peak_dd_pct": 0.0,
+      "current_price": 50700.0,
+      "pnl_pct": 5.62,
+      "peak_dd_pct": 0.8,
       "stop_price": 45270.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 10.71,
       "risk": false,
       "in_universe": true
     },
@@ -145,11 +145,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "current_price": 62100.0,
-      "pnl_pct": 27.78,
-      "peak_dd_pct": -3.12,
+      "current_price": 62700.0,
+      "pnl_pct": 29.01,
+      "peak_dd_pct": -2.18,
       "stop_price": 57690.0,
-      "stop_dist_pct": 7.1,
+      "stop_dist_pct": 7.99,
       "risk": false,
       "in_universe": true
     }
@@ -184,35 +184,23 @@
     {
       "ticker": "281820",
       "name": "케이씨텍",
-      "price": 84500.0,
-      "mom_120d_pct": 78.1
+      "price": 84800.0,
+      "mom_120d_pct": 78.7
     },
     {
       "ticker": "000990",
       "name": "DB하이텍",
-      "price": 127500.0,
-      "mom_120d_pct": 48.1
-    },
-    {
-      "ticker": "005930",
-      "name": "삼성전자",
-      "price": 271750.0,
-      "mom_120d_pct": 43.3
-    },
-    {
-      "ticker": "003490",
-      "name": "대한항공",
-      "price": 31450.0,
-      "mom_120d_pct": 27.3
+      "price": 127100.0,
+      "mom_120d_pct": 47.6
     },
     {
       "ticker": "000155",
       "name": "두산우",
-      "price": 483000.0,
-      "mom_120d_pct": 0.8
+      "price": 481000.0,
+      "mom_120d_pct": 0.4
     }
   ],
   "corp_actions": [],
-  "price_basis": "snapshot",
-  "generated_at": "2026-09-28 15:05 KST"
+  "price_basis": "final",
+  "generated_at": "2026-09-29 00:47 KST"
 }
