@@ -1,30 +1,30 @@
 {
   "asof": "2026-09-28",
   "inception_date": "2026-09-10",
-  "disparity": 100.5,
+  "disparity": 100.2,
   "overheat": false,
   "hedge_active": false,
   "hedge_weight": 0.0,
-  "equity": 964903678.0,
-  "cash": 7378.0,
+  "equity": 967060348.0,
+  "cash": 1217048.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 23009423.0,
-  "realized_pnl": -56269009.0,
+  "unrealized_pnl": 31981780.0,
+  "realized_pnl": -63086543.0,
   "n_positions": 10,
   "max_slots": 10,
   "positions": [
     {
-      "ticker": "069960",
-      "name": "현대백화점",
-      "entry_date": "2026-09-18",
-      "entry_price": 99200.0,
-      "shares": 955,
-      "current_price": 92900.0,
-      "pnl_pct": -6.35,
-      "peak_dd_pct": -6.91,
-      "stop_price": 92256.0,
-      "stop_dist_pct": 0.69,
-      "risk": true,
+      "ticker": "001440",
+      "name": "대한전선",
+      "entry_date": "2026-09-23",
+      "entry_price": 30750.0,
+      "shares": 2620,
+      "current_price": 29900.0,
+      "pnl_pct": -2.76,
+      "peak_dd_pct": -2.76,
+      "stop_price": 28597.5,
+      "stop_dist_pct": 4.36,
+      "risk": false,
       "in_universe": true
     },
     {
@@ -33,39 +33,11 @@
       "entry_date": "2026-09-14",
       "entry_price": 36650.0,
       "shares": 2169,
-      "current_price": 35900.0,
-      "pnl_pct": -2.05,
-      "peak_dd_pct": -5.65,
+      "current_price": 35650.0,
+      "pnl_pct": -2.73,
+      "peak_dd_pct": -6.31,
       "stop_price": 34245.0,
-      "stop_dist_pct": 4.61,
-      "risk": false,
-      "in_universe": true
-    },
-    {
-      "ticker": "001440",
-      "name": "대한전선",
-      "entry_date": "2026-09-23",
-      "entry_price": 30750.0,
-      "shares": 2620,
-      "current_price": 30350.0,
-      "pnl_pct": -1.3,
-      "peak_dd_pct": -1.3,
-      "stop_price": 28597.5,
-      "stop_dist_pct": 5.77,
-      "risk": false,
-      "in_universe": true
-    },
-    {
-      "ticker": "028050",
-      "name": "삼성E&A",
-      "entry_date": "2026-09-10",
-      "entry_price": 50400.0,
-      "shares": 1983,
-      "current_price": 49750.0,
-      "pnl_pct": -1.29,
-      "peak_dd_pct": -4.88,
-      "stop_price": 47070.0,
-      "stop_dist_pct": 5.39,
+      "stop_dist_pct": 3.94,
       "risk": false,
       "in_universe": true
     },
@@ -75,39 +47,39 @@
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "current_price": 145900.0,
-      "pnl_pct": -0.14,
-      "peak_dd_pct": -0.14,
+      "current_price": 145000.0,
+      "pnl_pct": -0.75,
+      "peak_dd_pct": -0.75,
       "stop_price": 135873.0,
-      "stop_dist_pct": 6.87,
+      "stop_dist_pct": 6.29,
       "risk": false,
       "in_universe": true
     },
     {
-      "ticker": "443060",
-      "name": "HD현대마린솔루션",
-      "entry_date": "2026-09-14",
-      "entry_price": 239000.0,
-      "shares": 405,
-      "current_price": 241000.0,
-      "pnl_pct": 0.84,
-      "peak_dd_pct": -0.82,
-      "stop_price": 222270.0,
-      "stop_dist_pct": 7.77,
+      "ticker": "028050",
+      "name": "삼성E&A",
+      "entry_date": "2026-09-10",
+      "entry_price": 50400.0,
+      "shares": 1983,
+      "current_price": 50050.0,
+      "pnl_pct": -0.69,
+      "peak_dd_pct": -4.3,
+      "stop_price": 47070.0,
+      "stop_dist_pct": 5.95,
       "risk": false,
       "in_universe": true
     },
     {
-      "ticker": "007340",
-      "name": "DN오토모티브",
-      "entry_date": "2026-09-23",
-      "entry_price": 48000.0,
-      "shares": 2003,
-      "current_price": 48750.0,
-      "pnl_pct": 1.56,
-      "peak_dd_pct": 1.56,
-      "stop_price": 44640.0,
-      "stop_dist_pct": 8.43,
+      "ticker": "009150",
+      "name": "삼성전기",
+      "entry_date": "2026-09-28",
+      "entry_price": 1495000.0,
+      "shares": 58,
+      "current_price": 1495000.0,
+      "pnl_pct": 0.0,
+      "peak_dd_pct": 0.0,
+      "stop_price": 1390350.0,
+      "stop_dist_pct": 7.0,
       "risk": false,
       "in_universe": true
     },
@@ -126,16 +98,44 @@
       "in_universe": true
     },
     {
+      "ticker": "443060",
+      "name": "HD현대마린솔루션",
+      "entry_date": "2026-09-14",
+      "entry_price": 239000.0,
+      "shares": 405,
+      "current_price": 245000.0,
+      "pnl_pct": 2.51,
+      "peak_dd_pct": 0.0,
+      "stop_price": 222270.0,
+      "stop_dist_pct": 9.28,
+      "risk": false,
+      "in_universe": true
+    },
+    {
       "ticker": "066570",
       "name": "LG전자",
       "entry_date": "2026-09-23",
       "entry_price": 208500.0,
       "shares": 461,
-      "current_price": 215500.0,
-      "pnl_pct": 3.36,
-      "peak_dd_pct": 3.36,
+      "current_price": 214500.0,
+      "pnl_pct": 2.88,
+      "peak_dd_pct": 0.0,
       "stop_price": 193905.0,
-      "stop_dist_pct": 10.02,
+      "stop_dist_pct": 9.6,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "007340",
+      "name": "DN오토모티브",
+      "entry_date": "2026-09-23",
+      "entry_price": 48000.0,
+      "shares": 2003,
+      "current_price": 50300.0,
+      "pnl_pct": 4.79,
+      "peak_dd_pct": 0.0,
+      "stop_price": 45270.0,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     },
@@ -145,74 +145,74 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "current_price": 61900.0,
-      "pnl_pct": 27.37,
-      "peak_dd_pct": -3.43,
+      "current_price": 62100.0,
+      "pnl_pct": 27.78,
+      "peak_dd_pct": -3.12,
       "stop_price": 57690.0,
-      "stop_dist_pct": 6.8,
+      "stop_dist_pct": 7.1,
       "risk": false,
       "in_universe": true
     }
   ],
-  "today_entries": [],
-  "today_exits": [],
-  "watch_entries": [
+  "today_entries": [
     {
+      "date": "2026-09-28",
       "ticker": "009150",
       "name": "삼성전기",
-      "price": 1504000.0,
-      "mom_120d_pct": 238.4
-    },
+      "action": "BUY",
+      "price": 1495000.0,
+      "shares": 58,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": [
+    {
+      "date": "2026-09-28",
+      "ticker": "069960",
+      "name": "현대백화점",
+      "action": "SELL",
+      "price": 92256.0,
+      "shares": 955,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -6817534.0,
+      "hold_days": 10
+    }
+  ],
+  "watch_entries": [
     {
       "ticker": "281820",
       "name": "케이씨텍",
-      "price": 83700.0,
-      "mom_120d_pct": 76.4
-    },
-    {
-      "ticker": "005935",
-      "name": "삼성전자우",
-      "price": 210000.0,
-      "mom_120d_pct": 64.7
+      "price": 84500.0,
+      "mom_120d_pct": 78.1
     },
     {
       "ticker": "000990",
       "name": "DB하이텍",
-      "price": 130200.0,
-      "mom_120d_pct": 51.2
+      "price": 127500.0,
+      "mom_120d_pct": 48.1
     },
     {
       "ticker": "005930",
       "name": "삼성전자",
-      "price": 274000.0,
-      "mom_120d_pct": 44.5
+      "price": 271750.0,
+      "mom_120d_pct": 43.3
     },
     {
       "ticker": "003490",
       "name": "대한항공",
-      "price": 31350.0,
-      "mom_120d_pct": 26.9
-    },
-    {
-      "ticker": "103590",
-      "name": "일진전기",
-      "price": 80200.0,
-      "mom_120d_pct": 6.6
-    },
-    {
-      "ticker": "007660",
-      "name": "이수페타시스",
-      "price": 115200.0,
-      "mom_120d_pct": 6.0
+      "price": 31450.0,
+      "mom_120d_pct": 27.3
     },
     {
       "ticker": "000155",
       "name": "두산우",
-      "price": 484500.0,
-      "mom_120d_pct": 1.1
+      "price": 483000.0,
+      "mom_120d_pct": 0.8
     }
   ],
   "corp_actions": [],
-  "price_basis": "intraday",
-  "generated_at": "2026-09-28 11:30 KST"
+  "price_basis": "snapshot",
+  "generated_at": "2026-09-28 15:05 KST"
 }
