@@ -1,15 +1,8 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-28",
-  "cash": 1217047.8991496116,
+  "last_date": "2026-09-29",
+  "cash": 4611.700999587774,
   "positions": {
-    "028050": {
-      "name": "삼성E&A",
-      "entry_date": "2026-09-10",
-      "entry_price": 50400.0,
-      "shares": 1983,
-      "peak": 52300.0
-    },
     "229640": {
       "name": "LS에코에너지",
       "entry_date": "2026-09-10",
@@ -31,19 +24,12 @@
       "shares": 405,
       "peak": 245000.0
     },
-    "006360": {
-      "name": "GS건설",
-      "entry_date": "2026-09-14",
-      "entry_price": 36650.0,
-      "shares": 2169,
-      "peak": 38050.0
-    },
     "001820": {
       "name": "삼화콘덴서",
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "peak": 146100.0
+      "peak": 155000.0
     },
     "066570": {
       "name": "LG전자",
@@ -71,14 +57,21 @@
       "entry_date": "2026-09-28",
       "entry_price": 1495000.0,
       "shares": 58,
-      "peak": 1495000.0
+      "peak": 1521000.0
+    },
+    "003490": {
+      "name": "대한항공",
+      "entry_date": "2026-09-29",
+      "entry_price": 31200.0,
+      "shares": 2349,
+      "peak": 31200.0
     }
   },
   "hedge": {
-    "active": false,
-    "weight": 0.0,
-    "shares": 0,
-    "entry_price": 1033.0
+    "active": true,
+    "weight": 0.1,
+    "shares": 94621,
+    "entry_price": 1006.0
   },
   "overheat": false,
   "history": [
@@ -401,6 +394,40 @@
       "shares": 58,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-09-29",
+      "ticker": "028050",
+      "name": "삼성E&A",
+      "action": "SELL",
+      "price": 47070.0,
+      "shares": 1983,
+      "reason": "trailing",
+      "pnl_pct": -6.8,
+      "pnl_krw": -6800394.0,
+      "hold_days": 19
+    },
+    {
+      "date": "2026-09-29",
+      "ticker": "006360",
+      "name": "GS건설",
+      "action": "SELL",
+      "price": 34245.0,
+      "shares": 2169,
+      "reason": "trailing",
+      "pnl_pct": -6.76,
+      "pnl_krw": -5373210.0,
+      "hold_days": 15
+    },
+    {
+      "date": "2026-09-29",
+      "ticker": "003490",
+      "name": "대한항공",
+      "action": "BUY",
+      "price": 31200.0,
+      "shares": 2349,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -447,32 +474,48 @@
     {
       "date": "2026-09-28",
       "equity": 967060348.0
+    },
+    {
+      "date": "2026-09-29",
+      "equity": 952006438.0
     }
   ],
   "today_entries": [
     {
-      "date": "2026-09-28",
-      "ticker": "009150",
-      "name": "삼성전기",
+      "date": "2026-09-29",
+      "ticker": "003490",
+      "name": "대한항공",
       "action": "BUY",
-      "price": 1495000.0,
-      "shares": 58,
+      "price": 31200.0,
+      "shares": 2349,
       "reason": "entry",
       "pnl_pct": null
     }
   ],
   "today_exits": [
     {
-      "date": "2026-09-28",
-      "ticker": "069960",
-      "name": "현대백화점",
+      "date": "2026-09-29",
+      "ticker": "028050",
+      "name": "삼성E&A",
       "action": "SELL",
-      "price": 92256.0,
-      "shares": 955,
-      "reason": "hard_stop",
-      "pnl_pct": -7.2,
-      "pnl_krw": -6817534.0,
-      "hold_days": 10
+      "price": 47070.0,
+      "shares": 1983,
+      "reason": "trailing",
+      "pnl_pct": -6.8,
+      "pnl_krw": -6800394.0,
+      "hold_days": 19
+    },
+    {
+      "date": "2026-09-29",
+      "ticker": "006360",
+      "name": "GS건설",
+      "action": "SELL",
+      "price": 34245.0,
+      "shares": 2169,
+      "reason": "trailing",
+      "pnl_pct": -6.76,
+      "pnl_krw": -5373210.0,
+      "hold_days": 15
     }
   ]
 }
