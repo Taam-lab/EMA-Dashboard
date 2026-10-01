@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-09-30",
-  "cash": 619.1021995877741,
+  "last_date": "2026-10-01",
+  "cash": 133113.24594958127,
   "positions": {
     "229640": {
       "name": "LS에코에너지",
@@ -29,7 +29,7 @@
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "peak": 155000.0
+      "peak": 160300.0
     },
     "066570": {
       "name": "LG전자",
@@ -57,7 +57,7 @@
       "entry_date": "2026-09-28",
       "entry_price": 1495000.0,
       "shares": 58,
-      "peak": 1521000.0
+      "peak": 1552000.0
     },
     "003490": {
       "name": "대한항공",
@@ -65,12 +65,19 @@
       "entry_price": 31200.0,
       "shares": 2349,
       "peak": 32000.0
+    },
+    "062040": {
+      "name": "산일전기",
+      "entry_date": "2026-10-01",
+      "entry_price": 212000.0,
+      "shares": 438,
+      "peak": 212000.0
     }
   },
   "hedge": {
     "active": true,
-    "weight": 0.1,
-    "shares": 94625,
+    "weight": 0.0,
+    "shares": 0,
     "entry_price": 998.0
   },
   "overheat": false,
@@ -428,6 +435,16 @@
       "shares": 2349,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-10-01",
+      "ticker": "062040",
+      "name": "산일전기",
+      "action": "BUY",
+      "price": 212000.0,
+      "shares": 438,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -482,8 +499,23 @@
     {
       "date": "2026-09-30",
       "equity": 960724369.0
+    },
+    {
+      "date": "2026-10-01",
+      "equity": 969169863.0
     }
   ],
-  "today_entries": [],
+  "today_entries": [
+    {
+      "date": "2026-10-01",
+      "ticker": "062040",
+      "name": "산일전기",
+      "action": "BUY",
+      "price": 212000.0,
+      "shares": 438,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
   "today_exits": []
 }
