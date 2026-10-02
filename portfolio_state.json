@@ -1,6 +1,6 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-01",
+  "last_date": "2026-10-02",
   "cash": 133113.24594958127,
   "positions": {
     "229640": {
@@ -8,14 +8,14 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "peak": 64100.0
+      "peak": 66600.0
     },
     "001120": {
       "name": "LX인터내셔널",
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "peak": 43300.0
+      "peak": 43900.0
     },
     "443060": {
       "name": "HD현대마린솔루션",
@@ -36,7 +36,7 @@
       "entry_date": "2026-09-23",
       "entry_price": 208500.0,
       "shares": 461,
-      "peak": 214500.0
+      "peak": 215500.0
     },
     "007340": {
       "name": "DN오토모티브",
@@ -50,14 +50,14 @@
       "entry_date": "2026-09-23",
       "entry_price": 30750.0,
       "shares": 2620,
-      "peak": 30750.0
+      "peak": 31400.0
     },
     "009150": {
       "name": "삼성전기",
       "entry_date": "2026-09-28",
       "entry_price": 1495000.0,
       "shares": 58,
-      "peak": 1552000.0
+      "peak": 1573000.0
     },
     "003490": {
       "name": "대한항공",
@@ -71,11 +71,11 @@
       "entry_date": "2026-10-01",
       "entry_price": 212000.0,
       "shares": 438,
-      "peak": 212000.0
+      "peak": 225500.0
     }
   },
   "hedge": {
-    "active": true,
+    "active": false,
     "weight": 0.0,
     "shares": 0,
     "entry_price": 998.0
@@ -503,19 +503,12 @@
     {
       "date": "2026-10-01",
       "equity": 969169863.0
-    }
-  ],
-  "today_entries": [
+    },
     {
-      "date": "2026-10-01",
-      "ticker": "062040",
-      "name": "산일전기",
-      "action": "BUY",
-      "price": 212000.0,
-      "shares": 438,
-      "reason": "entry",
-      "pnl_pct": null
+      "date": "2026-10-02",
+      "equity": 986560913.0
     }
   ],
+  "today_entries": [],
   "today_exits": []
 }
