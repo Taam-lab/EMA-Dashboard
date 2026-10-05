@@ -5,7 +5,7 @@
   "overheat": false,
   "hedge_active": false,
   "hedge_weight": 0.0,
-  "equity": 989595413.0,
+  "equity": 986560913.0,
   "cash": 133113.0,
   "initial_capital": 1000000000,
   "unrealized_pnl": 68848967.0,
@@ -190,5 +190,5 @@
   ],
   "corp_actions": [],
   "price_basis": "final",
-  "generated_at": "2026-10-05 11:30 KST"
+  "generated_at": "2026-10-05 15:05 KST"
 }
