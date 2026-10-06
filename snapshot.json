@@ -1,14 +1,14 @@
 {
   "asof": "2026-10-06",
   "inception_date": "2026-09-10",
-  "disparity": 100.4,
+  "disparity": 100.6,
   "overheat": false,
   "hedge_active": false,
   "hedge_weight": 0.0,
   "equity": 999618213.0,
   "cash": 133113.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 78852222.0,
+  "unrealized_pnl": 85363700.0,
   "realized_pnl": -75260147.0,
   "n_positions": 10,
   "max_slots": 10,
@@ -19,11 +19,11 @@
       "entry_date": "2026-09-14",
       "entry_price": 239000.0,
       "shares": 405,
-      "current_price": 222500.0,
-      "pnl_pct": -6.9,
-      "peak_dd_pct": -9.18,
+      "current_price": 226500.0,
+      "pnl_pct": -5.23,
+      "peak_dd_pct": -7.55,
       "stop_price": 222270.0,
-      "stop_dist_pct": 0.1,
+      "stop_dist_pct": 1.87,
       "risk": true,
       "in_universe": true
     },
@@ -33,11 +33,11 @@
       "entry_date": "2026-09-29",
       "entry_price": 31200.0,
       "shares": 2349,
-      "current_price": 30750.0,
-      "pnl_pct": -1.44,
-      "peak_dd_pct": -3.91,
+      "current_price": 31150.0,
+      "pnl_pct": -0.16,
+      "peak_dd_pct": -2.66,
       "stop_price": 29016.0,
-      "stop_dist_pct": 5.64,
+      "stop_dist_pct": 6.85,
       "risk": false,
       "in_universe": true
     },
@@ -47,11 +47,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 30750.0,
       "shares": 2620,
-      "current_price": 31550.0,
-      "pnl_pct": 2.6,
-      "peak_dd_pct": 0.0,
+      "current_price": 31750.0,
+      "pnl_pct": 3.25,
+      "peak_dd_pct": 0.63,
       "stop_price": 28597.5,
-      "stop_dist_pct": 9.36,
+      "stop_dist_pct": 9.93,
       "risk": false,
       "in_universe": true
     },
@@ -61,11 +61,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 48000.0,
       "shares": 2003,
-      "current_price": 49350.0,
-      "pnl_pct": 2.81,
-      "peak_dd_pct": -1.89,
+      "current_price": 49650.0,
+      "pnl_pct": 3.44,
+      "peak_dd_pct": -1.29,
       "stop_price": 45270.0,
-      "stop_dist_pct": 8.27,
+      "stop_dist_pct": 8.82,
       "risk": false,
       "in_universe": true
     },
@@ -75,11 +75,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 43000.0,
-      "pnl_pct": 7.37,
-      "peak_dd_pct": -2.05,
+      "current_price": 43300.0,
+      "pnl_pct": 8.11,
+      "peak_dd_pct": -1.37,
       "stop_price": 39510.0,
-      "stop_dist_pct": 8.12,
+      "stop_dist_pct": 8.75,
       "risk": false,
       "in_universe": true
     },
@@ -89,11 +89,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "current_price": 159300.0,
-      "pnl_pct": 9.03,
-      "peak_dd_pct": -0.62,
+      "current_price": 158800.0,
+      "pnl_pct": 8.69,
+      "peak_dd_pct": -0.94,
       "stop_price": 144270.0,
-      "stop_dist_pct": 9.44,
+      "stop_dist_pct": 9.15,
       "risk": false,
       "in_universe": true
     },
@@ -103,11 +103,11 @@
       "entry_date": "2026-10-01",
       "entry_price": 212000.0,
       "shares": 438,
-      "current_price": 232000.0,
-      "pnl_pct": 9.43,
-      "peak_dd_pct": 0.0,
+      "current_price": 235000.0,
+      "pnl_pct": 10.85,
+      "peak_dd_pct": 1.29,
       "stop_price": 208800.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 11.15,
       "risk": false,
       "in_universe": true
     },
@@ -117,11 +117,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 208500.0,
       "shares": 461,
-      "current_price": 232000.0,
-      "pnl_pct": 11.27,
-      "peak_dd_pct": 0.0,
+      "current_price": 232500.0,
+      "pnl_pct": 11.51,
+      "peak_dd_pct": 0.22,
       "stop_price": 208800.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 10.19,
       "risk": false,
       "in_universe": true
     },
@@ -131,11 +131,11 @@
       "entry_date": "2026-09-28",
       "entry_price": 1495000.0,
       "shares": 58,
-      "current_price": 1667000.0,
-      "pnl_pct": 11.51,
-      "peak_dd_pct": 0.0,
+      "current_price": 1675000.0,
+      "pnl_pct": 12.04,
+      "peak_dd_pct": 0.48,
       "stop_price": 1500300.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 10.43,
       "risk": false,
       "in_universe": true
     },
@@ -145,11 +145,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "current_price": 67200.0,
-      "pnl_pct": 38.27,
-      "peak_dd_pct": 0.0,
+      "current_price": 67400.0,
+      "pnl_pct": 38.68,
+      "peak_dd_pct": 0.3,
       "stop_price": 60480.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 10.27,
       "risk": false,
       "in_universe": true
     }
@@ -160,47 +160,53 @@
     {
       "ticker": "000500",
       "name": "가온전선",
-      "price": 325000.0,
-      "mom_120d_pct": 448.7
+      "price": 327000.0,
+      "mom_120d_pct": 452.0
     },
     {
       "ticker": "093370",
       "name": "후성",
-      "price": 16160.0,
-      "mom_120d_pct": 66.4
+      "price": 16290.0,
+      "mom_120d_pct": 67.8
     },
     {
       "ticker": "089860",
       "name": "롯데렌탈",
-      "price": 50400.0,
-      "mom_120d_pct": 60.3
+      "price": 51000.0,
+      "mom_120d_pct": 62.2
     },
     {
       "ticker": "010950",
       "name": "S-Oil",
-      "price": 164200.0,
-      "mom_120d_pct": 46.5
+      "price": 165300.0,
+      "mom_120d_pct": 47.5
     },
     {
       "ticker": "028670",
       "name": "팬오션",
-      "price": 5940.0,
-      "mom_120d_pct": 15.1
+      "price": 6000.0,
+      "mom_120d_pct": 16.3
     },
     {
       "ticker": "000240",
       "name": "한국앤컴퍼니",
-      "price": 25175.0,
-      "mom_120d_pct": 4.9
+      "price": 25300.0,
+      "mom_120d_pct": 5.4
     },
     {
       "ticker": "011200",
       "name": "HMM",
-      "price": 21300.0,
-      "mom_120d_pct": 3.1
+      "price": 21450.0,
+      "mom_120d_pct": 3.9
+    },
+    {
+      "ticker": "026960",
+      "name": "동서",
+      "price": 26450.0,
+      "mom_120d_pct": -4.0
     }
   ],
   "corp_actions": [],
-  "price_basis": "snapshot",
-  "generated_at": "2026-10-06 15:05 KST"
+  "price_basis": "final",
+  "generated_at": "2026-10-06 23:24 KST"
 }
