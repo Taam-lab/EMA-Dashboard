@@ -1,14 +1,14 @@
 {
   "asof": "2026-10-06",
   "inception_date": "2026-09-10",
-  "disparity": 101.0,
+  "disparity": 100.4,
   "overheat": false,
   "hedge_active": false,
   "hedge_weight": 0.0,
-  "equity": 999525213.0,
+  "equity": 999618213.0,
   "cash": 133113.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 78759403.0,
+  "unrealized_pnl": 78852222.0,
   "realized_pnl": -75260147.0,
   "n_positions": 10,
   "max_slots": 10,
@@ -19,11 +19,11 @@
       "entry_date": "2026-09-14",
       "entry_price": 239000.0,
       "shares": 405,
-      "current_price": 221000.0,
-      "pnl_pct": -7.53,
-      "peak_dd_pct": -9.8,
+      "current_price": 222500.0,
+      "pnl_pct": -6.9,
+      "peak_dd_pct": -9.18,
       "stop_price": 222270.0,
-      "stop_dist_pct": -0.57,
+      "stop_dist_pct": 0.1,
       "risk": true,
       "in_universe": true
     },
@@ -33,11 +33,11 @@
       "entry_date": "2026-09-29",
       "entry_price": 31200.0,
       "shares": 2349,
-      "current_price": 30200.0,
-      "pnl_pct": -3.21,
-      "peak_dd_pct": -5.63,
+      "current_price": 30750.0,
+      "pnl_pct": -1.44,
+      "peak_dd_pct": -3.91,
       "stop_price": 29016.0,
-      "stop_dist_pct": 3.92,
+      "stop_dist_pct": 5.64,
       "risk": false,
       "in_universe": true
     },
@@ -47,11 +47,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 30750.0,
       "shares": 2620,
-      "current_price": 31750.0,
-      "pnl_pct": 3.25,
-      "peak_dd_pct": 1.11,
+      "current_price": 31550.0,
+      "pnl_pct": 2.6,
+      "peak_dd_pct": 0.0,
       "stop_price": 28597.5,
-      "stop_dist_pct": 9.93,
+      "stop_dist_pct": 9.36,
       "risk": false,
       "in_universe": true
     },
@@ -61,25 +61,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 48000.0,
       "shares": 2003,
-      "current_price": 51100.0,
-      "pnl_pct": 6.46,
-      "peak_dd_pct": 1.59,
+      "current_price": 49350.0,
+      "pnl_pct": 2.81,
+      "peak_dd_pct": -1.89,
       "stop_price": 45270.0,
-      "stop_dist_pct": 11.41,
-      "risk": false,
-      "in_universe": true
-    },
-    {
-      "ticker": "062040",
-      "name": "산일전기",
-      "entry_date": "2026-10-01",
-      "entry_price": 212000.0,
-      "shares": 438,
-      "current_price": 227750.0,
-      "pnl_pct": 7.43,
-      "peak_dd_pct": 1.0,
-      "stop_price": 202950.0,
-      "stop_dist_pct": 10.89,
+      "stop_dist_pct": 8.27,
       "risk": false,
       "in_universe": true
     },
@@ -89,11 +75,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 43250.0,
-      "pnl_pct": 7.99,
-      "peak_dd_pct": -1.48,
+      "current_price": 43000.0,
+      "pnl_pct": 7.37,
+      "peak_dd_pct": -2.05,
       "stop_price": 39510.0,
-      "stop_dist_pct": 8.65,
+      "stop_dist_pct": 8.12,
       "risk": false,
       "in_universe": true
     },
@@ -103,11 +89,25 @@
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "current_price": 161300.0,
-      "pnl_pct": 10.4,
-      "peak_dd_pct": 0.62,
+      "current_price": 159300.0,
+      "pnl_pct": 9.03,
+      "peak_dd_pct": -0.62,
       "stop_price": 144270.0,
-      "stop_dist_pct": 10.56,
+      "stop_dist_pct": 9.44,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "062040",
+      "name": "산일전기",
+      "entry_date": "2026-10-01",
+      "entry_price": 212000.0,
+      "shares": 438,
+      "current_price": 232000.0,
+      "pnl_pct": 9.43,
+      "peak_dd_pct": 0.0,
+      "stop_price": 208800.0,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     },
@@ -117,11 +117,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 208500.0,
       "shares": 461,
-      "current_price": 232500.0,
-      "pnl_pct": 11.51,
-      "peak_dd_pct": 7.89,
-      "stop_price": 193950.0,
-      "stop_dist_pct": 16.58,
+      "current_price": 232000.0,
+      "pnl_pct": 11.27,
+      "peak_dd_pct": 0.0,
+      "stop_price": 208800.0,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     },
@@ -131,11 +131,11 @@
       "entry_date": "2026-09-28",
       "entry_price": 1495000.0,
       "shares": 58,
-      "current_price": 1673000.0,
-      "pnl_pct": 11.91,
-      "peak_dd_pct": 6.36,
-      "stop_price": 1415700.0,
-      "stop_dist_pct": 15.38,
+      "current_price": 1667000.0,
+      "pnl_pct": 11.51,
+      "peak_dd_pct": 0.0,
+      "stop_price": 1500300.0,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     },
@@ -145,11 +145,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "current_price": 65800.0,
-      "pnl_pct": 35.39,
-      "peak_dd_pct": -1.2,
-      "stop_price": 59940.0,
-      "stop_dist_pct": 8.91,
+      "current_price": 67200.0,
+      "pnl_pct": 38.27,
+      "peak_dd_pct": 0.0,
+      "stop_price": 60480.0,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     }
@@ -160,53 +160,47 @@
     {
       "ticker": "000500",
       "name": "가온전선",
-      "price": 327000.0,
-      "mom_120d_pct": 452.0
+      "price": 325000.0,
+      "mom_120d_pct": 448.7
     },
     {
       "ticker": "093370",
       "name": "후성",
-      "price": 16200.0,
-      "mom_120d_pct": 66.8
+      "price": 16160.0,
+      "mom_120d_pct": 66.4
     },
     {
       "ticker": "089860",
       "name": "롯데렌탈",
-      "price": 50200.0,
-      "mom_120d_pct": 59.6
+      "price": 50400.0,
+      "mom_120d_pct": 60.3
+    },
+    {
+      "ticker": "010950",
+      "name": "S-Oil",
+      "price": 164200.0,
+      "mom_120d_pct": 46.5
     },
     {
       "ticker": "028670",
       "name": "팬오션",
-      "price": 6035.0,
-      "mom_120d_pct": 17.0
-    },
-    {
-      "ticker": "036570",
-      "name": "NC",
-      "price": 229000.0,
-      "mom_120d_pct": 5.0
+      "price": 5940.0,
+      "mom_120d_pct": 15.1
     },
     {
       "ticker": "000240",
       "name": "한국앤컴퍼니",
-      "price": 25150.0,
-      "mom_120d_pct": 4.8
+      "price": 25175.0,
+      "mom_120d_pct": 4.9
     },
     {
       "ticker": "011200",
       "name": "HMM",
-      "price": 21350.0,
-      "mom_120d_pct": 3.4
-    },
-    {
-      "ticker": "026960",
-      "name": "동서",
-      "price": 27600.0,
-      "mom_120d_pct": 0.2
+      "price": 21300.0,
+      "mom_120d_pct": 3.1
     }
   ],
   "corp_actions": [],
-  "price_basis": "intraday",
-  "generated_at": "2026-10-06 11:30 KST"
+  "price_basis": "snapshot",
+  "generated_at": "2026-10-06 15:05 KST"
 }
