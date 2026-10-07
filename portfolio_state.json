@@ -1,42 +1,28 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-06",
-  "cash": 133113.24594958127,
+  "last_date": "2026-10-07",
+  "cash": 9523.463449537754,
   "positions": {
     "229640": {
       "name": "LS에코에너지",
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "peak": 67200.0
+      "peak": 69000.0
     },
     "001120": {
       "name": "LX인터내셔널",
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "peak": 43900.0
-    },
-    "443060": {
-      "name": "HD현대마린솔루션",
-      "entry_date": "2026-09-14",
-      "entry_price": 239000.0,
-      "shares": 405,
-      "peak": 245000.0
+      "peak": 44050.0
     },
     "001820": {
       "name": "삼화콘덴서",
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "peak": 160300.0
-    },
-    "066570": {
-      "name": "LG전자",
-      "entry_date": "2026-09-23",
-      "entry_price": 208500.0,
-      "shares": 461,
-      "peak": 232000.0
+      "peak": 161700.0
     },
     "007340": {
       "name": "DN오토모티브",
@@ -71,7 +57,21 @@
       "entry_date": "2026-10-01",
       "entry_price": 212000.0,
       "shares": 438,
-      "peak": 232000.0
+      "peak": 233000.0
+    },
+    "009155": {
+      "name": "삼성전기우",
+      "entry_date": "2026-10-07",
+      "entry_price": 532000.0,
+      "shares": 185,
+      "peak": 532000.0
+    },
+    "353200": {
+      "name": "대덕전자",
+      "entry_date": "2026-10-07",
+      "entry_price": 151800.0,
+      "shares": 577,
+      "peak": 151800.0
     }
   },
   "hedge": {
@@ -445,6 +445,50 @@
       "shares": 438,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-10-07",
+      "ticker": "443060",
+      "name": "HD현대마린솔루션",
+      "action": "SELL",
+      "price": 222270.0,
+      "shares": 405,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -6965707.0,
+      "hold_days": 23
+    },
+    {
+      "date": "2026-10-07",
+      "ticker": "066570",
+      "name": "LG전자",
+      "action": "SELL",
+      "price": 208800.0,
+      "shares": 461,
+      "reason": "trailing",
+      "pnl_pct": -0.07,
+      "pnl_krw": -63819.0,
+      "hold_days": 14
+    },
+    {
+      "date": "2026-10-07",
+      "ticker": "009155",
+      "name": "삼성전기우",
+      "action": "BUY",
+      "price": 532000.0,
+      "shares": 185,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-10-07",
+      "ticker": "353200",
+      "name": "대덕전자",
+      "action": "BUY",
+      "price": 151800.0,
+      "shares": 577,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -511,8 +555,58 @@
     {
       "date": "2026-10-06",
       "equity": 999618213.0
+    },
+    {
+      "date": "2026-10-07",
+      "equity": 989571823.0
     }
   ],
-  "today_entries": [],
-  "today_exits": []
+  "today_entries": [
+    {
+      "date": "2026-10-07",
+      "ticker": "009155",
+      "name": "삼성전기우",
+      "action": "BUY",
+      "price": 532000.0,
+      "shares": 185,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-10-07",
+      "ticker": "353200",
+      "name": "대덕전자",
+      "action": "BUY",
+      "price": 151800.0,
+      "shares": 577,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": [
+    {
+      "date": "2026-10-07",
+      "ticker": "443060",
+      "name": "HD현대마린솔루션",
+      "action": "SELL",
+      "price": 222270.0,
+      "shares": 405,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -6965707.0,
+      "hold_days": 23
+    },
+    {
+      "date": "2026-10-07",
+      "ticker": "066570",
+      "name": "LG전자",
+      "action": "SELL",
+      "price": 208800.0,
+      "shares": 461,
+      "reason": "trailing",
+      "pnl_pct": -0.07,
+      "pnl_krw": -63819.0,
+      "hold_days": 14
+    }
+  ]
 }
