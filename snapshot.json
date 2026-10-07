@@ -1,14 +1,14 @@
 {
   "asof": "2026-10-07",
   "inception_date": "2026-09-10",
-  "disparity": 99.1,
+  "disparity": 98.7,
   "overheat": false,
   "hedge_active": false,
   "hedge_weight": 0.0,
   "equity": 989571823.0,
   "cash": 9523.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 75854707.0,
+  "unrealized_pnl": 71215172.0,
   "realized_pnl": -82289673.0,
   "n_positions": 10,
   "max_slots": 10,
@@ -19,11 +19,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 30750.0,
       "shares": 2620,
-      "current_price": 30050.0,
-      "pnl_pct": -2.28,
-      "peak_dd_pct": -4.75,
+      "current_price": 29800.0,
+      "pnl_pct": -3.09,
+      "peak_dd_pct": -5.55,
       "stop_price": 28597.5,
-      "stop_dist_pct": 4.83,
+      "stop_dist_pct": 4.04,
       "risk": false,
       "in_universe": true
     },
@@ -33,11 +33,11 @@
       "entry_date": "2026-09-29",
       "entry_price": 31200.0,
       "shares": 2349,
-      "current_price": 31000.0,
-      "pnl_pct": -0.64,
-      "peak_dd_pct": -3.12,
+      "current_price": 30850.0,
+      "pnl_pct": -1.12,
+      "peak_dd_pct": -3.59,
       "stop_price": 29016.0,
-      "stop_dist_pct": 6.4,
+      "stop_dist_pct": 5.94,
       "risk": false,
       "in_universe": true
     },
@@ -47,11 +47,11 @@
       "entry_date": "2026-10-07",
       "entry_price": 532000.0,
       "shares": 185,
-      "current_price": 532000.0,
-      "pnl_pct": 0.0,
-      "peak_dd_pct": 0.0,
+      "current_price": 528000.0,
+      "pnl_pct": -0.75,
+      "peak_dd_pct": -0.75,
       "stop_price": 494760.0,
-      "stop_dist_pct": 7.0,
+      "stop_dist_pct": 6.3,
       "risk": false,
       "in_universe": true
     },
@@ -61,11 +61,11 @@
       "entry_date": "2026-10-07",
       "entry_price": 151800.0,
       "shares": 577,
-      "current_price": 151800.0,
-      "pnl_pct": 0.0,
-      "peak_dd_pct": 0.0,
+      "current_price": 151300.0,
+      "pnl_pct": -0.33,
+      "peak_dd_pct": -0.33,
       "stop_price": 141174.0,
-      "stop_dist_pct": 7.0,
+      "stop_dist_pct": 6.69,
       "risk": false,
       "in_universe": true
     },
@@ -75,11 +75,11 @@
       "entry_date": "2026-09-23",
       "entry_price": 48000.0,
       "shares": 2003,
-      "current_price": 49100.0,
-      "pnl_pct": 2.29,
-      "peak_dd_pct": -2.39,
+      "current_price": 49050.0,
+      "pnl_pct": 2.19,
+      "peak_dd_pct": -2.49,
       "stop_price": 45270.0,
-      "stop_dist_pct": 7.8,
+      "stop_dist_pct": 7.71,
       "risk": false,
       "in_universe": true
     },
@@ -89,11 +89,11 @@
       "entry_date": "2026-09-28",
       "entry_price": 1495000.0,
       "shares": 58,
-      "current_price": 1609000.0,
-      "pnl_pct": 7.63,
-      "peak_dd_pct": -3.48,
+      "current_price": 1604000.0,
+      "pnl_pct": 7.29,
+      "peak_dd_pct": -3.78,
       "stop_price": 1500300.0,
-      "stop_dist_pct": 6.76,
+      "stop_dist_pct": 6.47,
       "risk": false,
       "in_universe": true
     },
@@ -103,25 +103,11 @@
       "entry_date": "2026-10-01",
       "entry_price": 212000.0,
       "shares": 438,
-      "current_price": 233000.0,
-      "pnl_pct": 9.91,
-      "peak_dd_pct": 0.0,
+      "current_price": 231500.0,
+      "pnl_pct": 9.2,
+      "peak_dd_pct": -0.64,
       "stop_price": 209700.0,
-      "stop_dist_pct": 10.0,
-      "risk": false,
-      "in_universe": true
-    },
-    {
-      "ticker": "001120",
-      "name": "LX인터내셔널",
-      "entry_date": "2026-09-10",
-      "entry_price": 40050.0,
-      "shares": 2496,
-      "current_price": 44050.0,
-      "pnl_pct": 9.99,
-      "peak_dd_pct": 0.0,
-      "stop_price": 39645.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 9.42,
       "risk": false,
       "in_universe": true
     },
@@ -131,11 +117,25 @@
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "current_price": 161700.0,
-      "pnl_pct": 10.68,
-      "peak_dd_pct": 0.0,
+      "current_price": 159700.0,
+      "pnl_pct": 9.31,
+      "peak_dd_pct": -1.24,
       "stop_price": 145530.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 8.87,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "001120",
+      "name": "LX인터내셔널",
+      "entry_date": "2026-09-10",
+      "entry_price": 40050.0,
+      "shares": 2496,
+      "current_price": 43950.0,
+      "pnl_pct": 9.74,
+      "peak_dd_pct": -0.23,
+      "stop_price": 39645.0,
+      "stop_dist_pct": 9.8,
       "risk": false,
       "in_universe": true
     },
@@ -204,43 +204,49 @@
   ],
   "watch_entries": [
     {
-      "ticker": "010120",
-      "name": "LSELECTRIC",
-      "price": 207500.0,
-      "mom_120d_pct": 31.7
+      "ticker": "020150",
+      "name": "롯데에너지머티리얼즈",
+      "price": 53700.0,
+      "mom_120d_pct": 20.4
     },
     {
       "ticker": "010060",
       "name": "OCI홀딩스",
-      "price": 240500.0,
-      "mom_120d_pct": 20.2
+      "price": 240000.0,
+      "mom_120d_pct": 20.0
     },
     {
       "ticker": "006400",
       "name": "삼성SDI",
-      "price": 567000.0,
-      "mom_120d_pct": 18.1
+      "price": 562000.0,
+      "mom_120d_pct": 17.1
     },
     {
       "ticker": "011790",
       "name": "SKC",
-      "price": 108800.0,
-      "mom_120d_pct": 14.8
+      "price": 108200.0,
+      "mom_120d_pct": 14.1
+    },
+    {
+      "ticker": "007810",
+      "name": "코리아써키트",
+      "price": 88400.0,
+      "mom_120d_pct": 8.5
     },
     {
       "ticker": "018880",
       "name": "한온시스템",
-      "price": 3850.0,
-      "mom_120d_pct": -2.3
+      "price": 3855.0,
+      "mom_120d_pct": -2.2
     },
     {
       "ticker": "009830",
       "name": "한화솔루션",
-      "price": 36350.0,
-      "mom_120d_pct": -3.8
+      "price": 36150.0,
+      "mom_120d_pct": -4.3
     }
   ],
   "corp_actions": [],
-  "price_basis": "snapshot",
-  "generated_at": "2026-10-07 15:05 KST"
+  "price_basis": "final",
+  "generated_at": "2026-10-07 23:39 KST"
 }
