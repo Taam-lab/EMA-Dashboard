@@ -1,14 +1,14 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-07",
-  "cash": 9523.463449537754,
+  "last_date": "2026-10-08",
+  "cash": 755.3013995140791,
   "positions": {
     "229640": {
       "name": "LS에코에너지",
       "entry_date": "2026-09-10",
       "entry_price": 48600.0,
       "shares": 2057,
-      "peak": 69000.0
+      "peak": 74500.0
     },
     "001120": {
       "name": "LX인터내셔널",
@@ -30,13 +30,6 @@
       "entry_price": 48000.0,
       "shares": 2003,
       "peak": 50300.0
-    },
-    "001440": {
-      "name": "대한전선",
-      "entry_date": "2026-09-23",
-      "entry_price": 30750.0,
-      "shares": 2620,
-      "peak": 31550.0
     },
     "009150": {
       "name": "삼성전기",
@@ -71,14 +64,14 @@
       "entry_date": "2026-10-07",
       "entry_price": 151800.0,
       "shares": 577,
-      "peak": 151800.0
+      "peak": 158800.0
     }
   },
   "hedge": {
-    "active": false,
-    "weight": 0.0,
-    "shares": 0,
-    "entry_price": 998.0
+    "active": true,
+    "weight": 0.1,
+    "shares": 72811,
+    "entry_price": 1027.0
   },
   "overheat": false,
   "history": [
@@ -489,6 +482,18 @@
       "shares": 577,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-10-08",
+      "ticker": "001440",
+      "name": "대한전선",
+      "action": "SELL",
+      "price": 28597.5,
+      "shares": 2620,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -5797739.0,
+      "hold_days": 15
     }
   ],
   "equity_curve": [
@@ -559,54 +564,25 @@
     {
       "date": "2026-10-07",
       "equity": 989571823.0
-    }
-  ],
-  "today_entries": [
-    {
-      "date": "2026-10-07",
-      "ticker": "009155",
-      "name": "삼성전기우",
-      "action": "BUY",
-      "price": 532000.0,
-      "shares": 185,
-      "reason": "entry",
-      "pnl_pct": null
     },
     {
-      "date": "2026-10-07",
-      "ticker": "353200",
-      "name": "대덕전자",
-      "action": "BUY",
-      "price": 151800.0,
-      "shares": 577,
-      "reason": "entry",
-      "pnl_pct": null
+      "date": "2026-10-08",
+      "equity": 990924802.0
     }
   ],
+  "today_entries": [],
   "today_exits": [
     {
-      "date": "2026-10-07",
-      "ticker": "443060",
-      "name": "HD현대마린솔루션",
+      "date": "2026-10-08",
+      "ticker": "001440",
+      "name": "대한전선",
       "action": "SELL",
-      "price": 222270.0,
-      "shares": 405,
+      "price": 28597.5,
+      "shares": 2620,
       "reason": "hard_stop",
       "pnl_pct": -7.2,
-      "pnl_krw": -6965707.0,
-      "hold_days": 23
-    },
-    {
-      "date": "2026-10-07",
-      "ticker": "066570",
-      "name": "LG전자",
-      "action": "SELL",
-      "price": 208800.0,
-      "shares": 461,
-      "reason": "trailing",
-      "pnl_pct": -0.07,
-      "pnl_krw": -63819.0,
-      "hold_days": 14
+      "pnl_krw": -5797739.0,
+      "hold_days": 15
     }
   ]
 }
