@@ -5,7 +5,7 @@
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.1,
-  "equity": 990924802.0,
+  "equity": 981936940.0,
   "cash": 755.0,
   "initial_capital": 1000000000,
   "unrealized_pnl": 73608114.0,
@@ -141,20 +141,7 @@
     }
   ],
   "today_entries": [],
-  "today_exits": [
-    {
-      "date": "2026-10-08",
-      "ticker": "001440",
-      "name": "대한전선",
-      "action": "SELL",
-      "price": 28597.5,
-      "shares": 2620,
-      "reason": "hard_stop",
-      "pnl_pct": -7.2,
-      "pnl_krw": -5797739.0,
-      "hold_days": 15
-    }
-  ],
+  "today_exits": [],
   "watch_entries": [
     {
       "ticker": "192820",
@@ -183,5 +170,5 @@
   ],
   "corp_actions": [],
   "price_basis": "final",
-  "generated_at": "2026-10-09 08:00 KST"
+  "generated_at": "2026-10-09 11:30 KST"
 }
