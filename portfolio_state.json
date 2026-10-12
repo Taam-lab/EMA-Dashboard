@@ -1,15 +1,8 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-08",
-  "cash": 755.3013995140791,
+  "last_date": "2026-10-12",
+  "cash": 15924436.803899482,
   "positions": {
-    "229640": {
-      "name": "LS에코에너지",
-      "entry_date": "2026-09-10",
-      "entry_price": 48600.0,
-      "shares": 2057,
-      "peak": 74500.0
-    },
     "001120": {
       "name": "LX인터내셔널",
       "entry_date": "2026-09-10",
@@ -23,20 +16,6 @@
       "entry_price": 146100.0,
       "shares": 658,
       "peak": 161700.0
-    },
-    "007340": {
-      "name": "DN오토모티브",
-      "entry_date": "2026-09-23",
-      "entry_price": 48000.0,
-      "shares": 2003,
-      "peak": 50300.0
-    },
-    "009150": {
-      "name": "삼성전기",
-      "entry_date": "2026-09-28",
-      "entry_price": 1495000.0,
-      "shares": 58,
-      "peak": 1667000.0
     },
     "003490": {
       "name": "대한항공",
@@ -65,13 +44,20 @@
       "entry_price": 151800.0,
       "shares": 577,
       "peak": 158800.0
+    },
+    "096770": {
+      "name": "SK이노베이션",
+      "entry_date": "2026-10-12",
+      "entry_price": 153100.0,
+      "shares": 615,
+      "peak": 153100.0
     }
   },
   "hedge": {
     "active": true,
-    "weight": 0.1,
-    "shares": 72811,
-    "entry_price": 1027.0
+    "weight": 0.3,
+    "shares": 262361,
+    "entry_price": 1078.0
   },
   "overheat": false,
   "history": [
@@ -494,6 +480,52 @@
       "pnl_pct": -7.2,
       "pnl_krw": -5797739.0,
       "hold_days": 15
+    },
+    {
+      "date": "2026-10-12",
+      "ticker": "229640",
+      "name": "LS에코에너지",
+      "action": "SELL",
+      "price": 67050.0,
+      "shares": 2057,
+      "reason": "trailing",
+      "pnl_pct": 37.67,
+      "pnl_krw": 37667707.0,
+      "hold_days": 32
+    },
+    {
+      "date": "2026-10-12",
+      "ticker": "007340",
+      "name": "DN오토모티브",
+      "action": "SELL",
+      "price": 45000.0,
+      "shares": 2003,
+      "reason": "trailing",
+      "pnl_pct": -6.45,
+      "pnl_krw": -6199185.0,
+      "hold_days": 19
+    },
+    {
+      "date": "2026-10-12",
+      "ticker": "009150",
+      "name": "삼성전기",
+      "action": "SELL",
+      "price": 1500300.0,
+      "shares": 58,
+      "reason": "trailing",
+      "pnl_pct": 0.14,
+      "pnl_krw": 124710.0,
+      "hold_days": 14
+    },
+    {
+      "date": "2026-10-12",
+      "ticker": "096770",
+      "name": "SK이노베이션",
+      "action": "BUY",
+      "price": 153100.0,
+      "shares": 615,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -568,21 +600,60 @@
     {
       "date": "2026-10-08",
       "equity": 990924802.0
+    },
+    {
+      "date": "2026-10-12",
+      "equity": 942850545.0
     }
   ],
-  "today_entries": [],
+  "today_entries": [
+    {
+      "date": "2026-10-12",
+      "ticker": "096770",
+      "name": "SK이노베이션",
+      "action": "BUY",
+      "price": 153100.0,
+      "shares": 615,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
   "today_exits": [
     {
-      "date": "2026-10-08",
-      "ticker": "001440",
-      "name": "대한전선",
+      "date": "2026-10-12",
+      "ticker": "229640",
+      "name": "LS에코에너지",
       "action": "SELL",
-      "price": 28597.5,
-      "shares": 2620,
-      "reason": "hard_stop",
-      "pnl_pct": -7.2,
-      "pnl_krw": -5797739.0,
-      "hold_days": 15
+      "price": 67050.0,
+      "shares": 2057,
+      "reason": "trailing",
+      "pnl_pct": 37.67,
+      "pnl_krw": 37667707.0,
+      "hold_days": 32
+    },
+    {
+      "date": "2026-10-12",
+      "ticker": "007340",
+      "name": "DN오토모티브",
+      "action": "SELL",
+      "price": 45000.0,
+      "shares": 2003,
+      "reason": "trailing",
+      "pnl_pct": -6.45,
+      "pnl_krw": -6199185.0,
+      "hold_days": 19
+    },
+    {
+      "date": "2026-10-12",
+      "ticker": "009150",
+      "name": "삼성전기",
+      "action": "SELL",
+      "price": 1500300.0,
+      "shares": 58,
+      "reason": "trailing",
+      "pnl_pct": 0.14,
+      "pnl_krw": 124710.0,
+      "hold_days": 14
     }
   ]
 }
