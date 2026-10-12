@@ -1,14 +1,14 @@
 {
   "asof": "2026-10-12",
   "inception_date": "2026-09-10",
-  "disparity": 92.8,
+  "disparity": 93.0,
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.3,
   "equity": 942850545.0,
   "cash": 15924437.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 340092.0,
+  "unrealized_pnl": 1986226.0,
   "realized_pnl": -56494180.0,
   "n_positions": 7,
   "max_slots": 7,
@@ -19,13 +19,13 @@
       "entry_date": "2026-10-07",
       "entry_price": 532000.0,
       "shares": 185,
-      "current_price": 498000.0,
-      "pnl_pct": -6.39,
-      "peak_dd_pct": -6.39,
+      "current_price": 493500.0,
+      "pnl_pct": -7.24,
+      "peak_dd_pct": -7.24,
       "stop_price": 494760.0,
-      "stop_dist_pct": 0.65,
+      "stop_dist_pct": -0.26,
       "risk": true,
-      "in_universe": true
+      "in_universe": false
     },
     {
       "ticker": "353200",
@@ -33,11 +33,11 @@
       "entry_date": "2026-10-07",
       "entry_price": 151800.0,
       "shares": 577,
-      "current_price": 144500.0,
-      "pnl_pct": -4.81,
-      "peak_dd_pct": -9.01,
+      "current_price": 146900.0,
+      "pnl_pct": -3.23,
+      "peak_dd_pct": -7.49,
       "stop_price": 142920.0,
-      "stop_dist_pct": 1.09,
+      "stop_dist_pct": 2.71,
       "risk": true,
       "in_universe": true
     },
@@ -47,11 +47,11 @@
       "entry_date": "2026-09-29",
       "entry_price": 31200.0,
       "shares": 2349,
-      "current_price": 30950.0,
-      "pnl_pct": -0.8,
-      "peak_dd_pct": -3.28,
+      "current_price": 31100.0,
+      "pnl_pct": -0.32,
+      "peak_dd_pct": -2.81,
       "stop_price": 29016.0,
-      "stop_dist_pct": 6.25,
+      "stop_dist_pct": 6.7,
       "risk": false,
       "in_universe": true
     },
@@ -61,11 +61,11 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "current_price": 153100.0,
-      "pnl_pct": 0.0,
-      "peak_dd_pct": 0.0,
+      "current_price": 152800.0,
+      "pnl_pct": -0.2,
+      "peak_dd_pct": -0.2,
       "stop_price": 142383.0,
-      "stop_dist_pct": 7.0,
+      "stop_dist_pct": 6.82,
       "risk": false,
       "in_universe": true
     },
@@ -75,11 +75,11 @@
       "entry_date": "2026-10-01",
       "entry_price": 212000.0,
       "shares": 438,
-      "current_price": 214000.0,
-      "pnl_pct": 0.94,
-      "peak_dd_pct": -8.15,
+      "current_price": 214500.0,
+      "pnl_pct": 1.18,
+      "peak_dd_pct": -7.94,
       "stop_price": 209700.0,
-      "stop_dist_pct": 2.01,
+      "stop_dist_pct": 2.24,
       "risk": true,
       "in_universe": true
     },
@@ -89,12 +89,12 @@
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "current_price": 149400.0,
-      "pnl_pct": 2.26,
-      "peak_dd_pct": -7.61,
+      "current_price": 150100.0,
+      "pnl_pct": 2.74,
+      "peak_dd_pct": -7.17,
       "stop_price": 145530.0,
-      "stop_dist_pct": 2.59,
-      "risk": true,
+      "stop_dist_pct": 3.04,
+      "risk": false,
       "in_universe": true
     },
     {
@@ -103,11 +103,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 43950.0,
-      "pnl_pct": 9.74,
-      "peak_dd_pct": -0.23,
+      "current_price": 44050.0,
+      "pnl_pct": 9.99,
+      "peak_dd_pct": 0.0,
       "stop_price": 39645.0,
-      "stop_dist_pct": 9.8,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     }
@@ -166,29 +166,35 @@
     {
       "ticker": "020150",
       "name": "롯데에너지머티리얼즈",
-      "price": 55100.0,
-      "mom_120d_pct": 16.4
+      "price": 54600.0,
+      "mom_120d_pct": 15.3
+    },
+    {
+      "ticker": "018670",
+      "name": "SK가스",
+      "price": 271500.0,
+      "mom_120d_pct": 11.5
     },
     {
       "ticker": "000240",
       "name": "한국앤컴퍼니",
-      "price": 26450.0,
-      "mom_120d_pct": 7.3
+      "price": 26500.0,
+      "mom_120d_pct": 7.5
+    },
+    {
+      "ticker": "018880",
+      "name": "한온시스템",
+      "price": 3870.0,
+      "mom_120d_pct": -0.6
     },
     {
       "ticker": "373220",
       "name": "LG에너지솔루션",
       "price": 398000.0,
       "mom_120d_pct": -0.9
-    },
-    {
-      "ticker": "018880",
-      "name": "한온시스템",
-      "price": 3852.0,
-      "mom_120d_pct": -1.1
     }
   ],
   "corp_actions": [],
-  "price_basis": "snapshot",
-  "generated_at": "2026-10-12 15:05 KST"
+  "price_basis": "final",
+  "generated_at": "2026-10-13 01:54 KST"
 }
