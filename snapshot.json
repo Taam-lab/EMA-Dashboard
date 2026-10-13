@@ -1,14 +1,14 @@
 {
-  "asof": "2026-10-12",
+  "asof": "2026-10-13",
   "inception_date": "2026-09-10",
-  "disparity": 93.0,
+  "disparity": 87.7,
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.3,
-  "equity": 942850545.0,
+  "equity": 930552288.0,
   "cash": 15924437.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 1986226.0,
+  "unrealized_pnl": -28430695.0,
   "realized_pnl": -56494180.0,
   "n_positions": 7,
   "max_slots": 7,
@@ -19,11 +19,11 @@
       "entry_date": "2026-10-07",
       "entry_price": 532000.0,
       "shares": 185,
-      "current_price": 493500.0,
-      "pnl_pct": -7.24,
-      "peak_dd_pct": -7.24,
+      "current_price": 445500.0,
+      "pnl_pct": -16.26,
+      "peak_dd_pct": -16.26,
       "stop_price": 494760.0,
-      "stop_dist_pct": -0.26,
+      "stop_dist_pct": -11.06,
       "risk": true,
       "in_universe": false
     },
@@ -33,11 +33,25 @@
       "entry_date": "2026-10-07",
       "entry_price": 151800.0,
       "shares": 577,
-      "current_price": 146900.0,
-      "pnl_pct": -3.23,
-      "peak_dd_pct": -7.49,
+      "current_price": 137900.0,
+      "pnl_pct": -9.16,
+      "peak_dd_pct": -13.16,
       "stop_price": 142920.0,
-      "stop_dist_pct": 2.71,
+      "stop_dist_pct": -3.64,
+      "risk": true,
+      "in_universe": true
+    },
+    {
+      "ticker": "062040",
+      "name": "산일전기",
+      "entry_date": "2026-10-01",
+      "entry_price": 212000.0,
+      "shares": 438,
+      "current_price": 202500.0,
+      "pnl_pct": -4.48,
+      "peak_dd_pct": -13.09,
+      "stop_price": 209700.0,
+      "stop_dist_pct": -3.56,
       "risk": true,
       "in_universe": true
     },
@@ -47,11 +61,11 @@
       "entry_date": "2026-09-29",
       "entry_price": 31200.0,
       "shares": 2349,
-      "current_price": 31100.0,
-      "pnl_pct": -0.32,
-      "peak_dd_pct": -2.81,
+      "current_price": 29950.0,
+      "pnl_pct": -4.01,
+      "peak_dd_pct": -6.41,
       "stop_price": 29016.0,
-      "stop_dist_pct": 6.7,
+      "stop_dist_pct": 3.12,
       "risk": false,
       "in_universe": true
     },
@@ -61,26 +75,12 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "current_price": 152800.0,
-      "pnl_pct": -0.2,
-      "peak_dd_pct": -0.2,
+      "current_price": 149600.0,
+      "pnl_pct": -2.29,
+      "peak_dd_pct": -2.29,
       "stop_price": 142383.0,
-      "stop_dist_pct": 6.82,
+      "stop_dist_pct": 4.82,
       "risk": false,
-      "in_universe": true
-    },
-    {
-      "ticker": "062040",
-      "name": "산일전기",
-      "entry_date": "2026-10-01",
-      "entry_price": 212000.0,
-      "shares": 438,
-      "current_price": 214500.0,
-      "pnl_pct": 1.18,
-      "peak_dd_pct": -7.94,
-      "stop_price": 209700.0,
-      "stop_dist_pct": 2.24,
-      "risk": true,
       "in_universe": true
     },
     {
@@ -89,12 +89,12 @@
       "entry_date": "2026-09-23",
       "entry_price": 146100.0,
       "shares": 658,
-      "current_price": 150100.0,
-      "pnl_pct": 2.74,
-      "peak_dd_pct": -7.17,
+      "current_price": 143100.0,
+      "pnl_pct": -2.05,
+      "peak_dd_pct": -11.5,
       "stop_price": 145530.0,
-      "stop_dist_pct": 3.04,
-      "risk": false,
+      "stop_dist_pct": -1.7,
+      "risk": true,
       "in_universe": true
     },
     {
@@ -103,98 +103,38 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 44050.0,
-      "pnl_pct": 9.99,
-      "peak_dd_pct": 0.0,
+      "current_price": 43300.0,
+      "pnl_pct": 8.11,
+      "peak_dd_pct": -1.7,
       "stop_price": 39645.0,
-      "stop_dist_pct": 10.0,
+      "stop_dist_pct": 8.44,
       "risk": false,
       "in_universe": true
     }
   ],
-  "today_entries": [
-    {
-      "date": "2026-10-12",
-      "ticker": "096770",
-      "name": "SK이노베이션",
-      "action": "BUY",
-      "price": 153100.0,
-      "shares": 615,
-      "reason": "entry",
-      "pnl_pct": null
-    }
-  ],
-  "today_exits": [
-    {
-      "date": "2026-10-12",
-      "ticker": "229640",
-      "name": "LS에코에너지",
-      "action": "SELL",
-      "price": 67050.0,
-      "shares": 2057,
-      "reason": "trailing",
-      "pnl_pct": 37.67,
-      "pnl_krw": 37667707.0,
-      "hold_days": 32
-    },
-    {
-      "date": "2026-10-12",
-      "ticker": "007340",
-      "name": "DN오토모티브",
-      "action": "SELL",
-      "price": 45000.0,
-      "shares": 2003,
-      "reason": "trailing",
-      "pnl_pct": -6.45,
-      "pnl_krw": -6199185.0,
-      "hold_days": 19
-    },
-    {
-      "date": "2026-10-12",
-      "ticker": "009150",
-      "name": "삼성전기",
-      "action": "SELL",
-      "price": 1500300.0,
-      "shares": 58,
-      "reason": "trailing",
-      "pnl_pct": 0.14,
-      "pnl_krw": 124710.0,
-      "hold_days": 14
-    }
-  ],
+  "today_entries": [],
+  "today_exits": [],
   "watch_entries": [
     {
-      "ticker": "020150",
-      "name": "롯데에너지머티리얼즈",
-      "price": 54600.0,
-      "mom_120d_pct": 15.3
+      "ticker": "033780",
+      "name": "KTG",
+      "price": 179800.0,
+      "mom_120d_pct": 7.0
     },
     {
-      "ticker": "018670",
-      "name": "SK가스",
-      "price": 271500.0,
-      "mom_120d_pct": 11.5
+      "ticker": "030000",
+      "name": "제일기획",
+      "price": 19080.0,
+      "mom_120d_pct": -2.7
     },
     {
-      "ticker": "000240",
-      "name": "한국앤컴퍼니",
-      "price": 26500.0,
-      "mom_120d_pct": 7.5
-    },
-    {
-      "ticker": "018880",
-      "name": "한온시스템",
-      "price": 3870.0,
-      "mom_120d_pct": -0.6
-    },
-    {
-      "ticker": "373220",
-      "name": "LG에너지솔루션",
-      "price": 398000.0,
-      "mom_120d_pct": -0.9
+      "ticker": "012750",
+      "name": "에스원",
+      "price": 85700.0,
+      "mom_120d_pct": -6.2
     }
   ],
   "corp_actions": [],
-  "price_basis": "final",
-  "generated_at": "2026-10-13 08:00 KST"
+  "price_basis": "intraday",
+  "generated_at": "2026-10-13 11:30 KST"
 }
