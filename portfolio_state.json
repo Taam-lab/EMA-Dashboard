@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-12",
-  "cash": 15924436.803899482,
+  "last_date": "2026-10-13",
+  "cash": 214330117.49674946,
   "positions": {
     "001120": {
       "name": "LX인터내셔널",
@@ -9,13 +9,6 @@
       "entry_price": 40050.0,
       "shares": 2496,
       "peak": 44050.0
-    },
-    "001820": {
-      "name": "삼화콘덴서",
-      "entry_date": "2026-09-23",
-      "entry_price": 146100.0,
-      "shares": 658,
-      "peak": 161700.0
     },
     "003490": {
       "name": "대한항공",
@@ -31,13 +24,6 @@
       "shares": 438,
       "peak": 233000.0
     },
-    "009155": {
-      "name": "삼성전기우",
-      "entry_date": "2026-10-07",
-      "entry_price": 532000.0,
-      "shares": 185,
-      "peak": 532000.0
-    },
     "353200": {
       "name": "대덕전자",
       "entry_date": "2026-10-07",
@@ -50,13 +36,13 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "peak": 153100.0
+      "peak": 155700.0
     }
   },
   "hedge": {
     "active": true,
     "weight": 0.3,
-    "shares": 262361,
+    "shares": 249238,
     "entry_price": 1078.0
   },
   "overheat": false,
@@ -526,6 +512,30 @@
       "shares": 615,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-10-13",
+      "ticker": "001820",
+      "name": "삼화콘덴서",
+      "action": "SELL",
+      "price": 142700.0,
+      "shares": 658,
+      "reason": "trailing",
+      "pnl_pct": -2.53,
+      "pnl_krw": -2434718.0,
+      "hold_days": 20
+    },
+    {
+      "date": "2026-10-13",
+      "ticker": "009155",
+      "name": "삼성전기우",
+      "action": "SELL",
+      "price": 485500.0,
+      "shares": 185,
+      "reason": "hard_stop",
+      "pnl_pct": -8.93,
+      "pnl_krw": -8792407.0,
+      "hold_days": 6
     }
   ],
   "equity_curve": [
@@ -604,56 +614,37 @@
     {
       "date": "2026-10-12",
       "equity": 942850545.0
-    }
-  ],
-  "today_entries": [
+    },
     {
-      "date": "2026-10-12",
-      "ticker": "096770",
-      "name": "SK이노베이션",
-      "action": "BUY",
-      "price": 153100.0,
-      "shares": 615,
-      "reason": "entry",
-      "pnl_pct": null
+      "date": "2026-10-13",
+      "equity": 953061703.0
     }
   ],
+  "today_entries": [],
   "today_exits": [
     {
-      "date": "2026-10-12",
-      "ticker": "229640",
-      "name": "LS에코에너지",
+      "date": "2026-10-13",
+      "ticker": "001820",
+      "name": "삼화콘덴서",
       "action": "SELL",
-      "price": 67050.0,
-      "shares": 2057,
+      "price": 142700.0,
+      "shares": 658,
       "reason": "trailing",
-      "pnl_pct": 37.67,
-      "pnl_krw": 37667707.0,
-      "hold_days": 32
+      "pnl_pct": -2.53,
+      "pnl_krw": -2434718.0,
+      "hold_days": 20
     },
     {
-      "date": "2026-10-12",
-      "ticker": "007340",
-      "name": "DN오토모티브",
+      "date": "2026-10-13",
+      "ticker": "009155",
+      "name": "삼성전기우",
       "action": "SELL",
-      "price": 45000.0,
-      "shares": 2003,
-      "reason": "trailing",
-      "pnl_pct": -6.45,
-      "pnl_krw": -6199185.0,
-      "hold_days": 19
-    },
-    {
-      "date": "2026-10-12",
-      "ticker": "009150",
-      "name": "삼성전기",
-      "action": "SELL",
-      "price": 1500300.0,
-      "shares": 58,
-      "reason": "trailing",
-      "pnl_pct": 0.14,
-      "pnl_krw": 124710.0,
-      "hold_days": 14
+      "price": 485500.0,
+      "shares": 185,
+      "reason": "hard_stop",
+      "pnl_pct": -8.93,
+      "pnl_krw": -8792407.0,
+      "hold_days": 6
     }
   ]
 }
