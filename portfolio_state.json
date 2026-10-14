@@ -1,14 +1,14 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-13",
-  "cash": 214330117.49674946,
+  "last_date": "2026-10-14",
+  "cash": 19581767.625449464,
   "positions": {
     "001120": {
       "name": "LX인터내셔널",
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "peak": 44050.0
+      "peak": 44800.0
     },
     "003490": {
       "name": "대한항공",
@@ -36,14 +36,28 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "peak": 155700.0
+      "peak": 164000.0
+    },
+    "005830": {
+      "name": "DB손해보험",
+      "entry_date": "2026-10-14",
+      "entry_price": 185700.0,
+      "shares": 516,
+      "peak": 185700.0
+    },
+    "030000": {
+      "name": "제일기획",
+      "entry_date": "2026-10-14",
+      "entry_price": 19400.0,
+      "shares": 4945,
+      "peak": 19400.0
     }
   },
   "hedge": {
     "active": true,
     "weight": 0.3,
-    "shares": 249238,
-    "entry_price": 1078.0
+    "shares": 251832,
+    "entry_price": 1143.0
   },
   "overheat": false,
   "history": [
@@ -536,6 +550,26 @@
       "pnl_pct": -8.93,
       "pnl_krw": -8792407.0,
       "hold_days": 6
+    },
+    {
+      "date": "2026-10-14",
+      "ticker": "005830",
+      "name": "DB손해보험",
+      "action": "BUY",
+      "price": 185700.0,
+      "shares": 516,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-10-14",
+      "ticker": "030000",
+      "name": "제일기획",
+      "action": "BUY",
+      "price": 19400.0,
+      "shares": 4945,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -618,33 +652,33 @@
     {
       "date": "2026-10-13",
       "equity": 953061703.0
-    }
-  ],
-  "today_entries": [],
-  "today_exits": [
-    {
-      "date": "2026-10-13",
-      "ticker": "001820",
-      "name": "삼화콘덴서",
-      "action": "SELL",
-      "price": 142700.0,
-      "shares": 658,
-      "reason": "trailing",
-      "pnl_pct": -2.53,
-      "pnl_krw": -2434718.0,
-      "hold_days": 20
     },
     {
-      "date": "2026-10-13",
-      "ticker": "009155",
-      "name": "삼성전기우",
-      "action": "SELL",
-      "price": 485500.0,
-      "shares": 185,
-      "reason": "hard_stop",
-      "pnl_pct": -8.93,
-      "pnl_krw": -8792407.0,
-      "hold_days": 6
+      "date": "2026-10-14",
+      "equity": 959598244.0
     }
-  ]
+  ],
+  "today_entries": [
+    {
+      "date": "2026-10-14",
+      "ticker": "005830",
+      "name": "DB손해보험",
+      "action": "BUY",
+      "price": 185700.0,
+      "shares": 516,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-10-14",
+      "ticker": "030000",
+      "name": "제일기획",
+      "action": "BUY",
+      "price": 19400.0,
+      "shares": 4945,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": []
 }

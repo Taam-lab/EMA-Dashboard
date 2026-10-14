@@ -1,44 +1,72 @@
 {
   "asof": "2026-10-14",
   "inception_date": "2026-09-10",
-  "disparity": 90.0,
+  "disparity": 88.8,
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.3,
-  "equity": 955557367.0,
-  "cash": 214330117.0,
+  "equity": 959598244.0,
+  "cash": 19581768.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 12013995.0,
+  "unrealized_pnl": 11195922.0,
   "realized_pnl": -67721305.0,
-  "n_positions": 5,
+  "n_positions": 7,
   "max_slots": 7,
   "positions": [
-    {
-      "ticker": "003490",
-      "name": "대한항공",
-      "entry_date": "2026-09-29",
-      "entry_price": 31200.0,
-      "shares": 2349,
-      "current_price": 30100.0,
-      "pnl_pct": -3.53,
-      "peak_dd_pct": -5.94,
-      "stop_price": 29016.0,
-      "stop_dist_pct": 3.6,
-      "risk": false,
-      "in_universe": true
-    },
     {
       "ticker": "353200",
       "name": "대덕전자",
       "entry_date": "2026-10-07",
       "entry_price": 151800.0,
       "shares": 577,
-      "current_price": 146700.0,
-      "pnl_pct": -3.36,
-      "peak_dd_pct": -7.62,
+      "current_price": 145100.0,
+      "pnl_pct": -4.41,
+      "peak_dd_pct": -8.63,
       "stop_price": 142920.0,
-      "stop_dist_pct": 2.58,
+      "stop_dist_pct": 1.5,
       "risk": true,
+      "in_universe": true
+    },
+    {
+      "ticker": "003490",
+      "name": "대한항공",
+      "entry_date": "2026-09-29",
+      "entry_price": 31200.0,
+      "shares": 2349,
+      "current_price": 30200.0,
+      "pnl_pct": -3.21,
+      "peak_dd_pct": -5.63,
+      "stop_price": 29016.0,
+      "stop_dist_pct": 3.92,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "005830",
+      "name": "DB손해보험",
+      "entry_date": "2026-10-14",
+      "entry_price": 185700.0,
+      "shares": 516,
+      "current_price": 185700.0,
+      "pnl_pct": 0.0,
+      "peak_dd_pct": 0.0,
+      "stop_price": 172701.0,
+      "stop_dist_pct": 7.0,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "030000",
+      "name": "제일기획",
+      "entry_date": "2026-10-14",
+      "entry_price": 19400.0,
+      "shares": 4945,
+      "current_price": 19400.0,
+      "pnl_pct": 0.0,
+      "peak_dd_pct": 0.0,
+      "stop_price": 18042.0,
+      "stop_dist_pct": 7.0,
+      "risk": false,
       "in_universe": true
     },
     {
@@ -47,11 +75,11 @@
       "entry_date": "2026-10-01",
       "entry_price": 212000.0,
       "shares": 438,
-      "current_price": 216000.0,
-      "pnl_pct": 1.89,
-      "peak_dd_pct": -7.3,
+      "current_price": 212500.0,
+      "pnl_pct": 0.24,
+      "peak_dd_pct": -8.8,
       "stop_price": 209700.0,
-      "stop_dist_pct": 2.92,
+      "stop_dist_pct": 1.32,
       "risk": true,
       "in_universe": true
     },
@@ -61,11 +89,11 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "current_price": 163500.0,
-      "pnl_pct": 6.79,
-      "peak_dd_pct": 5.01,
-      "stop_price": 142383.0,
-      "stop_dist_pct": 12.92,
+      "current_price": 164000.0,
+      "pnl_pct": 7.12,
+      "peak_dd_pct": 0.0,
+      "stop_price": 147600.0,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     },
@@ -75,38 +103,47 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 44200.0,
-      "pnl_pct": 10.36,
-      "peak_dd_pct": 0.34,
-      "stop_price": 39645.0,
-      "stop_dist_pct": 10.31,
+      "current_price": 44800.0,
+      "pnl_pct": 11.86,
+      "peak_dd_pct": 0.0,
+      "stop_price": 40320.0,
+      "stop_dist_pct": 10.0,
       "risk": false,
       "in_universe": true
     }
   ],
-  "today_entries": [],
+  "today_entries": [
+    {
+      "date": "2026-10-14",
+      "ticker": "005830",
+      "name": "DB손해보험",
+      "action": "BUY",
+      "price": 185700.0,
+      "shares": 516,
+      "reason": "entry",
+      "pnl_pct": null
+    },
+    {
+      "date": "2026-10-14",
+      "ticker": "030000",
+      "name": "제일기획",
+      "action": "BUY",
+      "price": 19400.0,
+      "shares": 4945,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
   "today_exits": [],
   "watch_entries": [
     {
-      "ticker": "033780",
-      "name": "KTG",
-      "price": 181300.0,
-      "mom_120d_pct": 6.4
-    },
-    {
-      "ticker": "030000",
-      "name": "제일기획",
-      "price": 19330.0,
-      "mom_120d_pct": -1.8
-    },
-    {
       "ticker": "012750",
       "name": "에스원",
-      "price": 86500.0,
-      "mom_120d_pct": -5.8
+      "price": 86000.0,
+      "mom_120d_pct": -6.3
     }
   ],
   "corp_actions": [],
-  "price_basis": "intraday",
-  "generated_at": "2026-10-14 11:30 KST"
+  "price_basis": "snapshot",
+  "generated_at": "2026-10-14 15:05 KST"
 }
