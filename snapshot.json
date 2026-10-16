@@ -1,29 +1,29 @@
 {
   "asof": "2026-10-16",
   "inception_date": "2026-09-10",
-  "disparity": 85.0,
+  "disparity": 85.4,
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.3,
-  "equity": 958577902.0,
-  "cash": 29946.0,
+  "equity": 956549193.0,
+  "cash": 159867.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 15000326.0,
-  "realized_pnl": -90719951.0,
+  "unrealized_pnl": 15968282.0,
+  "realized_pnl": -92775153.0,
   "n_positions": 7,
   "max_slots": 7,
   "positions": [
     {
-      "ticker": "005830",
-      "name": "DB손해보험",
-      "entry_date": "2026-10-14",
-      "entry_price": 185700.0,
-      "shares": 516,
-      "current_price": 182600.0,
-      "pnl_pct": -1.67,
-      "peak_dd_pct": -1.67,
-      "stop_price": 172701.0,
-      "stop_dist_pct": 5.42,
+      "ticker": "018670",
+      "name": "SK가스",
+      "entry_date": "2026-10-16",
+      "entry_price": 271500.0,
+      "shares": 309,
+      "current_price": 271500.0,
+      "pnl_pct": 0.0,
+      "peak_dd_pct": 0.0,
+      "stop_price": 252495.0,
+      "stop_dist_pct": 7.0,
       "risk": false,
       "in_universe": true
     },
@@ -33,12 +33,12 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "current_price": 151400.0,
-      "pnl_pct": -1.11,
-      "peak_dd_pct": -7.68,
+      "current_price": 153300.0,
+      "pnl_pct": 0.13,
+      "peak_dd_pct": -6.52,
       "stop_price": 147600.0,
-      "stop_dist_pct": 2.51,
-      "risk": true,
+      "stop_dist_pct": 3.72,
+      "risk": false,
       "in_universe": true
     },
     {
@@ -47,11 +47,11 @@
       "entry_date": "2026-10-15",
       "entry_price": 26600.0,
       "shares": 3614,
-      "current_price": 27100.0,
-      "pnl_pct": 1.88,
-      "peak_dd_pct": 1.88,
+      "current_price": 26850.0,
+      "pnl_pct": 0.94,
+      "peak_dd_pct": 0.0,
       "stop_price": 24738.0,
-      "stop_dist_pct": 8.72,
+      "stop_dist_pct": 7.87,
       "risk": false,
       "in_universe": true
     },
@@ -61,11 +61,11 @@
       "entry_date": "2026-10-15",
       "entry_price": 62000.0,
       "shares": 1385,
-      "current_price": 63200.0,
-      "pnl_pct": 1.94,
-      "peak_dd_pct": 1.94,
+      "current_price": 62900.0,
+      "pnl_pct": 1.45,
+      "peak_dd_pct": 0.0,
       "stop_price": 57660.0,
-      "stop_dist_pct": 8.77,
+      "stop_dist_pct": 8.33,
       "risk": false,
       "in_universe": true
     },
@@ -75,11 +75,11 @@
       "entry_date": "2026-10-14",
       "entry_price": 19400.0,
       "shares": 4945,
-      "current_price": 19780.0,
-      "pnl_pct": 1.96,
-      "peak_dd_pct": 1.96,
+      "current_price": 19720.0,
+      "pnl_pct": 1.65,
+      "peak_dd_pct": 0.0,
       "stop_price": 18042.0,
-      "stop_dist_pct": 8.79,
+      "stop_dist_pct": 8.51,
       "risk": false,
       "in_universe": true
     },
@@ -89,11 +89,11 @@
       "entry_date": "2026-10-15",
       "entry_price": 23150.0,
       "shares": 4153,
-      "current_price": 23750.0,
-      "pnl_pct": 2.59,
-      "peak_dd_pct": 2.59,
+      "current_price": 23700.0,
+      "pnl_pct": 2.38,
+      "peak_dd_pct": 0.0,
       "stop_price": 21529.5,
-      "stop_dist_pct": 9.35,
+      "stop_dist_pct": 9.16,
       "risk": false,
       "in_universe": true
     },
@@ -112,17 +112,41 @@
       "in_universe": true
     }
   ],
-  "today_entries": [],
-  "today_exits": [],
-  "watch_entries": [
+  "today_entries": [
     {
+      "date": "2026-10-16",
       "ticker": "018670",
       "name": "SK가스",
-      "price": 269000.0,
-      "mom_120d_pct": 10.7
+      "action": "BUY",
+      "price": 271500.0,
+      "shares": 309,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": [
+    {
+      "date": "2026-10-16",
+      "ticker": "005830",
+      "name": "DB손해보험",
+      "action": "SELL",
+      "price": 182100.0,
+      "shares": 516,
+      "reason": "death_cross",
+      "pnl_pct": -2.14,
+      "pnl_krw": -2055202.0,
+      "hold_days": 2
+    }
+  ],
+  "watch_entries": [
+    {
+      "ticker": "012750",
+      "name": "에스원",
+      "price": 97400.0,
+      "mom_120d_pct": 5.6
     }
   ],
   "corp_actions": [],
-  "price_basis": "intraday",
-  "generated_at": "2026-10-16 11:30 KST"
+  "price_basis": "snapshot",
+  "generated_at": "2026-10-16 15:05 KST"
 }

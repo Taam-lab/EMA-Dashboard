@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-15",
-  "cash": 29945.915549382567,
+  "last_date": "2026-10-16",
+  "cash": 159867.43494938314,
   "positions": {
     "001120": {
       "name": "LX인터내셔널",
@@ -17,47 +17,47 @@
       "shares": 615,
       "peak": 164000.0
     },
-    "005830": {
-      "name": "DB손해보험",
-      "entry_date": "2026-10-14",
-      "entry_price": 185700.0,
-      "shares": 516,
-      "peak": 185700.0
-    },
     "030000": {
       "name": "제일기획",
       "entry_date": "2026-10-14",
       "entry_price": 19400.0,
       "shares": 4945,
-      "peak": 19400.0
+      "peak": 19720.0
     },
     "011200": {
       "name": "HMM",
       "entry_date": "2026-10-15",
       "entry_price": 23150.0,
       "shares": 4153,
-      "peak": 23150.0
+      "peak": 23700.0
     },
     "000240": {
       "name": "한국앤컴퍼니",
       "entry_date": "2026-10-15",
       "entry_price": 26600.0,
       "shares": 3614,
-      "peak": 26600.0
+      "peak": 26850.0
     },
     "161390": {
       "name": "한국타이어앤테크놀로지",
       "entry_date": "2026-10-15",
       "entry_price": 62000.0,
       "shares": 1385,
-      "peak": 62000.0
+      "peak": 62900.0
+    },
+    "018670": {
+      "name": "SK가스",
+      "entry_date": "2026-10-16",
+      "entry_price": 271500.0,
+      "shares": 309,
+      "peak": 271500.0
     }
   },
   "hedge": {
     "active": true,
     "weight": 0.3,
-    "shares": 229646,
-    "entry_price": 1143.0
+    "shares": 237718,
+    "entry_price": 1207.0
   },
   "overheat": false,
   "history": [
@@ -636,6 +636,28 @@
       "shares": 1385,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-10-16",
+      "ticker": "005830",
+      "name": "DB손해보험",
+      "action": "SELL",
+      "price": 182100.0,
+      "shares": 516,
+      "reason": "death_cross",
+      "pnl_pct": -2.14,
+      "pnl_krw": -2055202.0,
+      "hold_days": 2
+    },
+    {
+      "date": "2026-10-16",
+      "ticker": "018670",
+      "name": "SK가스",
+      "action": "BUY",
+      "price": 271500.0,
+      "shares": 309,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -726,76 +748,36 @@
     {
       "date": "2026-10-15",
       "equity": 961549872.0
+    },
+    {
+      "date": "2026-10-16",
+      "equity": 956549193.0
     }
   ],
   "today_entries": [
     {
-      "date": "2026-10-15",
-      "ticker": "011200",
-      "name": "HMM",
+      "date": "2026-10-16",
+      "ticker": "018670",
+      "name": "SK가스",
       "action": "BUY",
-      "price": 23150.0,
-      "shares": 4153,
-      "reason": "entry",
-      "pnl_pct": null
-    },
-    {
-      "date": "2026-10-15",
-      "ticker": "000240",
-      "name": "한국앤컴퍼니",
-      "action": "BUY",
-      "price": 26600.0,
-      "shares": 3614,
-      "reason": "entry",
-      "pnl_pct": null
-    },
-    {
-      "date": "2026-10-15",
-      "ticker": "161390",
-      "name": "한국타이어앤테크놀로지",
-      "action": "BUY",
-      "price": 62000.0,
-      "shares": 1385,
+      "price": 271500.0,
+      "shares": 309,
       "reason": "entry",
       "pnl_pct": null
     }
   ],
   "today_exits": [
     {
-      "date": "2026-10-15",
-      "ticker": "003490",
-      "name": "대한항공",
+      "date": "2026-10-16",
+      "ticker": "005830",
+      "name": "DB손해보험",
       "action": "SELL",
-      "price": 29100.0,
-      "shares": 2349,
+      "price": 182100.0,
+      "shares": 516,
       "reason": "death_cross",
-      "pnl_pct": -6.93,
-      "pnl_krw": -5077187.0,
-      "hold_days": 16
-    },
-    {
-      "date": "2026-10-15",
-      "ticker": "062040",
-      "name": "산일전기",
-      "action": "SELL",
-      "price": 196900.0,
-      "shares": 438,
-      "reason": "trailing",
-      "pnl_pct": -7.32,
-      "pnl_krw": -6795901.0,
-      "hold_days": 14
-    },
-    {
-      "date": "2026-10-15",
-      "ticker": "353200",
-      "name": "대덕전자",
-      "action": "SELL",
-      "price": 132800.0,
-      "shares": 577,
-      "reason": "trailing",
-      "pnl_pct": -12.7,
-      "pnl_krw": -11125558.0,
-      "hold_days": 8
+      "pnl_pct": -2.14,
+      "pnl_krw": -2055202.0,
+      "hold_days": 2
     }
   ]
 }
