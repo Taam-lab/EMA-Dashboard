@@ -1,14 +1,14 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-16",
-  "cash": 159867.43494938314,
+  "last_date": "2026-10-19",
+  "cash": 547.5405493831204,
   "positions": {
     "001120": {
       "name": "LX인터내셔널",
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "peak": 44800.0
+      "peak": 44900.0
     },
     "096770": {
       "name": "SK이노베이션",
@@ -22,14 +22,14 @@
       "entry_date": "2026-10-14",
       "entry_price": 19400.0,
       "shares": 4945,
-      "peak": 19720.0
+      "peak": 19990.0
     },
     "011200": {
       "name": "HMM",
       "entry_date": "2026-10-15",
       "entry_price": 23150.0,
       "shares": 4153,
-      "peak": 23700.0
+      "peak": 23950.0
     },
     "000240": {
       "name": "한국앤컴퍼니",
@@ -43,21 +43,21 @@
       "entry_date": "2026-10-15",
       "entry_price": 62000.0,
       "shares": 1385,
-      "peak": 62900.0
+      "peak": 64200.0
     },
     "018670": {
       "name": "SK가스",
       "entry_date": "2026-10-16",
       "entry_price": 271500.0,
       "shares": 309,
-      "peak": 271500.0
+      "peak": 281500.0
     }
   },
   "hedge": {
     "active": true,
     "weight": 0.3,
-    "shares": 237718,
-    "entry_price": 1207.0
+    "shares": 237849,
+    "entry_price": 1216.0
   },
   "overheat": false,
   "history": [
@@ -752,32 +752,12 @@
     {
       "date": "2026-10-16",
       "equity": 956549193.0
+    },
+    {
+      "date": "2026-10-19",
+      "equity": 971534332.0
     }
   ],
-  "today_entries": [
-    {
-      "date": "2026-10-16",
-      "ticker": "018670",
-      "name": "SK가스",
-      "action": "BUY",
-      "price": 271500.0,
-      "shares": 309,
-      "reason": "entry",
-      "pnl_pct": null
-    }
-  ],
-  "today_exits": [
-    {
-      "date": "2026-10-16",
-      "ticker": "005830",
-      "name": "DB손해보험",
-      "action": "SELL",
-      "price": 182100.0,
-      "shares": 516,
-      "reason": "death_cross",
-      "pnl_pct": -2.14,
-      "pnl_krw": -2055202.0,
-      "hold_days": 2
-    }
-  ]
+  "today_entries": [],
+  "today_exits": []
 }
