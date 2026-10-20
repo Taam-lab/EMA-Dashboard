@@ -1,14 +1,14 @@
 {
   "asof": "2026-10-20",
   "inception_date": "2026-09-10",
-  "disparity": 83.6,
+  "disparity": 83.8,
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.3,
   "equity": 952976956.0,
   "cash": 4912156.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 9579253.0,
+  "unrealized_pnl": 10868934.0,
   "realized_pnl": -99693177.0,
   "n_positions": 7,
   "max_slots": 7,
@@ -19,11 +19,11 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "current_price": 149700.0,
-      "pnl_pct": -2.22,
-      "peak_dd_pct": -8.72,
+      "current_price": 148100.0,
+      "pnl_pct": -3.27,
+      "peak_dd_pct": -9.7,
       "stop_price": 147600.0,
-      "stop_dist_pct": 1.4,
+      "stop_dist_pct": 0.34,
       "risk": true,
       "in_universe": true
     },
@@ -33,11 +33,11 @@
       "entry_date": "2026-10-16",
       "entry_price": 271500.0,
       "shares": 309,
-      "current_price": 270000.0,
-      "pnl_pct": -0.55,
-      "peak_dd_pct": -4.09,
+      "current_price": 270500.0,
+      "pnl_pct": -0.37,
+      "peak_dd_pct": -3.91,
       "stop_price": 253350.0,
-      "stop_dist_pct": 6.17,
+      "stop_dist_pct": 6.34,
       "risk": false,
       "in_universe": true
     },
@@ -47,25 +47,11 @@
       "entry_date": "2026-10-20",
       "entry_price": 107300.0,
       "shares": 888,
-      "current_price": 107300.0,
-      "pnl_pct": 0.0,
-      "peak_dd_pct": 0.0,
+      "current_price": 107700.0,
+      "pnl_pct": 0.37,
+      "peak_dd_pct": 0.37,
       "stop_price": 99789.0,
-      "stop_dist_pct": 7.0,
-      "risk": false,
-      "in_universe": true
-    },
-    {
-      "ticker": "011200",
-      "name": "HMM",
-      "entry_date": "2026-10-15",
-      "entry_price": 23150.0,
-      "shares": 4153,
-      "current_price": 23250.0,
-      "pnl_pct": 0.43,
-      "peak_dd_pct": -2.92,
-      "stop_price": 21555.0,
-      "stop_dist_pct": 7.29,
+      "stop_dist_pct": 7.35,
       "risk": false,
       "in_universe": true
     },
@@ -75,11 +61,25 @@
       "entry_date": "2026-10-15",
       "entry_price": 62000.0,
       "shares": 1385,
-      "current_price": 62300.0,
-      "pnl_pct": 0.48,
-      "peak_dd_pct": -2.96,
+      "current_price": 62600.0,
+      "pnl_pct": 0.97,
+      "peak_dd_pct": -2.49,
       "stop_price": 57780.0,
-      "stop_dist_pct": 7.26,
+      "stop_dist_pct": 7.7,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "011200",
+      "name": "HMM",
+      "entry_date": "2026-10-15",
+      "entry_price": 23150.0,
+      "shares": 4153,
+      "current_price": 23450.0,
+      "pnl_pct": 1.3,
+      "peak_dd_pct": -2.09,
+      "stop_price": 21555.0,
+      "stop_dist_pct": 8.08,
       "risk": false,
       "in_universe": true
     },
@@ -89,11 +89,11 @@
       "entry_date": "2026-10-14",
       "entry_price": 19400.0,
       "shares": 4945,
-      "current_price": 19670.0,
-      "pnl_pct": 1.39,
-      "peak_dd_pct": -1.6,
+      "current_price": 19750.0,
+      "pnl_pct": 1.8,
+      "peak_dd_pct": -1.2,
       "stop_price": 18042.0,
-      "stop_dist_pct": 8.28,
+      "stop_dist_pct": 8.65,
       "risk": false,
       "in_universe": true
     },
@@ -103,11 +103,11 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 44600.0,
-      "pnl_pct": 11.36,
-      "peak_dd_pct": -0.67,
+      "current_price": 44650.0,
+      "pnl_pct": 11.49,
+      "peak_dd_pct": -0.56,
       "stop_price": 40410.0,
-      "stop_dist_pct": 9.39,
+      "stop_dist_pct": 9.5,
       "risk": false,
       "in_universe": true
     }
@@ -142,71 +142,59 @@
     {
       "ticker": "012750",
       "name": "에스원",
-      "price": 96900.0,
-      "mom_120d_pct": 9.0
-    },
-    {
-      "ticker": "004370",
-      "name": "농심",
-      "price": 408500.0,
-      "mom_120d_pct": 7.8
-    },
-    {
-      "ticker": "020150",
-      "name": "롯데에너지머티리얼즈",
-      "price": 57900.0,
-      "mom_120d_pct": 2.1
+      "price": 97300.0,
+      "mom_120d_pct": 9.4
     },
     {
       "ticker": "068270",
       "name": "셀트리온",
-      "price": 196500.0,
-      "mom_120d_pct": 1.6
+      "price": 197400.0,
+      "mom_120d_pct": 2.0
+    },
+    {
+      "ticker": "020150",
+      "name": "롯데에너지머티리얼즈",
+      "price": 56500.0,
+      "mom_120d_pct": -0.4
     },
     {
       "ticker": "036460",
       "name": "한국가스공사",
-      "price": 36400.0,
-      "mom_120d_pct": -1.8
+      "price": 36550.0,
+      "mom_120d_pct": -1.3
     },
     {
       "ticker": "000100",
       "name": "유한양행",
-      "price": 85900.0,
-      "mom_120d_pct": -11.0
+      "price": 86200.0,
+      "mom_120d_pct": -10.7
     },
     {
       "ticker": "207940",
       "name": "삼성바이오로직스",
-      "price": 1396000.0,
-      "mom_120d_pct": -11.4
+      "price": 1391000.0,
+      "mom_120d_pct": -11.7
     },
     {
       "ticker": "032640",
       "name": "LG유플러스",
-      "price": 15260.0,
-      "mom_120d_pct": -12.3
-    },
-    {
-      "ticker": "006400",
-      "name": "삼성SDI",
-      "price": 565000.0,
-      "mom_120d_pct": -12.4
-    },
-    {
-      "ticker": "373220",
-      "name": "LG에너지솔루션",
-      "price": 417500.0,
-      "mom_120d_pct": -12.7
+      "price": 15340.0,
+      "mom_120d_pct": -11.9
     },
     {
       "ticker": "111770",
       "name": "영원무역",
-      "price": 74300.0,
-      "mom_120d_pct": -13.0
+      "price": 74500.0,
+      "mom_120d_pct": -12.8
+    },
+    {
+      "ticker": "373220",
+      "name": "LG에너지솔루션",
+      "price": 414000.0,
+      "mom_120d_pct": -13.4
     }
   ],
   "corp_actions": [],
-  "price_basis": "snapshot",
-  "generated_at": "2026-10-20 15:05 KST"
+  "price_basis": "final",
+  "generated_at": "2026-10-20 21:52 KST"
 }
