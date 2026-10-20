@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-19",
-  "cash": 547.5405493831204,
+  "last_date": "2026-10-20",
+  "cash": 4912155.900349364,
   "positions": {
     "001120": {
       "name": "LX인터내셔널",
@@ -31,13 +31,6 @@
       "shares": 4153,
       "peak": 23950.0
     },
-    "000240": {
-      "name": "한국앤컴퍼니",
-      "entry_date": "2026-10-15",
-      "entry_price": 26600.0,
-      "shares": 3614,
-      "peak": 26850.0
-    },
     "161390": {
       "name": "한국타이어앤테크놀로지",
       "entry_date": "2026-10-15",
@@ -51,12 +44,19 @@
       "entry_price": 271500.0,
       "shares": 309,
       "peak": 281500.0
+    },
+    "021240": {
+      "name": "코웨이",
+      "entry_date": "2026-10-20",
+      "entry_price": 107300.0,
+      "shares": 888,
+      "peak": 107300.0
     }
   },
   "hedge": {
     "active": true,
     "weight": 0.3,
-    "shares": 237849,
+    "shares": 229050,
     "entry_price": 1216.0
   },
   "overheat": false,
@@ -658,6 +658,28 @@
       "shares": 309,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-10-20",
+      "ticker": "000240",
+      "name": "한국앤컴퍼니",
+      "action": "SELL",
+      "price": 24738.0,
+      "shares": 3614,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -6918024.0,
+      "hold_days": 5
+    },
+    {
+      "date": "2026-10-20",
+      "ticker": "021240",
+      "name": "코웨이",
+      "action": "BUY",
+      "price": 107300.0,
+      "shares": 888,
+      "reason": "entry",
+      "pnl_pct": null
     }
   ],
   "equity_curve": [
@@ -756,8 +778,36 @@
     {
       "date": "2026-10-19",
       "equity": 971534332.0
+    },
+    {
+      "date": "2026-10-20",
+      "equity": 952976956.0
     }
   ],
-  "today_entries": [],
-  "today_exits": []
+  "today_entries": [
+    {
+      "date": "2026-10-20",
+      "ticker": "021240",
+      "name": "코웨이",
+      "action": "BUY",
+      "price": 107300.0,
+      "shares": 888,
+      "reason": "entry",
+      "pnl_pct": null
+    }
+  ],
+  "today_exits": [
+    {
+      "date": "2026-10-20",
+      "ticker": "000240",
+      "name": "한국앤컴퍼니",
+      "action": "SELL",
+      "price": 24738.0,
+      "shares": 3614,
+      "reason": "hard_stop",
+      "pnl_pct": -7.2,
+      "pnl_krw": -6918024.0,
+      "hold_days": 5
+    }
+  ]
 }
