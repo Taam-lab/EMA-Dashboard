@@ -1,14 +1,14 @@
 {
-  "asof": "2026-10-20",
+  "asof": "2026-10-21",
   "inception_date": "2026-09-10",
-  "disparity": 83.8,
+  "disparity": 87.7,
   "overheat": false,
   "hedge_active": true,
   "hedge_weight": 0.3,
-  "equity": 952976956.0,
+  "equity": 933078506.0,
   "cash": 4912156.0,
   "initial_capital": 1000000000,
-  "unrealized_pnl": 10868934.0,
+  "unrealized_pnl": 4578823.0,
   "realized_pnl": -99693177.0,
   "n_positions": 7,
   "max_slots": 7,
@@ -19,40 +19,12 @@
       "entry_date": "2026-10-12",
       "entry_price": 153100.0,
       "shares": 615,
-      "current_price": 148100.0,
-      "pnl_pct": -3.27,
-      "peak_dd_pct": -9.7,
+      "current_price": 151400.0,
+      "pnl_pct": -1.11,
+      "peak_dd_pct": -7.68,
       "stop_price": 147600.0,
-      "stop_dist_pct": 0.34,
+      "stop_dist_pct": 2.51,
       "risk": true,
-      "in_universe": true
-    },
-    {
-      "ticker": "018670",
-      "name": "SK가스",
-      "entry_date": "2026-10-16",
-      "entry_price": 271500.0,
-      "shares": 309,
-      "current_price": 270500.0,
-      "pnl_pct": -0.37,
-      "peak_dd_pct": -3.91,
-      "stop_price": 253350.0,
-      "stop_dist_pct": 6.34,
-      "risk": false,
-      "in_universe": true
-    },
-    {
-      "ticker": "021240",
-      "name": "코웨이",
-      "entry_date": "2026-10-20",
-      "entry_price": 107300.0,
-      "shares": 888,
-      "current_price": 107700.0,
-      "pnl_pct": 0.37,
-      "peak_dd_pct": 0.37,
-      "stop_price": 99789.0,
-      "stop_dist_pct": 7.35,
-      "risk": false,
       "in_universe": true
     },
     {
@@ -61,11 +33,11 @@
       "entry_date": "2026-10-15",
       "entry_price": 62000.0,
       "shares": 1385,
-      "current_price": 62600.0,
-      "pnl_pct": 0.97,
-      "peak_dd_pct": -2.49,
+      "current_price": 61400.0,
+      "pnl_pct": -0.97,
+      "peak_dd_pct": -4.36,
       "stop_price": 57780.0,
-      "stop_dist_pct": 7.7,
+      "stop_dist_pct": 5.9,
       "risk": false,
       "in_universe": true
     },
@@ -75,11 +47,25 @@
       "entry_date": "2026-10-15",
       "entry_price": 23150.0,
       "shares": 4153,
-      "current_price": 23450.0,
-      "pnl_pct": 1.3,
-      "peak_dd_pct": -2.09,
+      "current_price": 23100.0,
+      "pnl_pct": -0.22,
+      "peak_dd_pct": -3.55,
       "stop_price": 21555.0,
-      "stop_dist_pct": 8.08,
+      "stop_dist_pct": 6.69,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "021240",
+      "name": "코웨이",
+      "entry_date": "2026-10-20",
+      "entry_price": 107300.0,
+      "shares": 888,
+      "current_price": 107200.0,
+      "pnl_pct": -0.09,
+      "peak_dd_pct": -0.09,
+      "stop_price": 99789.0,
+      "stop_dist_pct": 6.91,
       "risk": false,
       "in_universe": true
     },
@@ -89,11 +75,25 @@
       "entry_date": "2026-10-14",
       "entry_price": 19400.0,
       "shares": 4945,
-      "current_price": 19750.0,
-      "pnl_pct": 1.8,
-      "peak_dd_pct": -1.2,
+      "current_price": 19500.0,
+      "pnl_pct": 0.52,
+      "peak_dd_pct": -2.45,
       "stop_price": 18042.0,
-      "stop_dist_pct": 8.65,
+      "stop_dist_pct": 7.48,
+      "risk": false,
+      "in_universe": true
+    },
+    {
+      "ticker": "018670",
+      "name": "SK가스",
+      "entry_date": "2026-10-16",
+      "entry_price": 271500.0,
+      "shares": 309,
+      "current_price": 274000.0,
+      "pnl_pct": 0.92,
+      "peak_dd_pct": -2.66,
+      "stop_price": 253350.0,
+      "stop_dist_pct": 7.54,
       "risk": false,
       "in_universe": true
     },
@@ -103,98 +103,44 @@
       "entry_date": "2026-09-10",
       "entry_price": 40050.0,
       "shares": 2496,
-      "current_price": 44650.0,
-      "pnl_pct": 11.49,
-      "peak_dd_pct": -0.56,
+      "current_price": 42800.0,
+      "pnl_pct": 6.87,
+      "peak_dd_pct": -4.68,
       "stop_price": 40410.0,
-      "stop_dist_pct": 9.5,
+      "stop_dist_pct": 5.58,
       "risk": false,
       "in_universe": true
     }
   ],
-  "today_entries": [
-    {
-      "date": "2026-10-20",
-      "ticker": "021240",
-      "name": "코웨이",
-      "action": "BUY",
-      "price": 107300.0,
-      "shares": 888,
-      "reason": "entry",
-      "pnl_pct": null
-    }
-  ],
-  "today_exits": [
-    {
-      "date": "2026-10-20",
-      "ticker": "000240",
-      "name": "한국앤컴퍼니",
-      "action": "SELL",
-      "price": 24738.0,
-      "shares": 3614,
-      "reason": "hard_stop",
-      "pnl_pct": -7.2,
-      "pnl_krw": -6918024.0,
-      "hold_days": 5
-    }
-  ],
+  "today_entries": [],
+  "today_exits": [],
   "watch_entries": [
     {
-      "ticker": "012750",
-      "name": "에스원",
-      "price": 97300.0,
-      "mom_120d_pct": 9.4
+      "ticker": "004370",
+      "name": "농심",
+      "price": 410000.0,
+      "mom_120d_pct": 8.6
     },
     {
-      "ticker": "068270",
-      "name": "셀트리온",
-      "price": 197400.0,
-      "mom_120d_pct": 2.0
+      "ticker": "026960",
+      "name": "동서",
+      "price": 27550.0,
+      "mom_120d_pct": 2.4
     },
     {
-      "ticker": "020150",
-      "name": "롯데에너지머티리얼즈",
-      "price": 56500.0,
-      "mom_120d_pct": -0.4
+      "ticker": "006280",
+      "name": "녹십자",
+      "price": 132200.0,
+      "mom_120d_pct": -7.1
     },
     {
-      "ticker": "036460",
-      "name": "한국가스공사",
-      "price": 36550.0,
-      "mom_120d_pct": -1.3
-    },
-    {
-      "ticker": "000100",
-      "name": "유한양행",
-      "price": 86200.0,
-      "mom_120d_pct": -10.7
-    },
-    {
-      "ticker": "207940",
-      "name": "삼성바이오로직스",
-      "price": 1391000.0,
-      "mom_120d_pct": -11.7
-    },
-    {
-      "ticker": "032640",
-      "name": "LG유플러스",
-      "price": 15340.0,
-      "mom_120d_pct": -11.9
-    },
-    {
-      "ticker": "111770",
-      "name": "영원무역",
-      "price": 74500.0,
-      "mom_120d_pct": -12.8
-    },
-    {
-      "ticker": "373220",
-      "name": "LG에너지솔루션",
-      "price": 414000.0,
-      "mom_120d_pct": -13.4
+      "ticker": "007310",
+      "name": "오뚜기",
+      "price": 322500.0,
+      "mom_120d_pct": -11.5
     }
   ],
   "corp_actions": [],
-  "price_basis": "final",
-  "generated_at": "2026-10-21 08:00 KST"
+  "price_basis": "intraday",
+  "generated_at": "2026-10-21 11:30 KST"
 }
