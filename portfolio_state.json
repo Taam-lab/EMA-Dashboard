@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-20",
-  "cash": 4912155.900349364,
+  "last_date": "2026-10-21",
+  "cash": 303.23294936306775,
   "positions": {
     "001120": {
       "name": "LX인터내셔널",
@@ -56,8 +56,8 @@
   "hedge": {
     "active": true,
     "weight": 0.3,
-    "shares": 229050,
-    "entry_price": 1216.0
+    "shares": 233129,
+    "entry_price": 1204.0
   },
   "overheat": false,
   "history": [
@@ -782,32 +782,12 @@
     {
       "date": "2026-10-20",
       "equity": 952976956.0
+    },
+    {
+      "date": "2026-10-21",
+      "equity": 941625469.0
     }
   ],
-  "today_entries": [
-    {
-      "date": "2026-10-20",
-      "ticker": "021240",
-      "name": "코웨이",
-      "action": "BUY",
-      "price": 107300.0,
-      "shares": 888,
-      "reason": "entry",
-      "pnl_pct": null
-    }
-  ],
-  "today_exits": [
-    {
-      "date": "2026-10-20",
-      "ticker": "000240",
-      "name": "한국앤컴퍼니",
-      "action": "SELL",
-      "price": 24738.0,
-      "shares": 3614,
-      "reason": "hard_stop",
-      "pnl_pct": -7.2,
-      "pnl_krw": -6918024.0,
-      "hold_days": 5
-    }
-  ]
+  "today_entries": [],
+  "today_exits": []
 }
