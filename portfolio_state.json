@@ -1,7 +1,7 @@
 {
   "inception_date": "2026-09-10",
-  "last_date": "2026-10-21",
-  "cash": 303.23294936306775,
+  "last_date": "2026-10-22",
+  "cash": 99504328.67729937,
   "positions": {
     "001120": {
       "name": "LX인터내셔널",
@@ -9,13 +9,6 @@
       "entry_price": 40050.0,
       "shares": 2496,
       "peak": 44900.0
-    },
-    "096770": {
-      "name": "SK이노베이션",
-      "entry_date": "2026-10-12",
-      "entry_price": 153100.0,
-      "shares": 615,
-      "peak": 164000.0
     },
     "030000": {
       "name": "제일기획",
@@ -56,7 +49,7 @@
   "hedge": {
     "active": true,
     "weight": 0.3,
-    "shares": 233129,
+    "shares": 226008,
     "entry_price": 1204.0
   },
   "overheat": false,
@@ -680,6 +673,18 @@
       "shares": 888,
       "reason": "entry",
       "pnl_pct": null
+    },
+    {
+      "date": "2026-10-22",
+      "ticker": "096770",
+      "name": "SK이노베이션",
+      "action": "SELL",
+      "price": 147600.0,
+      "shares": 615,
+      "reason": "trailing",
+      "pnl_pct": -3.79,
+      "pnl_krw": -3573633.0,
+      "hold_days": 10
     }
   ],
   "equity_curve": [
@@ -786,8 +791,25 @@
     {
       "date": "2026-10-21",
       "equity": 941625469.0
+    },
+    {
+      "date": "2026-10-22",
+      "equity": 942595387.0
     }
   ],
   "today_entries": [],
-  "today_exits": []
+  "today_exits": [
+    {
+      "date": "2026-10-22",
+      "ticker": "096770",
+      "name": "SK이노베이션",
+      "action": "SELL",
+      "price": 147600.0,
+      "shares": 615,
+      "reason": "trailing",
+      "pnl_pct": -3.79,
+      "pnl_krw": -3573633.0,
+      "hold_days": 10
+    }
+  ]
 }
