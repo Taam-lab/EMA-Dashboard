@@ -30,7 +30,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 안전망이라 로컬(작업 스케줄러)이 오늘을 이미 처리했으면 아무것도 하지 않는다.
+      # 예전엔 매일 무조건 돌아 로컬이 만든 스냅샷을 다시 썼다. 수동 실행(Run workflow)은 항상 돈다.
+      - name: Skip if local run already processed today
+        id: check
+        run: |
+          today=$(TZ=Asia/Seoul date +%F)
+          last=$(python3 -c "import json,os; print(json.load(open('portfolio_state.json'))['last_date'] if os.path.exists('portfolio_state.json') else '')")
+          echo "today=$today last_date=$last event=${{ github.event_name }}"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$last" = "$today" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"; echo "로컬이 이미 처리함 — 건너뜀"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v5
+        if: steps.check.outputs.skip != 'true'
         with:
           python-version: "3.11"
 
@@ -38,24 +53,28 @@ jobs:
       # 키에 날짜를 넣어야 매일 '갱신된' 캐시가 새로 저장됨.
       # (키가 고정이면 캐시 적중 시 저장을 건너뛰어 첫날 캐시에 영원히 묶임)
       - name: Cache price data
+        if: steps.check.outputs.skip != 'true'
         uses: actions/cache@v4
         with:
           path: data
-          key: ohlcv-${{ github.run_id }}
-          restore-keys: ohlcv-
+          key: etf-ohlcv-${{ github.run_id }}      # ETF 전환 후 새 접두어 (주식 캐시는 불필요)
+          restore-keys: etf-ohlcv-
 
       - name: Install deps
+        if: steps.check.outputs.skip != 'true'
         run: pip install -r requirements-daily.txt
 
       # KRX 가 로그인 필수로 바뀌어 pykrx 조회에 계정이 필요함.
       # 저장소 Settings → Secrets and variables → Actions 에 KRX_ID / KRX_PW 등록 필요.
       - name: Run daily update
+        if: steps.check.outputs.skip != 'true'
         env:
           KRX_ID: ${{ secrets.KRX_ID }}
           KRX_PW: ${{ secrets.KRX_PW }}
         run: python run_daily.py
 
       - name: Commit results
+        if: steps.check.outputs.skip != 'true'
         run: |
           git config user.name  "github-actions"
           git config user.email "actions@github.com"

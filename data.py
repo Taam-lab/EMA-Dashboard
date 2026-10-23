@@ -1,7 +1,8 @@
 """
 data.py — 거래소(KRX) 데이터 수집 + 로컬 parquet 캐시 (pykrx 기반)
 
-주 경로는 KRX 일괄 시세다. get_market_ohlcv_by_ticker 가 '하루치 전종목'을 한 번에 주므로,
+주 경로는 KRX 일괄 시세다. get_etf_ohlcv_by_ticker(ETF 유니버스) 또는 get_market_ohlcv_by_ticker
+(주식 유니버스)가 '하루치 전종목'을 한 번에 주므로,
 캐시에 쌓아 둔 수정주가 이력에 최근 5거래일만 덮어쓰면 된다. 수집 전체가 수 초다.
 
 네이버 수정주가(get_market_ohlcv, adjusted=True)는 필요한 종목에만 부른다.
@@ -28,6 +29,7 @@ import socket
 import time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+import numpy as np
 import pandas as pd
 import config as C
 
@@ -81,16 +83,41 @@ KST = ZoneInfo("Asia/Seoul")
 _STOCK = None
 
 
+LOGIN_RETRIES = 4           # KRX 로그인 실패 시 재시도 (15·30·45초 간격 → 최대 약 1분 30초)
+
+
 def _pykrx():
-    # 매 호출마다 import 를 확인하면 한 실행에 1000번 넘게 불려 2.5초가 샌다
+    """pykrx 모듈. 매 호출마다 import 를 확인하면 한 실행에 1000번 넘게 불려 2.5초가 새서 한 번만 연다.
+
+    pykrx 는 import 하는 순간 KRX 에 로그인한다. 로그인 응답이 JSON 이 아니면(일시 차단·점검)
+    import 자체가 예외로 끝나 이 파일의 재시도 로직이 손도 못 쓰고 배치가 죽는다
+    (10/23 이력 생성 직후 실제로 발생). 여기서 잡아 재시도한다. 실패한 import 는 반쯤 초기화된
+    pykrx 모듈을 sys.modules 에 남겨 다음 import 를 망가뜨리므로 지우고 다시 연다.
+    """
     global _STOCK
-    if _STOCK is None:
+    if _STOCK is not None:
+        return _STOCK
+    import sys
+    last = None
+    for attempt in range(LOGIN_RETRIES):
         try:
             from pykrx import stock
+            _STOCK = stock
+            return _STOCK
         except ImportError as e:
             raise ImportError("pykrx 필요: pip install pykrx") from e
-        _STOCK = stock
-    return _STOCK
+        except Exception as e:
+            last = e
+            for m in [m for m in sys.modules if m == "pykrx" or m.startswith("pykrx.")]:
+                del sys.modules[m]
+            if attempt == LOGIN_RETRIES - 1:
+                break
+            wait = 15 * (attempt + 1)
+            print(f"[data] KRX 로그인 실패({type(e).__name__}) — {wait}초 후 재시도 "
+                  f"({attempt + 1}/{LOGIN_RETRIES - 1})")
+            time.sleep(wait)
+    raise RuntimeError(f"KRX 로그인에 {LOGIN_RETRIES}회 연속 실패했습니다. KRX 일시 차단·점검일 수 "
+                       "있습니다. 작업 스케줄러가 5분 뒤 다시 실행합니다.") from last
 
 
 def _ymd(d) -> str:
@@ -180,6 +207,10 @@ class KrxBulk:
         return self._get(self._etf, d, lambda: s.get_etf_ohlcv_by_ticker(_ymd(d)),
                          "ETF 일괄")
 
+    def primary_day(self, d) -> pd.DataFrame:
+        """유니버스가 속한 시장의 하루치 시세. ETF 유니버스면 ETF 일괄이 주 시세다."""
+        return self.etf_day(d) if self.market == "ETF" else self.stock_day(d)
+
     def usable_days(self, days: list) -> list:
         """시세가 실제로 들어 있는 날만 고른다.
 
@@ -188,7 +219,7 @@ class KrxBulk:
         """
         out, prev = [], None
         for d in days:
-            f = self.stock_day(d)
+            f = self.primary_day(d)
             if not len(f) or "종가" not in f.columns or not (f["종가"] > 0).any():
                 continue
             if prev is not None:
@@ -205,9 +236,9 @@ class KrxBulk:
         """ticker 의 days 구간 OHLCV + 등락률(rate). 하루라도 없으면 None."""
         recs = {}
         for d in days:
-            frame = self.stock_day(d)
+            frame = self.primary_day(d)
             if ticker not in frame.index:
-                frame = self.etf_day(d)
+                frame = self.stock_day(d) if self.market == "ETF" else self.etf_day(d)
                 if ticker not in frame.index:
                     return None
             r = frame.loc[ticker]
@@ -226,7 +257,77 @@ class KrxBulk:
         return pd.DataFrame.from_dict(recs, orient="index")
 
 
-# ─── 유니버스 (시총 상위 N) ───────────────────────────────
+# ─── 유니버스: ETF ────────────────────────────────────────
+def _index_key(name: str) -> str:
+    """기초지수명을 '같은 노출'끼리 묶이도록 정규화한다.
+
+    코스피 200 / 코스피 200 TR, S&P 500 / S&P 500 (원화환산) 처럼 수익 계산 방식이나 표기만 다른
+    지수는 같은 것으로 본다. 환헤지(H) 여부는 기초지수명이 달라서 다른 노출로 남는다.
+    """
+    import re
+    s = str(name).lower().replace(" ", "")
+    for tok in ("(총수익지수)", "총수익지수", "(총수익)", "총수익", "(tr)", "(pr)", "totalreturn",
+                "pricereturn", "(원화환산)", "원화환산", "지수", "index"):
+        s = s.replace(tok, "")
+    return re.sub(r"(tr|pr)$", "", s)
+
+
+def fetch_etf_info() -> pd.DataFrame:
+    """ETF 전종목 기본정보 — 종목명·기초지수·추적배수·복제방법·자산군·상장좌수 등. 1회 0.4초.
+
+    pykrx 의 get_etf_ticker_name 은 이 표를 ETN·ELW 까지 합쳐 받느라 1건에 6초가 걸린다
+    (1,183개면 2시간). ETF 표만 직접 받으면 전체가 0.4초다.
+    """
+    from pykrx.website.krx.etx.core import ETF_전종목기본종목
+    _pykrx()                                    # 로그인 세션 준비
+    df = _retry(lambda: ETF_전종목기본종목().fetch(), "ETF 기본정보 조회")
+    df = df.set_index("ISU_SRT_CD")
+    df["LIST_SHRS"] = pd.to_numeric(df["LIST_SHRS"].astype(str).str.replace(",", ""), errors="coerce")
+    return df
+
+
+def fetch_etf_universe(asof: pd.Timestamp, price_frame: pd.DataFrame | None = None,
+                       size: int = C.UNIVERSE_SIZE) -> pd.DataFrame:
+    """IRP 에서 살 수 있는 주식형 ETF 중 시가총액 상위 N. 반환: index=ticker, cols=[name, mktcap, index_key].
+
+    제외 순서(전부 KRX 공식 분류 기준):
+      1) 추적배수가 '일반' 이 아님 — 레버리지·인버스 (IRP 매수 금지)
+      2) 복제방법 '합성' — 파생형 (IRP 매수 금지)
+      3) 이름·기초지수에 '선물' — 실물로 분류돼도 선물 100% 인 파생형
+      4) 자산군·지역이 설정 밖 (기본: 주식형, 국내+해외)
+      5) config.ETF_EXCLUDE_TICKERS (증권사에서 막힌 것을 수동으로)
+      6) 같은 기초지수는 시총 1위 하나만
+    """
+    info = fetch_etf_info()
+    if price_frame is None or not len(price_frame):
+        price_frame = _retry(lambda: _pykrx().get_etf_ohlcv_by_ticker(_ymd(asof)), "ETF 일괄 조회")
+    df = info.join(price_frame[["종가"]], how="inner")
+    df["mktcap"] = df["LIST_SHRS"] * df["종가"]
+
+    futures = (df["ISU_ABBRV"].astype(str).str.contains("선물")
+               | df["ETF_OBJ_IDX_NM"].astype(str).str.contains("선물|futures", case=False))
+    keep = ((df["IDX_CALC_INST_NM2"] == "일반")
+            & ~df["ETF_REPLICA_METHD_TP_CD"].astype(str).str.startswith("합성")
+            & ~futures
+            & df["IDX_ASST_CLSS_NM"].isin(C.ETF_ASSET_CLASSES)
+            & df["IDX_MKT_CLSS_NM"].isin(C.ETF_REGIONS)
+            & ~df.index.isin(C.ETF_EXCLUDE_TICKERS)
+            & (df["mktcap"] > 0))
+    df = df[keep].sort_values("mktcap", ascending=False)
+    df["index_key"] = df["ETF_OBJ_IDX_NM"].map(_index_key)
+    n_before = len(df)
+    if C.ETF_DEDUP_BY_INDEX:
+        df = df.drop_duplicates("index_key", keep="first")
+    top = df.head(size)
+    print(f"[data] ETF 유니버스: 매수 가능 {n_before}개 → 지수 중복 제거 {len(df)}개 → 시총 상위 {len(top)}개")
+    out = pd.DataFrame({"name": top["ISU_ABBRV"].astype(object), "mktcap": top["mktcap"],
+                        "index_key": top["index_key"], "index_name": top["ETF_OBJ_IDX_NM"],
+                        "region": top["IDX_MKT_CLSS_NM"]})
+    out.attrs["eligible"] = list(keep[keep].index)    # 매수 가능 전체(중복 지수·순위 밖 포함)
+    return out
+
+
+# ─── 유니버스: 주식 (시총 상위 N) ─────────────────────────
 def fetch_universe(asof: pd.Timestamp, size: int = C.UNIVERSE_SIZE,
                    market: str = C.MARKET, cap_frame: pd.DataFrame | None = None) -> pd.DataFrame:
     """asof 일자의 시가총액 상위 종목. 반환: index=ticker, cols=[name, mktcap].
@@ -299,8 +400,15 @@ def fetch_ohlcv(ticker: str, start, end, adjusted: bool = True, full: bool = Fal
     stock = _pykrx()
 
     def get(frm):
-        return _normalize(ticker, _retry(lambda: stock.get_market_ohlcv(
-            _ymd(frm), _ymd(end), ticker, adjusted=adjusted), f"{ticker} 조회"))
+        if C.MARKET == "ETF":
+            # ETF 는 KRX 원주가만 쓴다. 네이버는 분배금을 가격에서 조정해서(위클리 커버드콜 최대 7.4%,
+            # 10/23 실측) KRX 일괄 시세와 이어붙이면 경계에 가짜 상승이 생긴다. 느리다(건당 7~12초).
+            raw = _retry(lambda: stock.get_etf_ohlcv_by_date(_ymd(frm), _ymd(end), ticker),
+                         f"{ticker} 조회")
+        else:
+            raw = _retry(lambda: stock.get_market_ohlcv(
+                _ymd(frm), _ymd(end), ticker, adjusted=adjusted), f"{ticker} 조회")
+        return _normalize(ticker, raw)
 
     need_start = start
     if cached is not None and len(cached):
@@ -320,6 +428,9 @@ def fetch_ohlcv(ticker: str, start, end, adjusted: bool = True, full: bool = Fal
                 print(f"[data] {ticker} 수정주가 변경 감지(최대 {diff.max():.1%}) — 이력 전체 재조회")
                 raw, cached = get(start), None
 
+    if raw is not None and cached is None and C.MARKET == "ETF":
+        raw, _ = _split_adjust(raw)          # 원주가 전체 이력은 분할만 조정
+
     if raw is not None:
         cached = _combine(cached, raw)
         cached.to_parquet(path)
@@ -330,6 +441,63 @@ def fetch_ohlcv(ticker: str, start, end, adjusted: bool = True, full: bool = Fal
 
 # ─── KRX 일괄 시세로 캐시 갱신 ─────────────────────────────
 PRICE_COLS = ["open", "high", "low", "close"]
+
+
+def _split_adjust(df: pd.DataFrame) -> tuple[pd.DataFrame, list]:
+    """원주가 이력에서 분할·병합을 찾아 이전 가격 전체를 조정한다.
+
+    ETF 는 KRX 등락률이 일괄 시세에 없어서, 하루 변동이 가격제한폭(±30%)을 넘으면 분할·병합으로
+    본다. 1배수 주식형 ETF 가 하루에 30% 넘게 움직이는 일은 사실상 없다. 분배금은 조정하지 않는다
+    (주식 버전도 현금배당은 조정하지 않았다 — 같은 처리).
+    """
+    df = df.sort_index().copy()
+    df[PRICE_COLS] = df[PRICE_COLS].astype(float)
+    raw = df["close"].to_numpy(dtype=float)
+    mult, events = np.ones(len(df)), []
+    for i in range(1, len(df)):
+        if raw[i - 1] > 0 and raw[i] > 0 and abs(raw[i] / raw[i - 1] - 1) > C.ARTIFACT_MOVE:
+            mult[:i] *= raw[i] / raw[i - 1]
+            events.append(df.index[i])
+    if events:
+        df[PRICE_COLS] = df[PRICE_COLS].mul(mult, axis=0)
+    return df, events
+
+
+def warm_etf_cache(start, end, tickers: list[str]) -> dict:
+    """KRX ETF 일괄 시세를 하루씩 받아 종목별 이력 캐시를 처음부터 만든다(원주가 + 분할 조정).
+
+    종목별 이력 조회(get_etf_ohlcv_by_date)는 건당 7~12초라 200개면 30분이 넘는다. 하루치 전종목은
+    1초 안팎이라 300거래일이 약 5분이고, 매수 가능한 ETF 전부가 한 번에 채워진다.
+    """
+    t0 = time.time()
+    days = trading_days(start, end)
+    stock = _pykrx()
+    frames = {}
+    for i, d in enumerate(days):
+        f = _retry(lambda: stock.get_etf_ohlcv_by_ticker(_ymd(d)), f"ETF 일괄 {d:%m-%d}")
+        if f is not None and len(f):
+            frames[d] = f
+        if (i + 1) % 50 == 0:
+            print(f"[data] ETF 이력 생성 {i + 1}/{len(days)}일 ({time.time() - t0:.0f}초)")
+    big = pd.concat(frames, names=["date", "ticker"])
+    want = set(tickers)
+    os.makedirs(OHLCV_DIR, exist_ok=True)
+    made, split_events = 0, {}
+    for tk, g in big.groupby(level="ticker"):
+        if tk not in want:
+            continue
+        df = _normalize(tk, g.droplevel("ticker"))
+        if df is None or not len(df):
+            continue
+        df = df[df["close"] > 0]
+        df, ev = _split_adjust(df)
+        if ev:
+            split_events[tk] = ev
+        df.to_parquet(_cache_path(tk))
+        made += 1
+    print(f"[data] ETF 이력 생성 완료: {made}종목 · {len(frames)}거래일 · {time.time() - t0:.0f}초"
+          f"{' · 분할 조정 ' + str(len(split_events)) + '종목' if split_events else ''}")
+    return {"tickers": made, "days": len(frames), "splits": split_events}
 
 
 def _from_bulk(ticker: str, start, end, days: list, bulk: KrxBulk, anchor=None):
@@ -440,9 +608,12 @@ def fetch_index(code: str, start, end) -> pd.Series:
 
 # ─── 번들 조립 (신호 계산용) ──────────────────────────────
 def build_bundle(asof: pd.Timestamp, extra_tickers: list[str] | None = None,
-                 warmup: int = C.HISTORY_WARMUP_DAYS) -> dict:
+                 warmup: int = C.HISTORY_WARMUP_DAYS, maintain_cache: bool = False) -> dict:
     """
     asof 기준 유니버스 + 보유(extra) 종목의 가격 이력 번들.
+
+    maintain_cache=True 면 유니버스 밖의 매수 가능 ETF 캐시도 최근 구간을 갱신한다. 그래야 내일
+    순위가 바뀌어 새로 편입되는 ETF 도 이력이 이어져 있다. 시간이 급한 15:05 에는 끈다.
 
     반환 dict: universe(df), close(wide df), ohlcv(dict[ticker]->df), kospi(series),
                inverse(df), asof, corp_actions(list[(ticker, date)]).
@@ -468,14 +639,25 @@ def build_bundle(asof: pd.Timestamp, extra_tickers: list[str] | None = None,
         bulk_primary = False
 
     uni_day = bulk_days[-1] if bulk_days else asof
-    uni = fetch_universe(uni_day, cap_frame=bulk.stock_day(uni_day) if bulk_days else None)
+    if C.MARKET == "ETF":
+        uni = fetch_etf_universe(uni_day, bulk.primary_day(uni_day) if bulk_days else None)
+    else:
+        uni = fetch_universe(uni_day, cap_frame=bulk.stock_day(uni_day) if bulk_days else None)
     tickers = list(dict.fromkeys(list(uni.index) + list(extra_tickers or [])))
+
+    if C.MARKET == "ETF":
+        eligible = list(dict.fromkeys(uni.attrs.get("eligible", []) + tickers))
+        missing = [t for t in tickers if not os.path.exists(_cache_path(t))]
+        if len(missing) > 20:
+            # 첫 실행(또는 캐시를 잃은 GitHub Actions 러너): 종목별 조회로 채우면 30분이 넘는다
+            print(f"[data] 이력 캐시 없는 ETF {len(missing)}개 — 일괄 시세로 이력을 처음부터 만듭니다(약 5분)")
+            warm_etf_cache(start, asof, eligible)
 
     # 보유 종목은 반드시 있어야 한다. 패널에서 빠지면 청산 판정 자체가 돌지 않아
     # 손절선을 넘겨도 그냥 들고 있게 된다 — 조용히 넘어가면 안 되는 실패다.
     required = set(extra_tickers or [])
 
-    counts = {"일괄": 0, "네이버": 0, "대체": 0}
+    counts = {"일괄": 0, "종목별": 0, "대체": 0}
     naver = {"streak": 0, "off": False}
     corp_actions = []
 
@@ -494,7 +676,7 @@ def build_bundle(asof: pd.Timestamp, extra_tickers: list[str] | None = None,
             try:
                 fetch_ohlcv(t, start, asof)
                 naver["streak"] = 0
-                counts["네이버"] += 1
+                counts["종목별"] += 1
                 # 네이버는 당일 봉 확정이 늦고 권리 변동을 반영하지 않기도 한다.
                 # 최근 구간을 KRX 공식 시세로 다시 맞추면서 권리 변동도 같이 조정한다.
                 df2, acts2 = _from_bulk(t, start, asof, bulk_days, bulk, anchor)
@@ -538,7 +720,10 @@ def build_bundle(asof: pd.Timestamp, extra_tickers: list[str] | None = None,
     # 인버스 한 종목은 KRX 경로가 오히려 느리다(ETF 일괄 5일치 3초). 네이버 1회(0.05초)로 받고
     # 당일 봉만 ETF 일괄 1회로 공식 시세에 맞춘다. 네이버가 막혔으면 ETF 일괄 5일치로 대체한다.
     inverse = None
-    if not naver["off"]:
+    if not C.HEDGE_ENABLED:
+        # IRP: 인버스를 사지 않으므로 시세도 필요 없다
+        inverse = pd.DataFrame(columns=list(COLS.values()))
+    elif not naver["off"]:
         try:
             inverse = fetch_ohlcv(C.HEDGE_TICKER, start, asof)
             today = bulk.rows(C.HEDGE_TICKER, [asof]) if asof in bulk_days else None
@@ -547,17 +732,25 @@ def build_bundle(asof: pd.Timestamp, extra_tickers: list[str] | None = None,
                                   today.drop(columns="rate"))
                 pinned.to_parquet(_cache_path(C.HEDGE_TICKER))
                 inverse = pinned.loc[start:asof]
-            counts["네이버"] += 1
+            counts["종목별"] += 1
         except Exception as e:
             print(f"[data] 인버스 네이버 조회 실패({type(e).__name__}) — ETF 일괄로 대체")
             inverse = None
-    if inverse is None or not len(inverse):
+    if C.HEDGE_ENABLED and (inverse is None or not len(inverse)):
         inverse = load(C.HEDGE_TICKER)
     if inverse is None:
         raise RuntimeError("인버스 ETF 시세를 가져오지 못했습니다. 헷지 평가가 불가능하므로 중단합니다.")
 
+    if maintain_cache and C.MARKET == "ETF" and bulk_days:
+        t1 = time.time()
+        rest = [t for t in eligible if t not in set(tickers)]
+        kept = sum(_from_bulk(t, start, asof, bulk_days, bulk, anchor)[0] is not None for t in rest)
+        print(f"[data] 유니버스 밖 ETF 캐시 갱신 {kept}/{len(rest)}개 ({time.time() - t1:.1f}초)")
+
     print(f"[data] 수집 {time.time() - t0:.1f}초 · KRX 일괄 {counts['일괄']} / "
-          f"네이버 {counts['네이버']} / 대체 {counts['대체']}"
+          f"종목별 {counts['종목별']} / 대체 {counts['대체']}"
           f"{' · 권리 변동 ' + str(len(corp_actions)) + '건' if corp_actions else ''}")
+    index_key = uni["index_key"].to_dict() if "index_key" in uni.columns else {}
     return {"universe": uni, "close": close_wide, "ohlcv": ohlcv, "kospi": kospi,
-            "inverse": inverse, "asof": asof, "corp_actions": corp_actions}
+            "inverse": inverse, "asof": asof, "corp_actions": corp_actions,
+            "index_key": index_key}

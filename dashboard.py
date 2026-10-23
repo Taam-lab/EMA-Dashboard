@@ -16,13 +16,21 @@ import os
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="20일 신고가 눌림목 대시보드", layout="wide")
+st.set_page_config(page_title="20일 신고가 눌림목 · ETF", layout="wide")
 
 # 표 강조색 — 밝은 배경(.streamlit/config.toml) 기준으로 대비를 맞춘 값.
 # 어두운 테마로 되돌린다면 UP="#3ddc84", DOWN="#ff6b6b", RISK_ROW 배경="#4a1113" 로.
 UP = "#14804a"                              # 수익 (흰 배경 대비 4.9:1)
 DOWN = "#c5221f"                            # 손실 (흰 배경 대비 5.9:1)
 RISK_ROW = "background-color:#fdecea"       # 손절 임박 행
+
+
+def won(x, sign=False) -> str:
+    """원화 표기. 1억 이상은 '억', 미만은 '만원' — 3천만원이 '0.30억' 으로 보이지 않게."""
+    s = "+" if sign and x > 0 else ""
+    if abs(x) >= 1e8:
+        return f"{s}{x / 1e8:,.2f}억"
+    return f"{s}{x / 1e4:,.0f}만원"
 
 
 def load(path, default):
@@ -39,12 +47,14 @@ if snap is None or state is None:
     st.warning("데이터가 없습니다. 먼저 `python run_daily.py` 를 실행하세요.")
     st.stop()
 
-st.title("📈 20일 신고가 눌림목 전략")
+_etf = snap.get("market") == "ETF"
+st.title("📈 20일 신고가 눌림목 · ETF" + (" (IRP)" if not snap.get("hedge_enabled", True) else ""))
 st.caption(
     f"기준일 {snap['asof']}  ·  시작일 {snap.get('inception_date','-')}  ·  "
-    f"운용자본 {snap['initial_capital']/1e8:.0f}억  ·  코스피 이격도 {snap['disparity']}  ·  "
+    f"운용자본 {won(snap['initial_capital'])}  ·  코스피 이격도 {snap['disparity']}  ·  "
     f"{'🔴 과열(신규매수 제한)' if snap['overheat'] else '🟢 정상'}  ·  "
-    f"헷지 {int(snap['hedge_weight']*100)}%")
+    + (f"헷지 {int(snap['hedge_weight']*100)}%" if snap.get("hedge_enabled", True)
+       else f"방어(현금) {int(snap['hedge_weight']*100)}%"))
 
 # 가격 기준과 신선도를 숨기지 않는다.
 # 주문 직전에 '어제 데이터인 줄 모르고 주문하는 것'이 최악의 실패라서,
@@ -96,11 +106,16 @@ with tab1:
 
     ur = snap.get("unrealized_pnl", 0)
     rz = snap.get("realized_pnl", 0)
-    c1, c2, c3, c4, c5, c6 = st.columns(6)
-    c1.metric("평가자산", f"{eq/1e8:,.2f}억", f"{total_ret:+.1f}%")
-    c2.metric("평가손익(미실현)", f"{ur/1e8:+,.2f}억")
-    c3.metric("누적 매매손익(실현)", f"{rz/1e8:+,.2f}억")
-    c4.metric("현금", f"{snap['cash']/1e8:,.2f}억", f"{snap['cash']/eq*100:.0f}%")
+    c1, c2, c3, c4, c5, c6, c7 = st.columns(7)
+    c1.metric("평가자산", won(eq), f"{total_ret:+.1f}%")
+    c2.metric("평가손익(미실현)", won(ur, sign=True))
+    c3.metric("누적 매매손익(실현)", won(rz, sign=True))
+    c4.metric("현금", won(snap["cash"]), f"{snap['cash']/eq*100:.0f}%")
+    # IRP 위험자산 한도. 가격이 올라 넘는 건 허용되지만 그 상태에선 신규 매수가 막힌다.
+    _rp, _cap = snap.get("risky_pct"), snap.get("risky_cap_pct")
+    if _rp is not None and _cap is not None:
+        c7.metric("위험자산", f"{_rp:.0f}% / {_cap:.0f}%",
+                  "한도 초과 — 신규 매수 중단" if _rp > _cap else None, delta_color="inverse")
     c5.metric("포지션", f"{snap['n_positions']} / {snap['max_slots']}")
     c6.metric("MDD", f"{mdd:.1f}%")
 
@@ -117,8 +132,12 @@ with tab1:
             "name": "종목", "entry_date": "진입일", "entry_price": "진입가",
             "current_price": "현재가", "pnl_pct": "수익률%", "peak_dd_pct": "고점대비%",
             "stop_price": "손절선", "stop_dist_pct": "손절까지%", "shares": "수량"})
-        show = dfp[["종목", "진입일", "진입가", "현재가", "수익률%",
-                    "고점대비%", "손절선", "손절까지%", "수량", "risk", "in_universe"]]
+        cols = ["종목", "진입일", "진입가", "현재가", "수익률%",
+                "고점대비%", "손절선", "손절까지%", "수량", "risk", "in_universe"]
+        if "index_name" in dfp.columns:              # ETF 는 이름만으로 뭘 들고 있는지 알기 어렵다
+            dfp = dfp.rename(columns={"index_name": "기초지수"})
+            cols.insert(1, "기초지수")
+        show = dfp[cols]
 
         def hl(row):
             styles = [""] * len(row)
@@ -135,7 +154,7 @@ with tab1:
              "수량": "{:,.0f}", "수익률%": "{:+.2f}", "고점대비%": "{:.2f}",
              "손절까지%": "{:.2f}"}, na_rep="-")
         st.dataframe(sty, width="stretch", hide_index=True)
-        st.caption("🟥 행 = 손절선 3% 이내(위험)  ·  in_universe=False = 시총 200위 밖(보유는 유지, 신규진입만 제한)")
+        st.caption("🟥 행 = 손절선 3% 이내(위험)  ·  in_universe=False = 유니버스(시총 상위 200) 밖 — 보유는 유지, 신규진입만 제한")
     else:
         st.info("보유 포지션 없음 (전량 현금)")
 
@@ -162,7 +181,7 @@ with tab1:
         st.subheader("🟥 금일 청산 예정 / 위험 종목")
         rows = []
         reason_kr = {"hard_stop": "-7% 손절", "trailing": "트레일 -10%",
-                     "death_cross": "데드크로스", "derisk": "헷지 슬롯축소"}
+                     "death_cross": "데드크로스", "derisk": "방어 슬롯축소"}
         for x in snap["today_exits"]:
             rows.append({"종목": x["name"], "사유": reason_kr.get(x["reason"], x["reason"]),
                          "수익률%": x["pnl_pct"], "상태": "🔴 청산"})
@@ -201,7 +220,7 @@ with tab2:
             "date": "날짜", "name": "종목", "action": "구분", "price": "가격",
             "shares": "수량", "reason": "사유", "pnl_pct": "수익률%", "hold_days": "보유일"})
         reason_kr = {"entry": "진입", "hard_stop": "-7% 손절", "trailing": "트레일 -10%",
-                     "death_cross": "데드크로스", "derisk": "헷지 슬롯축소"}
+                     "death_cross": "데드크로스", "derisk": "방어 슬롯축소"}
         dfh["사유"] = dfh["사유"].map(lambda r: reason_kr.get(r, r))
         dfh["구분"] = dfh["구분"].map({"BUY": "🟢 매수", "SELL": "🔴 매도"})
         cols = [c for c in ["날짜", "종목", "구분", "가격", "수량", "사유", "수익률%", "보유일"]

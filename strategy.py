@@ -116,5 +116,9 @@ def update_hedge(prev_active: bool, disp_today: float) -> tuple[bool, float]:
 
 
 def max_slots_for_hedge(hedge_weight: float) -> int:
-    """헷지 비중만큼 롱 슬롯 축소: 0%→10, 10%→9, 20%→8, 30%→7."""
-    return int(round((1 - hedge_weight) / C.POSITION_PCT - 1e-9))
+    """헷지(방어) 비중만큼 롱 슬롯 축소: 0%→10, 10%→9, 20%→8, 30%→7.
+
+    슬롯 수 기준으로 계산한다. 예전 식 (1-w)/POSITION_PCT 는 종목당 비중 x 슬롯 = 100% 일 때만
+    맞아서, 종목당 7% 인 IRP 설정에선 슬롯이 14개로 나온다.
+    """
+    return int(round(C.MAX_SLOTS * (1 - hedge_weight) + 1e-9))

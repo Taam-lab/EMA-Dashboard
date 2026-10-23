@@ -1,12 +1,9 @@
 """
-run_daily.py — 매일 장 마감 후 실행하는 배치
+run_daily.py — 데일리 배치 (평일 08:00 · 11:30 · 15:05 KST, daily.ps1 참고)
 
 1) 최신 거래일까지 거래소 데이터 캐시 갱신
-2) 페이퍼 포트폴리오 엔진을 최신일까지 진행
+2) 페이퍼 포트폴리오 엔진을 최신일까지 진행 (--monitor 면 건너뜀)
 3) 대시보드용 snapshot.json + portfolio_state.json 저장
-
-크론 예시 (평일 16:00 KST):
-  0 16 * * 1-5  cd /path/to/quant_dashboard && python run_daily.py
 """
 from __future__ import annotations
 import os
@@ -60,6 +57,8 @@ def build_snapshot(state, bundle, asof) -> dict:
             "stop_dist_pct": None if dist is None else round(dist, 2),
             "risk": (dist is not None and dist < 3.0),
             "in_universe": in_uni,
+            "index_name": (bundle["universe"]["index_name"].get(tk)
+                           if "index_name" in bundle["universe"].columns else None),
         })
     positions.sort(key=lambda x: (x["pnl_pct"] is None, x["pnl_pct"] or 0))
 
@@ -92,6 +91,8 @@ def build_snapshot(state, bundle, asof) -> dict:
             pos = state["positions"][p["ticker"]]
             unrealized += (p["current_price"] * (1 - C.COMMISSION - C.SELL_TAX)
                            - pos["entry_price"] * (1 + C.COMMISSION)) * pos["shares"]
+    risky = sum(p["current_price"] * state["positions"][p["ticker"]]["shares"]
+                for p in positions if p["current_price"] is not None)
     # 누적 매매손익 (실현) = 청산된 거래들의 pnl_krw 합
     realized = sum(h.get("pnl_krw", 0) or 0 for h in state["history"] if h["action"] == "SELL")
 
@@ -114,6 +115,12 @@ def build_snapshot(state, bundle, asof) -> dict:
         "today_exits": state["today_exits"],
         "watch_entries": watch,
         "corp_actions": _relevant_corp_actions(state, bundle),
+        # IRP 위험자산 한도 — 보유 ETF(전부 주식형) 평가액 / 평가자산
+        "risky_value": round(risky, 0),
+        "risky_pct": round(risky / eq * 100, 1) if eq else 0.0,
+        "risky_cap_pct": round(C.RISKY_ASSET_CAP * 100, 1),
+        "hedge_enabled": C.HEDGE_ENABLED,
+        "market": C.MARKET,
     }
 
 
@@ -272,7 +279,8 @@ def main(preview: bool = False, monitor: bool = False):
     held = list(state["positions"].keys())
 
     print("[run_daily] 데이터 수집 중...")
-    bundle = D.build_bundle(asof, extra_tickers=held)
+    # 주문 구간(15:05)은 속도가 우선이라 유니버스 밖 캐시 관리는 08:00·11:30·마감 후에만 한다
+    bundle = D.build_bundle(asof, extra_tickers=held, maintain_cache=(basis != "snapshot"))
     print(f"[run_daily] 유니버스 {len(bundle['universe'])}종목, 가격패널 {bundle['close'].shape}")
 
     # 개장 전 실행이면 오늘 행이 아직 없다. 그대로 두면 모든 가격이 NaN 인
@@ -297,6 +305,7 @@ def main(preview: bool = False, monitor: bool = False):
         # today_entries/exits 는 마지막으로 '처리된' 날(보통 어제)의 체결이라 오늘 주문이 아니다.
         snap["today_entries"], snap["today_exits"] = [], []
         snap["equity"] = _live_equity(state, snap, bundle, asof)
+        snap["risky_pct"] = round(snap["risky_value"] / snap["equity"] * 100, 1) if snap["equity"] else 0.0
         with open(SNAPSHOT_FILE, "w", encoding="utf-8") as f:
             json.dump(snap, f, ensure_ascii=False, indent=2)
         _print_monitor(snap)

@@ -7,9 +7,9 @@ engine.py — 페이퍼 포트폴리오 상태 머신
 핵심 규칙(config 확정값):
   진입: 20일 신고가 눌림목 + 모멘텀 상위50%, 과열 시 금지, 모멘텀 우선순위
   청산: 데드크로스 / -7% 하드손절 / 고점 -10% 트레일 (갭하락 시 시가체결)
-  사이징: 10슬롯 x 10%, 헷지 비중만큼 슬롯 축소
-  헷지: 코스피 이격도(EMA50) 단계별 KODEX 인버스
-보유 종목이 시총 200위 밖으로 밀려도 청산은 규칙대로(신규 진입만 유니버스 제한).
+  사이징: 10슬롯 x 종목당 비중, 방어 비중만큼 슬롯 축소, 위험자산 한도 안에서만 매수
+  방어: 코스피 이격도(EMA50) 단계별. HEDGE_ENABLED 면 인버스 매수, 아니면(IRP) 현금으로 보유
+보유 종목이 유니버스 밖으로 밀려도 청산은 규칙대로(신규 진입만 유니버스 제한).
 """
 from __future__ import annotations
 import os
@@ -77,8 +77,20 @@ def _sell(state, ticker, fill, reason, date, name):
     return rec
 
 
-def _buy(state, ticker, name, price, date, equity):
+def _risky_value(state, price_of) -> float:
+    """위험자산 평가액 = 보유 ETF 평가액 합(전부 주식형). 인버스 헷지는 포함하지 않는다."""
+    v = 0.0
+    for t, p in state["positions"].items():
+        px = price_of(t)
+        v += p["shares"] * (px if not np.isnan(px) else p["entry_price"])
+    return v
+
+
+def _buy(state, ticker, name, price, date, equity, risky_room=None, index_key=None):
     target = C.POSITION_PCT * equity
+    if risky_room is not None:
+        # 위험자산 한도: 남은 한도까지만 산다. 한도가 다 찼으면 신호가 떠도 사지 않는다.
+        target = min(target, risky_room)
     shares = int(target // (price * (1 + C.COMMISSION)))
     if shares <= 0:
         return None
@@ -91,7 +103,7 @@ def _buy(state, ticker, name, price, date, equity):
     state["cash"] -= cost
     state["positions"][ticker] = {"name": name, "entry_date": date,
                                   "entry_price": float(price), "shares": shares,
-                                  "peak": float(price)}
+                                  "peak": float(price), "index_key": index_key}
     rec = {"date": date, "ticker": ticker, "name": name, "action": "BUY",
            "price": round(price, 2), "shares": shares, "reason": "entry", "pnl_pct": None}
     state["history"].append(rec)
@@ -178,10 +190,13 @@ def step(state: dict, bundle: dict, date: pd.Timestamp) -> dict:
 
     equity_now = _equity(state, price_of)
 
-    # 3) 헷지 리밸런싱
-    inv_price = price_of(C.HEDGE_TICKER)
-    if not np.isnan(inv_price) and inv_price > 0:
-        _rebalance_hedge(state, target_w, inv_price, equity_now, date_str)
+    # 3) 헷지(방어) — IRP 는 인버스 매수 금지라 비중만 정하고 그만큼 롱 슬롯을 줄여 현금으로 둔다
+    if C.HEDGE_ENABLED:
+        inv_price = price_of(C.HEDGE_TICKER)
+        if not np.isnan(inv_price) and inv_price > 0:
+            _rebalance_hedge(state, target_w, inv_price, equity_now, date_str)
+    else:
+        state["hedge"]["weight"] = target_w
 
     # 4) 슬롯 캡: 헷지 비중만큼 축소 → 초과 시 약한 종목 정리
     max_slots = S.max_slots_for_hedge(state["hedge"]["weight"])
@@ -201,10 +216,16 @@ def step(state: dict, bundle: dict, date: pd.Timestamp) -> dict:
         mom = S.momentum(close_wide)
         if date in sig.index:
             cand_cols = [c for c in close_wide.columns if sig.at[date, c]]
+            index_key = bundle.get("index_key", {})
+            # 같은 기초지수를 이미 들고 있으면 사지 않는다. 유니버스는 지수당 하나만 남기지만, 대표
+            # ETF 가 바뀌면(시총 역전) 같은 지수의 다른 ETF 가 들어올 수 있다.
+            held_keys = {p.get("index_key") for p in state["positions"].values()} - {None}
             cands = []
             for col in cand_cols:
                 tk = col.split("|")[0]
                 if tk in state["positions"]:
+                    continue
+                if index_key.get(tk) in held_keys:
                     continue
                 if tk not in uni.index:          # 유니버스(시총 상위 N) 제한 — 신규만
                     continue
@@ -219,9 +240,13 @@ def step(state: dict, bundle: dict, date: pd.Timestamp) -> dict:
                 px = price_of(tk)
                 if np.isnan(px):
                     continue
-                rec = _buy(state, tk, col.split("|")[1], px, date_str, equity_now)
+                room = C.RISKY_ASSET_CAP * equity_now - _risky_value(state, price_of)
+                rec = _buy(state, tk, col.split("|")[1], px, date_str, equity_now,
+                           risky_room=room, index_key=index_key.get(tk))
                 if rec:
                     state["today_entries"].append(rec)
+                    if index_key.get(tk) is not None:
+                        held_keys.add(index_key.get(tk))
 
     # 6) equity 기록
     eq = _equity(state, price_of)
